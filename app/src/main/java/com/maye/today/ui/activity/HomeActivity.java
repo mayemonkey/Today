@@ -1,4 +1,4 @@
-package com.maye.today.today.ui.activity;
+package com.maye.today.ui.activity;
 
 import android.app.Activity;
 import android.support.v7.app.AppCompatActivity;

@@ -1,14 +1,15 @@
-package com.maye.today.today.ui.activity;
+package com.maye.today.ui.activity;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.TextView;
 
 import com.jakewharton.rxbinding.view.RxView;
 import com.maye.today.today.R;
-import com.maye.today.today.login.LoginPresenter;
-import com.maye.today.today.login.LoginPresenterImpl;
-import com.maye.today.today.login.LoginView;
+import com.maye.today.login.LoginPresenter;
+import com.maye.today.login.LoginPresenterImpl;
+import com.maye.today.login.LoginView;
 import com.rengwuxian.materialedittext.MaterialEditText;
 
 import java.util.concurrent.TimeUnit;
@@ -37,9 +38,13 @@ public class LoginActivity extends Activity implements LoginView {
      */
     private void initComponent() {
         met_username = (MaterialEditText) findViewById(R.id.met_username);
+        met_username.setFocusFraction(0.6f);
         met_password = (MaterialEditText) findViewById(R.id.met_password);
+        met_password.setFocusFraction(0.6f);
 
         TextView tv_login = (TextView) findViewById(R.id.tv_login);
+
+        //点击登录——防止多触
         RxView.clicks(tv_login).
                 throttleWithTimeout(300, TimeUnit.MILLISECONDS).
                 subscribe(new Action1<Void>() {
@@ -51,32 +56,35 @@ public class LoginActivity extends Activity implements LoginView {
 
                         //执行登录
                         loginPresenter.loginCheck(username, password);
-
-
                     }
                 });
-
 
         loginPresenter = new LoginPresenterImpl(this);
     }
 
     @Override
-    public void usernameError(String error) {
-        met_username.setError(error);
-    }
+    public void inputError(String index, String error) {
+        switch (index) {
+            case "USERNAME":
+                met_username.setError(error);
+                break;
 
-    @Override
-    public void passwordError(String error) {
-        met_password.setError(error);
+            case "PASSWORD":
+                met_password.setError(error);
+                break;
+        }
     }
 
     @Override
     public void showProgress() {
-
     }
 
     @Override
     public void hideProgress() {
+    }
 
+    @Override
+    public void startActivity() {
+        startActivity(new Intent(this, HomeActivity.class));
     }
 }

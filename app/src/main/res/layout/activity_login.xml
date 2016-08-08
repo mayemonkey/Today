@@ -19,60 +19,50 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="48dp"
-        android:text="Login"
+        android:text="@string/login"
         android:textColor="#fff"
         android:textSize="24sp"/>
 
-    <RelativeLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="152dp"
         android:layout_marginTop="32dp"
         android:background="#33ffffff">
-
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
             android:orientation="vertical"
             android:padding="16dp">
 
-            <!--<TextView-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:text="username"-->
-            <!--android:textColor="#99ffffff"-->
-            <!--android:textSize="16sp"/>-->
-
             <com.rengwuxian.materialedittext.MaterialEditText
                 android:id="@+id/met_username"
+                style="@style/EditText_White"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="username"
-                app:met_baseColor="#0056d3"
+                android:hint="@string/username"
                 app:met_floatingLabelText="username"/>
 
             <com.rengwuxian.materialedittext.MaterialEditText
                 android:id="@+id/met_password"
+                style="@style/EditText_White"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="password"
-                app:met_baseColor="#0056d3"
+                android:hint="@string/password"
                 app:met_floatingLabelText="password"/>
-
         </LinearLayout>
+    </ScrollView>
 
-
-    </RelativeLayout>
-
-    <TextView
+    <Button
         android:id="@+id/tv_login"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="#fff"
-        android:textSize="16sp"
+        android:background="@drawable/selector_login"
         android:gravity="center"
-        android:background="#6563a4"
         android:padding="16dp"
-        android:text="登录"/>
+        android:text="@string/login_cn"
+        android:textColor="#fff"
+        android:textSize="16sp"/>
 
 </LinearLayout>

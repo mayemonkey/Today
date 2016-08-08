@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="16dp">
+
+        <ImageView
+            android:id="@+id/iv_reg_cancel"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:background="@mipmap/ic_cancel"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:text="Sign up"
+            android:textColor="#000"
+            android:textSize="24sp"/>
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:background="@mipmap/reg_avatar_bg">
+
+        <ImageView
+            android:layout_width="96dp"
+            android:layout_height="96dp"
+            android:layout_centerInParent="true"
+            android:background="@mipmap/reg_avatar"/>
+
+    </RelativeLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="16dp"
+            android:orientation="vertical">
+
+            <com.rengwuxian.materialedittext.MaterialEditText
+                android:id="@+id/met_reg_username"
+                style="@style/EditText_Black"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/username"
+                app:met_floatingLabelText="@string/username"/>
+
+            <com.rengwuxian.materialedittext.MaterialEditText
+                android:id="@+id/met_reg_password"
+                style="@style/EditText_Black"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/password"
+                app:met_floatingLabelText="@string/password"/>
+
+            <com.rengwuxian.materialedittext.MaterialEditText
+                android:id="@+id/met_reg_email"
+                style="@style/EditText_Black"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/email"
+                app:met_floatingLabelText="@string/email"/>
+        </LinearLayout>
+    </ScrollView>
+
+    <Button
+        android:id="@+id/iv_reg_commit"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:background="@drawable/selector_reg"/>
+
+</LinearLayout>

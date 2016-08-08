@@ -1,10 +1,12 @@
-package com.maye.today.today.login;
+package com.maye.today.login;
 
 import android.text.TextUtils;
 
 import okhttp3.ResponseBody;
+import rx.Observable;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Action1;
 import rx.schedulers.Schedulers;
 
 /**
@@ -28,14 +30,22 @@ public class LoginPresenterImpl implements LoginPresenter {
             return;
         }
 
-        if(TextUtils.isEmpty(username)){
-            loginView.usernameError("should not be empty");
+        boolean isEmpty = false;
+
+        //输入空判断
+        if (TextUtils.isEmpty(username)) {
+            showError("USERNAME");
+            isEmpty = true;
         }
 
-        if(TextUtils.isEmpty(password)){
-            loginView.passwordError("should not be empty");
+        if (TextUtils.isEmpty(password)) {
+            showError("PASSWORD");
+            isEmpty = true;
         }
 
+        if (isEmpty) return;
+
+        //通过非空判断，上传请求
         loginView.showProgress();
 
         loginModel.login(username, password).
@@ -44,7 +54,7 @@ public class LoginPresenterImpl implements LoginPresenter {
                 subscribe(new Subscriber<ResponseBody>() {
                     @Override
                     public void onCompleted() {
-                        //完成
+                        // 完成
                         loginView.hideProgress();
                     }
 
@@ -57,7 +67,18 @@ public class LoginPresenterImpl implements LoginPresenter {
                     public void onNext(ResponseBody responseBody) {
                         //根据Response内容作出动作
 
+                    }
+                });
+    }
 
+
+    private void showError(String inputIndex){
+        Observable.just(inputIndex).
+                observeOn(AndroidSchedulers.mainThread()).
+                subscribe(new Action1<String>() {
+                    @Override
+                    public void call(String inputIndex) {
+                        loginView.inputError(inputIndex, "should not be empty");
                     }
                 });
     }

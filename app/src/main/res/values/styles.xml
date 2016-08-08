@@ -8,4 +8,25 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="EditText_White">
+        <item name="met_baseColor">#ffffffff</item>
+        <item name="met_floatingLabel">normal</item>
+        <item name="met_floatingLabelTextColor">#ffffffff</item>
+        <item name="met_floatingLabelTextSize">15sp</item>
+        <item name="met_hideUnderline">true</item>
+        <item name="met_primaryColor">#fff</item>
+        <item name="met_textColorHint">#ffffff</item>
+    </style>
+
+
+    <style name="EditText_Black">
+        <item name="met_baseColor">#000000</item>
+        <item name="met_floatingLabel">normal</item>
+        <item name="met_floatingLabelTextColor">#000000</item>
+        <item name="met_floatingLabelTextSize">15sp</item>
+        <item name="met_hideUnderline">true</item>
+        <item name="met_primaryColor">#000</item>
+        <item name="met_textColorHint">#000000</item>
+    </style>
+
 </resources>
