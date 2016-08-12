@@ -1,14 +1,26 @@
 <resources>
     <string name="app_name">Today</string>
 
+    <!-- login -->
     <string name="login">login</string>
     <string name="login_cn">登录</string>
+    <string name="login_alert">Don\'t have an account?</string>
+    <string name="login_alert_cn">还没有账号？</string>
 
+    <!-- reg -->
     <string name="register">register</string>
     <string name="register_cn">注册</string>
 
     <string name="username">username</string>
     <string name="password">password</string>
     <string name="email">email</string>
+
+    <!-- menu -->
+    <string name="home_cn">主页</string>
+    <string name="calendar_cn">时间表</string>
+    <string name="overview_cn">概览</string>
+    <string name="group_cn">分组</string>
+    <string name="timeline_cn">时间轴</string>
+    <string name="setting_cn">设置</string>
 
 </resources>
