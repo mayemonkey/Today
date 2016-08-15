@@ -8,6 +8,19 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <!-- Toolbar use -->
+    <style name="AppTheme.Base" parent="Theme.AppCompat">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="drawerArrowStyle">@style/DrawerArrowStyle</item>
+    </style>
+
+    <style name="DrawerArrowStyle" parent="Widget.AppCompat.DrawerArrowToggle">
+        <item name="spinBars">true</item>
+        <item name="color">#aaaaaa</item>
+    </style>
+
+
     <style name="EditText_White">
         <item name="met_baseColor">#ffffffff</item>
         <item name="met_floatingLabel">normal</item>

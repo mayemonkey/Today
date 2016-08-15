@@ -9,14 +9,26 @@
         android:id="@+id/tb_home"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="#ffffff"
         android:title="@string/app_name"/>
 
+    <!--    左侧划出的layout必须为DrawerLayout最后一个子布局，否则无法正确滑动收起    -->
     <android.support.v4.widget.DrawerLayout
+        android:id="@+id/dl_home"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <FrameLayout
+            android:id="@+id/fl_home"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#aa0000"/>
 
-
+        <include
+            layout="@layout/layout_menu"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="start"/>
     </android.support.v4.widget.DrawerLayout>
 
 </LinearLayout>

@@ -1,6 +1,10 @@
 <resources>
     <string name="app_name">Today</string>
 
+    <!-- toolbar -->
+    <string name="open">打开</string>
+    <string name="close">关闭</string>
+
     <!-- login -->
     <string name="login">login</string>
     <string name="login_cn">登录</string>
