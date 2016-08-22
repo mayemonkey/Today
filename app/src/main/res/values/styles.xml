@@ -9,7 +9,7 @@
     </style>
 
     <!-- Toolbar use -->
-    <style name="AppTheme.Base" parent="Theme.AppCompat">
+    <style name="AppTheme.Base" parent="Theme.AppCompat.Light">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
         <item name="drawerArrowStyle">@style/DrawerArrowStyle</item>
@@ -19,7 +19,6 @@
         <item name="spinBars">true</item>
         <item name="color">#aaaaaa</item>
     </style>
-
 
     <style name="EditText_White">
         <item name="met_baseColor">#ffffffff</item>
@@ -44,8 +43,9 @@
 
     <style name="TextView_Menu">
         <item name="android:layout_marginBottom">24dp</item>
-        <item name="android:textColor">#99ffffff</item>
+        <!--<item name="android:textColor">#99ffffff</item>-->
         <item name="android:textSize">24sp</item>
+        <item name="android:textColor">@drawable/selector_menu</item>
     </style>
 
 </resources>

@@ -7,20 +7,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.maye.today.time.TimeView;
 import com.maye.today.today.R;
 
-public class HomeFragment extends Fragment implements TimeView{
+
+public class OverviewFragment extends Fragment {
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = View.inflate(getContext(), R.layout.fragment_home, null);
+        View view = View.inflate(getContext(), R.layout.fragment_overview, null);
         return view;
-    }
-
-    @Override
-    public void showDate() {
-
     }
 }
