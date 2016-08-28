@@ -2,13 +2,14 @@ package com.maye.today.network;
 
 import com.maye.today.network.api.LoginServer;
 import com.maye.today.network.api.RegisterServer;
+import com.maye.today.network.api.TimeServer;
 
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
- * Retrifit使用工具合集
+ * Retrofit使用工具合集
  */
 public class RetrofitUtil {
 
@@ -16,10 +17,11 @@ public class RetrofitUtil {
 
     private static RegisterServer registerServer;
 
+    private static TimeServer timeServer;
+
     /**
      * 获取Retrofit中Login部分API
      *
-     * @return
      */
     public static LoginServer loginServer() {
         if (loginServer == null) {
@@ -37,7 +39,7 @@ public class RetrofitUtil {
 
     /**
      * 获取Retrofit中register部分API
-     * @return
+     *
      */
     public static RegisterServer registerServer() {
         if (registerServer == null) {
@@ -50,6 +52,23 @@ public class RetrofitUtil {
             registerServer = retrofit.create(RegisterServer.class);
         }
         return registerServer;
+    }
+
+    /**
+     * 获取Retrofit中time部分API
+     *
+     */
+    public static TimeServer timeServer() {
+        if (timeServer == null) {
+            Retrofit retrofit = new Retrofit.Builder().
+                    baseUrl("http://apis.baidu.com/3023/time/").
+                    addConverterFactory(GsonConverterFactory.create()).
+                    addCallAdapterFactory(RxJavaCallAdapterFactory.create()).
+                    build();
+
+            timeServer = retrofit.create(TimeServer.class);
+        }
+        return timeServer;
     }
 
 }

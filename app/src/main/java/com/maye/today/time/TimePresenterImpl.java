@@ -2,8 +2,13 @@ package com.maye.today.time;
 
 import android.content.Context;
 import android.widget.Toast;
+
 import com.maye.today.ui.activity.HomeActivity;
 
+import java.io.IOException;
+import java.util.Calendar;
+
+import okhttp3.ResponseBody;
 import rx.Subscriber;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
@@ -24,26 +29,30 @@ public class TimePresenterImpl implements TimePresenter {
 
     @Override
     public void getTime() {
-        subscribe = timeModel.getDatetime().
+        subscribe = timeModel.getDatetime("44322da67edca997da987d5f9c0fdacb").
                 subscribeOn(Schedulers.io()).
                 observeOn(AndroidSchedulers.mainThread()).
-                subscribe(new Subscriber<String>() {
+                subscribe(new Subscriber<ResponseBody>() {
                     @Override
                     public void onCompleted() {
-
                     }
 
                     @Override
                     public void onError(Throwable e) {
-
                     }
 
                     @Override
-                    public void onNext(String dateTime) {
-                        Toast.makeText((Context) timeView, dateTime, Toast.LENGTH_SHORT).show();
+                    public void onNext(ResponseBody body) {
+                        try {
+                            long time = Long.parseLong(body.string().replace("{", "").replace("}", "").split(":")[1].replace("\n", ""));
+                            Calendar calendar = Calendar.getInstance();
+                            calendar.setTimeInMillis(time);
+                            timeView.showDate(calendar);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
                     }
                 });
-
     }
 
     @Override

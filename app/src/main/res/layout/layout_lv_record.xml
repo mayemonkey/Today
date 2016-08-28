@@ -12,7 +12,7 @@
         android:orientation="horizontal">
 
         <TextView
-            android:id="@+id/tv_lv_home_time"
+            android:id="@+id/tv_lv_record_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="00:00"
@@ -20,7 +20,7 @@
             android:textSize="24sp"/>
 
         <TextView
-            android:id="@+id/tv_lv_home_part"
+            android:id="@+id/tv_lv_record_part"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="8dp"
@@ -34,12 +34,12 @@
             android:layout_marginLeft="48dp">
 
             <RelativeLayout
-                android:id="@+id/rl_home"
+                android:id="@+id/rl_record"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
                 <TextView
-                    android:id="@+id/tv_lv_home_title"
+                    android:id="@+id/tv_lv_record_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
@@ -48,7 +48,7 @@
                     android:textSize="24sp"/>
 
                 <ImageView
-                    android:id="@+id/iv_lv_home_point"
+                    android:id="@+id/iv_lv_record_point"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
@@ -57,12 +57,12 @@
             </RelativeLayout>
 
             <TextView
-                android:id="@+id/tv_lv_home_description"
+                android:id="@+id/tv_lv_record_description"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_alignStart="@id/rl_record"
+                android:layout_below="@id/rl_record"
                 android:layout_marginTop="8dp"
-                android:layout_alignStart="@id/rl_home"
-                android:layout_below="@id/rl_home"
                 android:text="description"
                 android:textColor="#999999"
                 android:textSize="14sp"/>

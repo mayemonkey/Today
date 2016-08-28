@@ -20,17 +20,20 @@
             android:layout_height="wrap_content"
             android:text="@string/app_name"
             android:textColor="#fff"
-            android:textSize="32sp"/>
+            android:textSize="32sp"
+            android:id="@+id/tv_month"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:text="@string/app_name"
-            android:textColor="#fff"/>
+            android:textColor="#fff"
+            android:id="@+id/tv_day"/>
     </LinearLayout>
 
     <TextView
+        android:id="@+id/tv_greeting"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@id/ll_day"
@@ -39,7 +42,9 @@
         android:text="@string/home_cn"
         android:textColor="@color/black"
         android:textSize="24sp"/>
+
     <TextView
+        android:id="@+id/tv_date"
         android:layout_width="32dp"
         android:layout_height="32dp"
         android:layout_alignEnd="@id/ll_day"
@@ -63,7 +68,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/group_cn"
-            android:textColor="@color/black"/>
+            android:textColor="@color/black"
+            android:id="@+id/tv_year"/>
 
     </LinearLayout>
 

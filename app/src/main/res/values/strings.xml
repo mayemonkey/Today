@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">Today</string>
 
+    <string name="empty"> </string>
+
     <!-- toolbar -->
     <string name="open">打开</string>
     <string name="close">关闭</string>
@@ -26,5 +28,10 @@
     <string name="group_cn">分组</string>
     <string name="timeline_cn">时间轴</string>
     <string name="setting_cn">设置</string>
+
+    <!-- home -->
+    <string name="morning">早上好</string>
+    <string name="afternoon">下午好</string>
+    <string name="evening">晚上好</string>
 
 </resources>
