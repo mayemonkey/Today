@@ -6,7 +6,7 @@
     android:background="#fff"
     android:orientation="vertical">
 
-    <com.zc.today.monkeycalendar.adapter.MonkeyCalendar
+    <com.zc.mvp.monkeycalendar.MonkeyCalendar
         android:id="@+id/mc_calendar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>

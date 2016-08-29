@@ -44,7 +44,7 @@ public class TimePresenterImpl implements TimePresenter {
                     @Override
                     public void onNext(ResponseBody body) {
                         try {
-                            long time = Long.parseLong(body.string().replace("{", "").replace("}", "").split(":")[1].replace("\n", ""));
+                            long time = Long.parseLong(body.string().replace("{", "").replace("}", "").split(":")[1].replace("\n", "")) * 1000;
                             Calendar calendar = Calendar.getInstance();
                             calendar.setTimeInMillis(time);
                             timeView.showDate(calendar);

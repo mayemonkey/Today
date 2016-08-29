@@ -22,6 +22,7 @@ public class HomeFragment extends Fragment implements TimeView {
     private TextView tv_date;
     private TextView tv_day;
     private TextView tv_greeting;
+    private TimePresenter timePresenter;
 
     @Nullable
     @Override
@@ -30,12 +31,11 @@ public class HomeFragment extends Fragment implements TimeView {
 
         initComponent(view);
 
-        TimePresenter timePresenter = new TimePresenterImpl(this);
+        timePresenter = new TimePresenterImpl(this);
         timePresenter.getTime();
 
         return view;
     }
-
 
     private void initComponent(View view) {
         tv_year = (TextView) view.findViewById(R.id.tv_year);
@@ -65,5 +65,11 @@ public class HomeFragment extends Fragment implements TimeView {
         } else {
             tv_greeting.setText("晚上好");
         }
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        timePresenter.onDestroyView();
     }
 }

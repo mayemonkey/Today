@@ -8,6 +8,9 @@ public class Record {
     private int id;
     private String date;
     private String time;
+    private String part;
+
+
     private String description;
     private String title;
 
@@ -33,6 +36,14 @@ public class Record {
 
     public void setTime(String time) {
         this.time = time;
+    }
+
+    public String getPart() {
+        return part;
+    }
+
+    public void setPart(String part) {
+        this.part = part;
     }
 
     public String getDescription() {

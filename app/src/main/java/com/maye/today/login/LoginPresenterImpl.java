@@ -5,6 +5,7 @@ import android.text.TextUtils;
 import okhttp3.ResponseBody;
 import rx.Observable;
 import rx.Subscriber;
+import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
 import rx.schedulers.Schedulers;
@@ -16,6 +17,7 @@ public class LoginPresenterImpl implements LoginPresenter {
 
     private LoginView loginView;
     private LoginModel loginModel;
+    private Subscription subscribe;
 
 
     public LoginPresenterImpl(LoginView loginView) {
@@ -48,7 +50,7 @@ public class LoginPresenterImpl implements LoginPresenter {
         //通过非空判断，上传请求
         loginView.showProgress();
 
-        loginModel.login(username, password).
+        subscribe = loginModel.login(username, password).
                 subscribeOn(Schedulers.io()).
                 observeOn(AndroidSchedulers.mainThread()).
                 subscribe(new Subscriber<ResponseBody>() {
@@ -71,6 +73,11 @@ public class LoginPresenterImpl implements LoginPresenter {
                 });
     }
 
+    @Override
+    public void onViewDestroy() {
+        loginView = null;
+        subscribe.unsubscribe();
+    }
 
     private void showError(String inputIndex){
         Observable.just(inputIndex).

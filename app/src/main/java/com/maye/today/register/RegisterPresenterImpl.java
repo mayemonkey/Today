@@ -8,6 +8,7 @@ import com.maye.today.domain.User;
 import okhttp3.ResponseBody;
 import rx.Observable;
 import rx.Subscriber;
+import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
 import rx.schedulers.Schedulers;
@@ -19,6 +20,7 @@ public class RegisterPresenterImpl implements RegisterPresenter {
 
     private RegisterView registerView;
     private RegisterModel registerModel;
+    private Subscription subscribe;
 
     public RegisterPresenterImpl(RegisterView registerView) {
         this.registerView = registerView;
@@ -59,7 +61,7 @@ public class RegisterPresenterImpl implements RegisterPresenter {
 
         //通过非空判断
 
-        registerModel.register(user).
+        subscribe = registerModel.register(user).
                 subscribeOn(Schedulers.io()).
                 observeOn(AndroidSchedulers.mainThread()).
                 subscribe(new Subscriber<ResponseBody>() {
@@ -83,6 +85,7 @@ public class RegisterPresenterImpl implements RegisterPresenter {
     @Override
     public void onViewDestroy() {
         registerView = null;
+        subscribe.unsubscribe();
     }
 
     private void checkEmpty(String inputIndex) {

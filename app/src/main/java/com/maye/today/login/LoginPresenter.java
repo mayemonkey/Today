@@ -7,4 +7,6 @@ public interface LoginPresenter {
 
     void loginCheck(String username, String password);
 
+    void onViewDestroy();
+
 }
