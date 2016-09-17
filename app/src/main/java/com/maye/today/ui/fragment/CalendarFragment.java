@@ -11,6 +11,7 @@ import android.widget.ListView;
 
 
 import com.maye.today.domain.Record;
+import com.maye.today.global.TodayApplication;
 import com.maye.today.monkeycalendar.MonkeyCalendar;
 import com.maye.today.record.RecordPresenter;
 import com.maye.today.record.RecordPresenterImpl;
@@ -39,6 +40,8 @@ public class CalendarFragment extends Fragment implements RecordView {
         View view = View.inflate(getContext(), R.layout.fragment_calendar, null);
 
         initComponent(view);
+
+        today = TodayApplication.getToday();
 
         return view;
     }

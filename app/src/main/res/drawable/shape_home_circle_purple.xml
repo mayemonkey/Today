@@ -4,6 +4,9 @@
     android:shape="oval"
     android:useLevel="false">
 
+    <size android:height="32dp"
+          android:width="32dp"/>
+
     <padding
         android:bottom="8dp"
         android:left="8dp"

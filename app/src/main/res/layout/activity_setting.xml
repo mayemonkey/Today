@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:toggle="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/civ_avatar"
+        android:layout_width="96dp"
+        android:layout_height="96dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="24dp"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#eee"
+                android:padding="16dp"
+                android:text="@string/general_cn"
+                android:textColor="#000"
+                android:textSize="20sp"/>
+
+            <com.rengwuxian.materialedittext.MaterialEditText
+                android:id="@+id/met_nickname"
+                style="@style/EditText_Purple"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:hint="@string/nickname_cn"
+                app:met_floatingLabelText="@string/nickname_cn"
+                app:met_hideUnderline="false"/>
+
+            <com.rengwuxian.materialedittext.MaterialEditText
+                android:id="@+id/met_email"
+                style="@style/EditText_Purple"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:hint="@string/email_cn"
+                app:met_floatingLabelText="@string/email_cn"
+                app:met_hideUnderline="false"/>
+
+            <com.rengwuxian.materialedittext.MaterialEditText
+                android:id="@+id/met_password"
+                style="@style/EditText_Purple"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:hint="@string/password_cn"
+                app:met_floatingLabelText="@string/password_cn"
+                app:met_hideUnderline="false"/>
+
+            <com.rengwuxian.materialedittext.MaterialEditText
+                android:id="@+id/met_phone"
+                style="@style/EditText_Purple"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:hint="@string/phone_cn"
+                app:met_floatingLabelText="@string/phone_cn"
+                app:met_hideUnderline="false"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#eee"
+                android:padding="16dp"
+                android:text="@string/notification_cn"
+                android:textColor="#000"
+                android:textSize="20sp"/>
+a
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <com.zcw.togglebutton.ToggleButton
+                    android:id="@+id/tb_setting"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    toggle:tbBorderWidth="2dp"
+                    toggle:tbOffBorderColor="#ccc"
+                    toggle:tbOffColor="#ddd"
+                    toggle:tbOnColor="#52d3c4"/>
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+</LinearLayout>

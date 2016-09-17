@@ -1,8 +1,10 @@
 package com.maye.today.network;
 
+import com.maye.today.network.api.GroupServer;
 import com.maye.today.network.api.LoginServer;
 import com.maye.today.network.api.RecordServer;
 import com.maye.today.network.api.RegisterServer;
+import com.maye.today.network.api.SettingServer;
 import com.maye.today.network.api.TimeServer;
 
 import java.sql.Time;
@@ -23,6 +25,10 @@ public class RetrofitUtil {
     private static TimeServer timeServer;
 
     private static RecordServer recordServer;
+
+    private static GroupServer groupServer;
+
+    private static SettingServer settingServer;
 
     /**
      * 获取Retrofit中Login部分API
@@ -88,6 +94,40 @@ public class RetrofitUtil {
         }
 
         return recordServer;
+    }
+
+    /**
+     *  获取分组内容部分API
+     */
+    public static GroupServer groupServer() {
+        if (groupServer == null) {
+            Retrofit retrofit = new Retrofit.Builder().
+                    baseUrl("").
+                    addCallAdapterFactory(RxJavaCallAdapterFactory.create()).
+                    addConverterFactory(GsonConverterFactory.create()).
+                    build();
+
+            groupServer = retrofit.create(GroupServer.class);
+        }
+
+        return groupServer;
+    }
+
+    /**
+     *  获取分组内容部分API
+     */
+    public static SettingServer settingServer() {
+        if (groupServer == null) {
+            Retrofit retrofit = new Retrofit.Builder().
+                    baseUrl("").
+                    addCallAdapterFactory(RxJavaCallAdapterFactory.create()).
+                    addConverterFactory(GsonConverterFactory.create()).
+                    build();
+
+            settingServer = retrofit.create(SettingServer.class);
+        }
+
+        return settingServer;
     }
 
 }

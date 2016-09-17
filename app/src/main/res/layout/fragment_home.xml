@@ -46,8 +46,8 @@
 
     <TextView
         android:id="@+id/tv_date"
-        android:layout_width="32dp"
-        android:layout_height="32dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_alignEnd="@id/ll_day"
         android:layout_alignTop="@id/ll_day"
         android:layout_marginRight="8dp"

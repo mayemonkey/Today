@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.maye.today.global.TodayApplication;
 import com.maye.today.time.TimePresenter;
 import com.maye.today.time.TimePresenterImpl;
 import com.maye.today.time.TimeView;
@@ -23,6 +24,7 @@ public class HomeFragment extends Fragment implements TimeView {
     private TextView tv_day;
     private TextView tv_greeting;
     private TimePresenter timePresenter;
+    private String[] weeks = new String[]{"周日", "周一", "周二", "周三", "周四", "周五", "周六"};
 
     @Nullable
     @Override
@@ -56,7 +58,7 @@ public class HomeFragment extends Fragment implements TimeView {
         tv_year.setText(String.valueOf(year));
         tv_month.setText(String.valueOf(month));
         tv_date.setText(String.valueOf(date));
-        tv_day.setText(String.valueOf(day));
+        tv_day.setText(String.valueOf(weeks[day]));
 
         if (hour < 12) {
             tv_greeting.setText("早上好");
@@ -65,6 +67,8 @@ public class HomeFragment extends Fragment implements TimeView {
         } else {
             tv_greeting.setText("晚上好");
         }
+
+        TodayApplication.setToday(year + "-" + month + "-" + date);
     }
 
     @Override

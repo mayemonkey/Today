@@ -1,13 +1,107 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/group_cn"/>
+    <RelativeLayout
+        android:id="@+id/rl_food"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <TextView
+            style="@style/TextView_Group"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/food"/>
+
+        <ImageView
+            android:layout_width="160dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentEnd="true"
+            android:background="@mipmap/login_bg"/>
+
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="#cccccc"/>
+
+    <RelativeLayout
+        android:id="@+id/rl_work"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <TextView
+            style="@style/TextView_Group"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/work"/>
+
+        <ImageView
+            android:layout_width="160dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentEnd="true"
+            android:background="@mipmap/login_bg"/>
+
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="#cccccc"/>
+
+    <RelativeLayout
+        android:id="@+id/rl_vacation"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <TextView
+            style="@style/TextView_Group"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/vacation"/>
+
+        <ImageView
+            android:layout_width="160dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentEnd="true"
+            android:background="@mipmap/login_bg"/>
+
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="#cccccc"/>
+
+    <RelativeLayout
+        android:id="@+id/rl_outside"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <TextView
+            style="@style/TextView_Group"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/outside"/>
+
+        <ImageView
+            android:layout_width="160dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentEnd="true"
+            android:background="@mipmap/login_bg"/>
+
+    </RelativeLayout>
+
 
 </LinearLayout>
+
+

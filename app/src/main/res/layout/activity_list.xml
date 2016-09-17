@@ -3,16 +3,16 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#fff"
     android:orientation="vertical">
 
-    <com.maye.today.monkeycalendar.MonkeyCalendar
-        android:id="@+id/mc_calendar"
+    <ImageView
+        android:id="@+id/iv_list_head"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="240dp"
+        android:background="@mipmap/login_bg"/>
 
-    <ListView
-        android:id="@+id/lv_calendar"
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 

@@ -19,7 +19,9 @@
 
     <string name="username">username</string>
     <string name="password">password</string>
+    <string name="password_cn">密码</string>
     <string name="email">email</string>
+    <string name="email_cn">邮箱</string>
 
     <!-- menu -->
     <string name="home_cn">主页</string>
@@ -33,5 +35,17 @@
     <string name="morning">早上好</string>
     <string name="afternoon">下午好</string>
     <string name="evening">晚上好</string>
+
+    <!-- group -->
+    <string name="food">食物</string>
+    <string name="work">工作</string>
+    <string name="outside">外出</string>
+    <string name="vacation">假期</string>
+
+    <!-- setting -->
+    <string name="general_cn">常用</string>
+    <string name="nickname_cn">昵称</string>
+    <string name="phone_cn">电话号码</string>
+    <string name="notification_cn">提醒</string>
 
 </resources>
