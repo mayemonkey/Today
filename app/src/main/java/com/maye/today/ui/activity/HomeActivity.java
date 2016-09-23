@@ -1,6 +1,7 @@
 package com.maye.today.ui.activity;
 
 import android.graphics.Color;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -35,6 +36,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         initComponent();
 
         initFragment();
+
     }
 
     /**

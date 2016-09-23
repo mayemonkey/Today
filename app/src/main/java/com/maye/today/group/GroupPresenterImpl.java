@@ -17,6 +17,7 @@ public class GroupPresenterImpl implements GroupPresenter {
     private Subscription update;
     private Subscription remove;
     private Subscription load;
+    private Subscription add;
 
     public GroupPresenterImpl(GroupView groupView) {
         this.groupModel = new GroupModelImpl();
@@ -47,7 +48,35 @@ public class GroupPresenterImpl implements GroupPresenter {
     }
 
     @Override
-    public void removeGroup(int id) {
+    public void addGroup(final Group group) {
+        add = groupModel.addGroup(group).
+                subscribeOn(Schedulers.io()).
+                observeOn(AndroidSchedulers.mainThread()).
+                subscribe(new Subscriber<ResponseBody>() {
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onNext(ResponseBody body) {
+                        if (true) {
+                            groupView.addItem(group);
+                            groupView.showToast("item added");
+                        } else {
+                            groupView.showToast("failed to add");
+                        }
+                    }
+                });
+    }
+
+    @Override
+    public void removeGroup(int id, final int position) {
         remove = groupModel.removeGroup(id).
                 subscribeOn(Schedulers.io()).
                 observeOn(AndroidSchedulers.mainThread()).
@@ -65,18 +94,18 @@ public class GroupPresenterImpl implements GroupPresenter {
                     @Override
                     public void onNext(ResponseBody body) {
                         if (true) {
-                            groupView.removeItem(0);
-                            groupView.showToast("");
+                            groupView.removeItem(position);
+                            groupView.showToast("remove");
                         } else {
-                            groupView.showToast("");
+                            groupView.showToast("failed to remove");
                         }
                     }
                 });
     }
 
     @Override
-    public void updateGroup(final Group group) {
-        update = groupModel.updateGroup(group).
+    public void updateGroup(List<Group> groups) {
+        update = groupModel.updateGroup(groups).
                 subscribeOn(Schedulers.io()).
                 observeOn(AndroidSchedulers.mainThread()).
                 subscribe(new Subscriber<ResponseBody>() {
@@ -93,8 +122,8 @@ public class GroupPresenterImpl implements GroupPresenter {
                     @Override
                     public void onNext(ResponseBody body) {
                         if (true) {
-                            groupView.notifyItem(0, group);
                             groupView.showToast("");
+                            groupView.finishActivity();
                         } else {
                             groupView.showToast("");
                         }

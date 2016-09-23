@@ -4,12 +4,14 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.TextView;
 
+import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.maye.today.domain.Group;
 import com.maye.today.group.GroupPresenter;
@@ -22,17 +24,15 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ListViewHolder
     private boolean onBind;
     private List<Group> list;
     private Context context;
-    private GroupPresenter groupPresenter;
 
-    public ListAdapter(Context context, GroupPresenter groupPresenter, List<Group> list) {
+    public ListAdapter(Context context, List<Group> list) {
         this.context = context;
-        this.groupPresenter = groupPresenter;
         this.list = list;
     }
 
     @Override
     public ListViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = View.inflate(context, R.layout.layout_list, null);
+        View view = LayoutInflater.from(context).inflate(R.layout.layout_list, parent, false);
         return new ListViewHolder(view);
     }
 
@@ -72,16 +72,14 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ListViewHolder
 
         @Override
         public void onClick(View v) {
-            new MaterialDialog.Builder(context).title("input")
-                    .inputRangeRes(2, 20, R.color.md_edittext_error)
-                    .input(null, null, new MaterialDialog.InputCallback() {
+            new MaterialDialog.Builder(context).title("input").
+                    inputRangeRes(2, 20, R.color.md_edittext_error).
+                    input(null, null, new MaterialDialog.InputCallback() {
                         @Override
                         public void onInput(@NonNull MaterialDialog dialog, CharSequence input) {
                             if (TextUtils.isEmpty(input.toString())) {
-                                Group group = list.get(getAdapterPosition());
-                                group.setDescription(input.toString());
-                                //更新后台数据
-                                groupPresenter.updateGroup(group);
+                                list.get(getAdapterPosition()).setDate(input.toString());
+                                notifyItemChanged(getAdapterPosition());
                             }
                         }
                     }).show();

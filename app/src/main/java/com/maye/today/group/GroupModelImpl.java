@@ -21,14 +21,9 @@ public class GroupModelImpl implements GroupModel {
     }
 
     @Override
-    public Observable<ResponseBody> updateGroup(Group group) {
-        Map<String, Object> map = new HashMap<>();
-        map.put("id", group.getId());
-        map.put("description", group.getDescription());
-        map.put("date", group.getDate());
-        map.put("done", group.isDone());
+    public Observable<ResponseBody> updateGroup(List<Group> groups) {
 
-        return RetrofitUtil.groupServer().updateGroup(map);
+        return RetrofitUtil.groupServer().updateGroup(groups);
     }
 
     @Override
@@ -36,5 +31,11 @@ public class GroupModelImpl implements GroupModel {
         return RetrofitUtil.groupServer().removeGroup(id);
     }
 
-
+    public Observable<ResponseBody> addGroup(Group group){
+        Map<String, String> map = new HashMap<>();
+        map.put("date", group.getDate());
+        map.put("description", group.getDescription());
+        map.put("done", "false");
+        return RetrofitUtil.groupServer().addGroup(map);
+    }
 }

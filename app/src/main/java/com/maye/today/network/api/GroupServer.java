@@ -1,12 +1,12 @@
 package com.maye.today.network.api;
 
-
 import com.maye.today.domain.Group;
 
 import java.util.List;
 import java.util.Map;
 
 import okhttp3.ResponseBody;
+import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
@@ -21,9 +21,13 @@ public interface GroupServer {
 
     @FormUrlEncoded
     @POST("")
-    Observable<ResponseBody> updateGroup(@FieldMap Map<String, Object> map);
+    Observable<ResponseBody> updateGroup(@Body List<Group> groups);
 
     @FormUrlEncoded
     @POST("")
     Observable<ResponseBody> removeGroup(@Field("id") int id);
+
+    @FormUrlEncoded
+    @POST("")
+    Observable<ResponseBody> addGroup(@FieldMap Map<String, String> map);
 }

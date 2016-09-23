@@ -14,4 +14,8 @@ public interface GroupView {
 
     void removeItem(int position);
 
+    void addItem(Group group);
+
+    void finishActivity();
+
 }
