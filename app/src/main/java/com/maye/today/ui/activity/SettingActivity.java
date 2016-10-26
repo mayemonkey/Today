@@ -38,20 +38,35 @@ public class SettingActivity extends Activity implements SettingView {
         dialog = new MaterialDialog.Builder(this).title("更新信息").content("用户信息修改中").progress(true, 0).show();
     }
 
+//    @Override
+//    public void showInputDialog(boolean visible, String title, String content) {
+//
+//    }
+//
+//    @Override
+//    public void showProgressDialog(boolean visible) {
+//        //判定MaterialDialog显示情况
+//        if (dialog != null) {
+//            if (visible) {
+//                dialog.show();
+//            } else {
+//                dialog.dismiss();
+//            }
+//        }
+//    }
+
     @Override
-    public void showInputDialog(boolean visible, String title, String content) {
+    public void showNotifyDialog(boolean visible) {
 
     }
 
     @Override
-    public void showProgressDialog(boolean visible) {
-        //判定MaterialDialog显示情况
-        if (dialog != null) {
-            if (visible) {
-                dialog.show();
-            } else {
-                dialog.dismiss();
-            }
-        }
+    public void showVerifyDialog(boolean visible) {
+
+    }
+
+    @Override
+    public void showProgressDialog(boolean visible, String title, String content) {
+
     }
 }

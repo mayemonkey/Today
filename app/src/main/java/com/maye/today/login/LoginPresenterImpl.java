@@ -2,7 +2,8 @@ package com.maye.today.login;
 
 import android.text.TextUtils;
 
-import okhttp3.ResponseBody;
+import com.maye.today.domain.LoginResponse;
+
 import rx.Observable;
 import rx.Subscriber;
 import rx.Subscription;
@@ -53,7 +54,7 @@ public class LoginPresenterImpl implements LoginPresenter {
         subscribe = loginModel.login(username, password).
                 subscribeOn(Schedulers.io()).
                 observeOn(AndroidSchedulers.mainThread()).
-                subscribe(new Subscriber<ResponseBody>() {
+                subscribe(new Subscriber<LoginResponse>() {
                     @Override
                     public void onCompleted() {
                         // 完成
@@ -66,7 +67,31 @@ public class LoginPresenterImpl implements LoginPresenter {
                     }
 
                     @Override
-                    public void onNext(ResponseBody responseBody) {
+                    public void onNext(LoginResponse responseBody) {
+                        //根据Response内容作出动作
+
+                    }
+                });
+    }
+
+    @Override
+    public void loginInAdvance(String sessionId) {
+        subscribe = loginModel.login(sessionId).
+                subscribeOn(Schedulers.io()).
+                observeOn(AndroidSchedulers.mainThread()).
+                subscribe(new Subscriber<LoginResponse>() {
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onNext(LoginResponse responseBody) {
                         //根据Response内容作出动作
 
                     }

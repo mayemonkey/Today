@@ -14,11 +14,19 @@ import rx.Observable;
 public interface RecordServer {
 
     @FormUrlEncoded
-    @POST("")
-    Observable<List<Record>> getRecord(@Field("username") String username);
+    @POST("aa")
+    Observable<String> getRecordCount(@Field("username") String username);
 
     @FormUrlEncoded
-    @POST("")
+    @POST("abc")
+    Observable<List<Record>> getRecord(@FieldMap Map<String, String> map);
+
+    @FormUrlEncoded
+    @POST("aa")
     Observable<List<Record>> getRecordByDay(@FieldMap Map<String, String> map);
+
+    @FormUrlEncoded
+    @POST("aa")
+    Observable<List<Record>> getRecordByAssignTime(@FieldMap Map<String, String> map);
 
 }

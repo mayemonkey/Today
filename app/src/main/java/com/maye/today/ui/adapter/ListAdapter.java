@@ -24,10 +24,15 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ListViewHolder
     private boolean onBind;
     private List<Group> list;
     private Context context;
+    private boolean isModify;
 
     public ListAdapter(Context context, List<Group> list) {
         this.context = context;
         this.list = list;
+    }
+
+    public boolean isModify(){
+        return isModify;
     }
 
     @Override
@@ -53,7 +58,7 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ListViewHolder
         CheckBox cb_done;
         TextView tv_description;
 
-        public ListViewHolder(View itemView) {
+        ListViewHolder(View itemView) {
             super(itemView);
             cb_done = (CheckBox) itemView.findViewById(R.id.cb_done);
             cb_done.setOnCheckedChangeListener(this);
@@ -77,9 +82,12 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ListViewHolder
                     input(null, null, new MaterialDialog.InputCallback() {
                         @Override
                         public void onInput(@NonNull MaterialDialog dialog, CharSequence input) {
-                            if (TextUtils.isEmpty(input.toString())) {
-                                list.get(getAdapterPosition()).setDate(input.toString());
+                            if (!TextUtils.isEmpty(input.toString())) {
+                                Group group = list.get(getAdapterPosition());
+                                group.setDescription(input.toString());
+                                list.set(getAdapterPosition(), group);
                                 notifyItemChanged(getAdapterPosition());
+                                isModify = true;
                             }
                         }
                     }).show();

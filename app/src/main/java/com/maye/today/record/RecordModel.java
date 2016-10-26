@@ -8,8 +8,12 @@ import rx.Observable;
 
 public interface RecordModel {
 
-    Observable<List<Record>> getRecord(String username);
+    Observable<String> getRecordCount(String username);
+
+    Observable<List<Record>> getRecord(String username, int start);
 
     Observable<List<Record>> getRecordByDay(String username, String datetime);
+
+    Observable<List<Record>> getRecordByAssignTime(String username, int type, String time, int start);
 
 }

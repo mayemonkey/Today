@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#6563a4"
+    android:orientation="vertical"
+    android:stretchColumns="*" >
+
+    <TableRow
+        android:id="@+id/tr_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <TextView
+            style="@style/calendar_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="日" />
+
+        <TextView
+            style="@style/calendar_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="一" />
+
+        <TextView
+            style="@style/calendar_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="二" />
+
+        <TextView
+            style="@style/calendar_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="三" />
+
+        <TextView
+            style="@style/calendar_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="四" />
+
+        <TextView
+            style="@style/calendar_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="五" />
+
+        <TextView
+            style="@style/calendar_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="六" />
+    </TableRow>
+
+    <ViewSwitcher
+        android:id="@+id/vs_calendar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+    </ViewSwitcher>
+
+</TableLayout>

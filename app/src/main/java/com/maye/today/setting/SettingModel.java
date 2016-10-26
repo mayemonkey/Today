@@ -9,6 +9,6 @@ public interface SettingModel {
 
     Observable<ResponseBody> uploadUser(User user);
 
-    Observable<ResponseBody> checkPassword(User user);
+    Observable<ResponseBody> checkPassword(String username, String password);
 
 }

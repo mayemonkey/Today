@@ -1,15 +1,12 @@
 package com.maye.today.domain;
 
-/**
- * Created by maye on 2016/8/28.
- */
+
 public class Record {
 
     private int id;
     private String date;
     private String time;
     private String part;
-
 
     private String description;
     private String title;

@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">TabPager</string>
+
+    <array name="tab_title">
+        <item>年</item>
+        <item>月</item>
+        <item>日</item>
+    </array>
+
+</resources>

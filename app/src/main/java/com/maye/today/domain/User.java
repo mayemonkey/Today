@@ -1,8 +1,5 @@
 package com.maye.today.domain;
 
-/**
- * Created by maye on 2016/7/31.
- */
 public class User {
 
     private int id;
@@ -12,6 +9,10 @@ public class User {
     private String email;
     private String phone;
     private String password;
+
+    public User(){
+        super();
+    }
 
     public User(int id, String username, String nickname, String email, String phone, String password) {
         this.id = id;

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    android:id="@+id/rl_monkeydate"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#6563a4"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tv_date_number"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:text="11"
+        android:layout_margin="8dp"
+        android:textColor="#fff"/>
+
+    <ImageView
+        android:id="@+id/iv_date_point"
+        android:layout_width="4dp"
+        android:layout_height="4dp"
+        android:layout_alignParentEnd="true"
+        android:layout_margin="4dp"
+        android:background="@drawable/icon_point_white"/>
+
+</RelativeLayout>

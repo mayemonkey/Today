@@ -4,7 +4,7 @@ import com.maye.today.domain.User;
 
 public interface SettingPresenter {
 
-    void updateUser(User user);
+    void checkPasswordAndUpdate(String username, String password, User user);
 
     void onViewDestroy();
 

@@ -24,10 +24,11 @@ public class SettingModelImpl implements SettingModel {
     }
 
     @Override
-    public Observable<ResponseBody> checkPassword(User user) {
+    public Observable<ResponseBody> checkPassword(String username, String password) {
+
         Map<String, String> map = new HashMap<>();
-        map.put("username", user.getUsername());
-        map.put("password", user.getPassword());
-        return RetrofitUtil.settingServer().updateSetting(map);
+        map.put("username", username);
+        map.put("password", password);
+        return RetrofitUtil.settingServer().checkPassword(map);
     }
 }

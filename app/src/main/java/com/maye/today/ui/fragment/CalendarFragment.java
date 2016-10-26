@@ -9,7 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
-
 import com.maye.today.domain.Record;
 import com.maye.today.global.TodayApplication;
 import com.maye.today.monkeycalendar.MonkeyCalendar;
@@ -57,7 +56,7 @@ public class CalendarFragment extends Fragment implements RecordView {
         });
 
         ListView lv_calendar = (ListView) view.findViewById(R.id.lv_calendar);
-        adapter = new RecordAdapter(getContext(), list, today);
+        adapter = new RecordAdapter(getContext(), list, today, 2);
         lv_calendar.setAdapter(adapter);
     }
 
@@ -89,6 +88,16 @@ public class CalendarFragment extends Fragment implements RecordView {
             list.addAll(list_result);
         }
         adapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void showRecordCount(String count) {
+        //Do Nothing
+    }
+
+    @Override
+    public void showToast(String text) {
+        //DO Nothing
     }
 
     @Override

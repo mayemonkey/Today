@@ -2,7 +2,10 @@ package com.maye.today.setting;
 
 public interface SettingView {
 
-    void showInputDialog(boolean visible, String title, String content);
+    void showNotifyDialog(boolean visible);
 
-    void showProgressDialog(boolean visible);
+    void showVerifyDialog(boolean visible);
+
+    void showProgressDialog(boolean visible, String title, String content);
+
 }

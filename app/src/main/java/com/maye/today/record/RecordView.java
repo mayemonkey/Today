@@ -8,4 +8,8 @@ public interface RecordView {
 
     void showRecord(List<Record> list);
 
+    void showRecordCount(String count);
+
+    void showToast(String text);
+
 }

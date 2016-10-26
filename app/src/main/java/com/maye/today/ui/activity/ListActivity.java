@@ -152,7 +152,11 @@ public class ListActivity extends Activity implements GroupView {
 
     @Override
     public void onBackPressed() {
-        showUpdateDialog();
+        if (adapter.isModify()){
+            showUpdateDialog();
+        }else{
+            super.onBackPressed();
+        }
     }
 
     /**
@@ -174,6 +178,11 @@ public class ListActivity extends Activity implements GroupView {
                     public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
                         finish();
                     }
-                });
+                }).show();
     }
+
+    private void showProgressBar(){
+
+    }
+
 }

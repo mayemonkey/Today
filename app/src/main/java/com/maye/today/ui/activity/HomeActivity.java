@@ -1,5 +1,6 @@
 package com.maye.today.ui.activity;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -14,8 +15,10 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.maye.today.today.R;
+import com.maye.today.ui.fragment.HomeFragment;
 import com.maye.today.ui.fragment.factory.FragmentFactory;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -27,6 +30,10 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     private TextView tv_menu_group;
     private TextView tv_menu_timeline;
     private DrawerLayout dl_home;
+    private TextView tv_top_data;
+    private TextView tv_menu_setting;
+
+    private List<Fragment> list = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,12 +51,16 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
      */
     private void initComponent() {
         Toolbar tb_home = (Toolbar) findViewById(R.id.tb_home);
+
+        tv_top_data = (TextView) findViewById(R.id.tv_top_data);
         dl_home = (DrawerLayout) findViewById(R.id.dl_home);
         tv_menu_home = (TextView) findViewById(R.id.tv_menu_home);
         tv_menu_calendar = (TextView) findViewById(R.id.tv_menu_calendar);
         tv_menu_overview = (TextView) findViewById(R.id.tv_menu_overview);
         tv_menu_group = (TextView) findViewById(R.id.tv_menu_group);
         tv_menu_timeline = (TextView) findViewById(R.id.tv_menu_timeline);
+
+        tv_menu_setting = (TextView) findViewById(R.id.tv_menu_setting);
 
         assert tb_home != null;
 
@@ -59,6 +70,8 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         tv_menu_overview.setOnClickListener(this);
         tv_menu_group.setOnClickListener(this);
         tv_menu_timeline.setOnClickListener(this);
+
+        tv_menu_setting.setOnClickListener(this);
 
         //初始化Toolbar与DrawerLayout
         tb_home.setTitle("Today");// 标题的文字需在setSupportActionBar之前，不然会无效
@@ -79,7 +92,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
      */
     private void initFragment() {
         switchFragment("home");
-        tv_menu_home.setEnabled(false);
+        tv_menu_home.setSelected(true);
         dl_home.closeDrawers();
     }
 
@@ -89,27 +102,32 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         switch (v.getId()) {
             case R.id.tv_menu_home:
                 switchFragment("home");
-                tv_menu_home.setEnabled(false);
+                tv_menu_home.setSelected(true);
                 break;
 
             case R.id.tv_menu_calendar:
                 switchFragment("calendar");
-                tv_menu_calendar.setEnabled(false);
+                tv_menu_calendar.setSelected(true);
                 break;
 
             case R.id.tv_menu_overview:
                 switchFragment("overview");
-                tv_menu_overview.setEnabled(false);
+                tv_menu_overview.setSelected(true);
                 break;
 
             case R.id.tv_menu_group:
                 switchFragment("group");
-                tv_menu_group.setEnabled(false);
+                tv_menu_group.setSelected(true);
                 break;
 
             case R.id.tv_menu_timeline:
                 switchFragment("timeline");
-                tv_menu_timeline.setEnabled(false);
+                tv_menu_timeline.setSelected(true);
+                break;
+
+            case R.id.tv_menu_setting:
+                dl_home.closeDrawers();
+                startActivity(new Intent(this, SettingActivity.class));
                 break;
         }
     }
@@ -137,6 +155,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         if (fragment == null) {
             fragment = FragmentFactory.createFragment(fragmentTag);
             fragmentTransaction.add(R.id.fl_home, fragment, fragmentTag).commit();
+
         } else {
             fragmentTransaction.show(fragment).commit();
         }
@@ -148,11 +167,15 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
      * 重置TextViewUI效果
      */
     private void resetTextView() {
-        tv_menu_home.setEnabled(true);
-        tv_menu_calendar.setEnabled(true);
-        tv_menu_overview.setEnabled(true);
-        tv_menu_group.setEnabled(true);
-        tv_menu_timeline.setEnabled(true);
+        tv_menu_home.setSelected(false);
+        tv_menu_calendar.setSelected(false);
+        tv_menu_overview.setSelected(false);
+        tv_menu_group.setSelected(false);
+        tv_menu_timeline.setSelected(false);
+    }
+
+    public void setTitleData(boolean visible, String data){
+        tv_top_data.setText(visible ? data : "");
     }
 
 }

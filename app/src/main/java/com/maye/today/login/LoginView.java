@@ -1,8 +1,5 @@
 package com.maye.today.login;
 
-/**
- * LoginView
- */
 public interface LoginView {
 
     /**

@@ -21,17 +21,44 @@ public class RecordPresenterImpl implements RecordPresenter {
     }
 
     @Override
-    public void showAllRecord(String username) {
-        subscribe = recordModel.getRecord(username).
+    public void showRecordCount(String username) {
+        subscribe = recordModel.getRecordCount(username).
+                subscribeOn(Schedulers.io()).
+                observeOn(AndroidSchedulers.mainThread()).
+                subscribe(new Subscriber<String>() {
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onNext(String s) {
+                        recordView.showRecordCount(s);
+                    }
+                });
+    }
+
+    @Override
+    public void showAllRecord(String username, int start) {
+        subscribe = recordModel.getRecord(username, start).
                 subscribeOn(Schedulers.io()).
                 observeOn(AndroidSchedulers.mainThread()).
                 subscribe(new Subscriber<List<Record>>() {
                     @Override
                     public void onCompleted() {
+
                     }
 
                     @Override
                     public void onError(Throwable e) {
+                        recordView.showRecord(null);
+                        recordView.showToast("加载Record失败");
+                        e.printStackTrace();
                     }
 
                     @Override
@@ -53,6 +80,31 @@ public class RecordPresenterImpl implements RecordPresenter {
 
                     @Override
                     public void onError(Throwable e) {
+                    }
+
+                    @Override
+                    public void onNext(List<Record> list) {
+                        recordView.showRecord(list);
+                    }
+                });
+    }
+
+    @Override
+    public void showRecordByAssignTime(String username, int type, String time, int start) {
+        subscribe = recordModel.getRecordByAssignTime(username, type, time, 0).
+                subscribeOn(Schedulers.io()).
+                observeOn(AndroidSchedulers.mainThread()).
+                subscribe(new Subscriber<List<Record>>() {
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        recordView.showRecord(null);
+                        recordView.showToast("加载Record失败");
+                        e.printStackTrace();
                     }
 
                     @Override

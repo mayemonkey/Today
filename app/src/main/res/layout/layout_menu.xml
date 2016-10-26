@@ -14,7 +14,6 @@
         <TextView
             android:id="@+id/tv_menu_home"
             style="@style/TextView_Menu"
-            android:enabled="false"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
@@ -54,28 +53,19 @@
 
     </LinearLayout>
 
-    <LinearLayout
+    <TextView
+        android:id="@+id/tv_menu_setting"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_marginLeft="24dp"
         android:layout_marginBottom="24dp"
-        android:gravity="center"
-        android:orientation="vertical">
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="16dp"
+        android:drawablePadding="16dp"
+        android:drawableTop="@mipmap/menu_setting"
+        android:text="@string/setting_cn"
+        android:textColor="#99ffffff"
+        android:textSize="16sp"/>
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@mipmap/menu_setting"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/setting_cn"
-            android:layout_marginTop="16dp"
-            android:textSize="16sp"
-            android:textColor="#99ffffff"/>
-
-    </LinearLayout>
 
 </RelativeLayout>

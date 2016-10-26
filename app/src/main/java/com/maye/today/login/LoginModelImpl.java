@@ -1,6 +1,7 @@
 package com.maye.today.login;
 
 
+import com.maye.today.domain.LoginResponse;
 import com.maye.today.network.RetrofitUtil;
 
 import java.util.HashMap;
@@ -15,7 +16,7 @@ import rx.Observable;
 public class LoginModelImpl implements LoginModel {
 
     @Override
-    public Observable<ResponseBody> login(String username, String password) {
+    public Observable<LoginResponse> login(String username, String password) {
         //无法操作view，不直接做数据判断，交给Presenter完成
 
         //登录数据设置
@@ -23,8 +24,11 @@ public class LoginModelImpl implements LoginModel {
         map.put("username", username);
         map.put("password", password);
 
-
         return RetrofitUtil.loginServer().login(map);
+    }
 
+    @Override
+    public Observable<LoginResponse> login(String sessionId) {
+        return RetrofitUtil.loginServer().login(sessionId);
     }
 }

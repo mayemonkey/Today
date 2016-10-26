@@ -1,7 +1,7 @@
 package com.maye.today.login;
 
+import com.maye.today.domain.LoginResponse;
 
-import okhttp3.ResponseBody;
 import rx.Observable;
 
 /**
@@ -9,5 +9,7 @@ import rx.Observable;
  */
 public interface LoginModel {
 
-    Observable<ResponseBody> login(String username, String password);
+    Observable<LoginResponse> login(String username, String password);
+
+    Observable<LoginResponse> login(String sessionId);
 }

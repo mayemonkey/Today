@@ -11,13 +11,17 @@
         android:name="com.maye.today.global.TodayApplication"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.Base">
-        <activity android:name="com.maye.today.ui.activity.ListActivity">
+        <activity android:name="com.maye.today.ui.activity.HomeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+
+        <activity android:name="com.maye.today.ui.activity.ListActivity"/>
+
+        <activity android:name="com.maye.today.ui.activity.SettingActivity"/>
 
     </application>
 
