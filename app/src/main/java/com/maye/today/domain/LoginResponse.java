@@ -2,8 +2,17 @@ package com.maye.today.domain;
 
 public class LoginResponse {
 
+    private String username;
     private String result;
     private String sessionId;
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
 
     public String getResult() {
         return result;

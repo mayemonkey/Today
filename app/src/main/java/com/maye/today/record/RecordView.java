@@ -12,4 +12,6 @@ public interface RecordView {
 
     void showToast(String text);
 
+    void invisibleRefresh();
+
 }

@@ -28,12 +28,13 @@ public class RecordPresenterImpl implements RecordPresenter {
                 subscribe(new Subscriber<String>() {
                     @Override
                     public void onCompleted() {
-
                     }
 
                     @Override
                     public void onError(Throwable e) {
-
+                        recordView.showRecordCount("");
+                        recordView.showToast("获取Record数量失败");
+                        e.printStackTrace();
                     }
 
                     @Override
@@ -51,7 +52,6 @@ public class RecordPresenterImpl implements RecordPresenter {
                 subscribe(new Subscriber<List<Record>>() {
                     @Override
                     public void onCompleted() {
-
                     }
 
                     @Override
@@ -80,6 +80,9 @@ public class RecordPresenterImpl implements RecordPresenter {
 
                     @Override
                     public void onError(Throwable e) {
+                        recordView.showRecord(null);
+                        recordView.showToast("加载Record失败");
+                        e.printStackTrace();
                     }
 
                     @Override
@@ -90,14 +93,13 @@ public class RecordPresenterImpl implements RecordPresenter {
     }
 
     @Override
-    public void showRecordByAssignTime(String username, int type, String time, int start) {
-        subscribe = recordModel.getRecordByAssignTime(username, type, time, 0).
+    public void showRecordByAssignTime(String username, int type, String datetime, int start) {
+        subscribe = recordModel.getRecordByAssignTime(username, type, datetime, 0).
                 subscribeOn(Schedulers.io()).
                 observeOn(AndroidSchedulers.mainThread()).
                 subscribe(new Subscriber<List<Record>>() {
                     @Override
                     public void onCompleted() {
-
                     }
 
                     @Override

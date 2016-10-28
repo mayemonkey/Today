@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -35,6 +36,7 @@ public class TimelineFragment extends Fragment implements RecordView, LoadListVi
     private int start = 0;
 
     private boolean isRefresh = true;
+    private ProgressBar pb_timeline;
 
     @Nullable
     @Override
@@ -50,6 +52,8 @@ public class TimelineFragment extends Fragment implements RecordView, LoadListVi
         tv_line_count = (TextView) view.findViewById(R.id.tv_line_count);
         CircleImageView civ_line_avatar = (CircleImageView) view.findViewById(R.id.civ_line_avatar);
 //        Glide.with(getContext()).load("").centerCrop().into(civ_line_avatar);
+
+        pb_timeline = (ProgressBar) view.findViewById(R.id.pb_timeline);
 
         adapter = new LineAdapter(getContext(), list);
         llv_line = (LoadListView) view.findViewById(R.id.llv_line);
@@ -75,6 +79,7 @@ public class TimelineFragment extends Fragment implements RecordView, LoadListVi
         super.onResume();
         recordPresenter = new RecordPresenterImpl(this);
 //        recordPresenter.showRecordCount("username");
+        pb_timeline.setVisibility(View.VISIBLE);
         recordPresenter.showAllRecord("username", 0);
     }
 
@@ -111,6 +116,11 @@ public class TimelineFragment extends Fragment implements RecordView, LoadListVi
     @Override
     public void showToast(String text) {
         Toast.makeText(getContext(), text, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void invisibleRefresh() {
+        pb_timeline.setVisibility(View.GONE);
     }
 
     @Override

@@ -1,5 +1,7 @@
 package com.maye.today.util;
 
+import java.util.Calendar;
+
 public class CalendarUtil {
 
     /**
@@ -27,4 +29,18 @@ public class CalendarUtil {
             }
         }
     }
+
+    /**
+     * 格式化Calendar内部数据：
+     * 月份已进行+1处理
+     * year-month-day
+     */
+    public static String formatCalendar(Calendar calendar) {
+        if (calendar != null) {
+            return calendar.get(Calendar.YEAR) + "-" + (calendar.get(Calendar.MONTH) + 1) + "-" + calendar.get(Calendar.DAY_OF_MONTH);
+        } else {
+            return null;
+        }
+    }
+
 }

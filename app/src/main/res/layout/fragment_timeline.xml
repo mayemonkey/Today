@@ -35,9 +35,20 @@
         android:layout_gravity="bottom"
         android:background="#999"/>
 
-    <com.maye.today.view.LoadListView
-        android:id="@+id/llv_line"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent">
+
+        <ProgressBar
+            android:id="@+id/pb_timeline"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:layout_centerInParent="true"/>
+
+        <com.maye.today.view.LoadListView
+            android:id="@+id/llv_line"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+    </RelativeLayout>
 
 </LinearLayout>

@@ -37,6 +37,7 @@ public class OverviewFragment extends Fragment implements MonkeyTabPager.OnMonke
 
     private boolean isRefresh = true;
     private int start = 0;
+    private SwipeRefreshLayout srl_over;
 
     @Nullable
     @Override
@@ -58,7 +59,7 @@ public class OverviewFragment extends Fragment implements MonkeyTabPager.OnMonke
         mtp_time.setTypeAndData(MonkeyTabPager.DAY, list_date);
         mtp_time.setOnMonkeyTimeChangedListener(this);
 
-        SwipeRefreshLayout srl_over = (SwipeRefreshLayout) view.findViewById(R.id.srl_overview);
+        srl_over = (SwipeRefreshLayout) view.findViewById(R.id.srl_overview);
         srl_over.setColorSchemeResources(android.R.color.holo_blue_bright, android.R.color.holo_green_light,
                 android.R.color.holo_orange_light, android.R.color.holo_red_light);
         srl_over.setOnRefreshListener(this);
@@ -80,6 +81,7 @@ public class OverviewFragment extends Fragment implements MonkeyTabPager.OnMonke
 
     @Override
     public void onRefresh() {
+
         recordPresenter.showRecordByAssignTime("", mtp_time.getType(), "2011-04-01", 0);
         isRefresh = true;
     }
@@ -123,5 +125,16 @@ public class OverviewFragment extends Fragment implements MonkeyTabPager.OnMonke
     @Override
     public void showToast(String text) {
 
+    }
+
+    @Override
+    public void invisibleRefresh() {
+        srl_over.setRefreshing(false);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        recordPresenter.onDestroyView();
     }
 }

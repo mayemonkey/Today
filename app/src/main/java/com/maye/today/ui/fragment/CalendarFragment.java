@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 
 import com.maye.today.domain.Record;
 import com.maye.today.global.TodayApplication;
@@ -16,11 +17,16 @@ import com.maye.today.record.RecordPresenter;
 import com.maye.today.record.RecordPresenterImpl;
 import com.maye.today.record.RecordView;
 import com.maye.today.today.R;
+import com.maye.today.ui.activity.HomeActivity;
 import com.maye.today.ui.adapter.RecordAdapter;
+import com.maye.today.util.CalendarUtil;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+
+import static com.maye.today.today.R.id.llv_overview;
+import static com.maye.today.util.CalendarUtil.formatCalendar;
 
 /**
  * 主页显示Fragment
@@ -32,6 +38,7 @@ public class CalendarFragment extends Fragment implements RecordView {
     private MonkeyCalendar mc_home;
     private RecordAdapter adapter;
     private String today;
+    private ProgressBar pb_calendar;
 
     @Nullable
     @Override
@@ -51,35 +58,39 @@ public class CalendarFragment extends Fragment implements RecordView {
         mc_home = (MonkeyCalendar) view.findViewById(R.id.mc_calendar);
         mc_home.setOnDateSelectedListener(new MonkeyCalendar.OnDateSelectedListener() {
             public void onDateSelected(Calendar date) {
-                recordPresenter.showRecordByDay("", formatCalendar(date));
+                //TODO  优化结构
+                pb_calendar.setVisibility(View.VISIBLE);
+
+                String datetime = CalendarUtil.formatCalendar(date);
+                //请求响应日期Record
+                recordPresenter.showRecordByDay(TodayApplication.getUsername(), datetime);
+                //设置HomeActivity标题文本
+                ((HomeActivity)getActivity()).setTitleData(true, datetime);
             }
         });
 
+        pb_calendar = (ProgressBar) view.findViewById(R.id.pb_calendar);
+
         ListView lv_calendar = (ListView) view.findViewById(R.id.lv_calendar);
+        View view_empty = View.inflate(getContext(), R.layout.layout_lv_empty, null);
+        lv_calendar.setEmptyView(view_empty);
         adapter = new RecordAdapter(getContext(), list, today, 2);
         lv_calendar.setAdapter(adapter);
     }
 
     @Override
-    public void onStart() {
-        super.onStart();
+    public void onResume() {
+        super.onResume();
 
         Calendar selectedDate = mc_home.getSelectedDate();
-        recordPresenter.showRecordByDay("", formatCalendar(selectedDate));
+        String datetime = CalendarUtil.formatCalendar(selectedDate);
+        //请求响应日期Record
+        recordPresenter.showRecordByDay(TodayApplication.getUsername(), datetime);
+        //设置HomeActivity标题文本
+        ((HomeActivity)getActivity()).setTitleData(true, datetime);
     }
 
-    /**
-     * 格式化Calendar内部数据：
-     * 月份已进行+1处理
-     * year-month_day
-     */
-    private String formatCalendar(Calendar calendar) {
-        if (calendar != null) {
-            return calendar.get(Calendar.YEAR) + "-" + (calendar.get(Calendar.MONTH) + 1) + "-" + calendar.get(Calendar.DAY_OF_MONTH);
-        } else {
-            return null;
-        }
-    }
+
 
     @Override
     public void showRecord(List<Record> list_result) {
@@ -98,6 +109,17 @@ public class CalendarFragment extends Fragment implements RecordView {
     @Override
     public void showToast(String text) {
         //DO Nothing
+    }
+
+    @Override
+    public void invisibleRefresh() {
+        pb_calendar.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        ((HomeActivity)getActivity()).setTitleData(false, "");
     }
 
     @Override
