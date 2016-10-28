@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+    
+    <style name="base_text" parent="android:Widget.Holo.Light.TextView">
+        <item name="android:paddingBottom">10dp</item>
+        <item name="android:paddingLeft">5dp</item>
+        <item name="android:paddingRight">5dp</item>
+        <item name="android:paddingTop">10dp</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="calendar_title" parent="base_text">
+        <item name="android:padding">5dp</item>
+        <item name="android:width">0dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">#ffffff</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="calendar_date_this" parent="base_text">
+        <item name="android:textColor">#ffffffff</item>
+    </style>
+
+    <style name="calendar_date_notthis" parent="base_text">
+        <item name="android:textColor">#aaaaaa</item>
+    </style>
+
+    <style name="calendar_date_selected" parent="base_text">
+        <item name="android:background">#52d3c4</item>
+        <item name="android:textColor">#ffffff</item>
+    </style>
+
+</resources>
