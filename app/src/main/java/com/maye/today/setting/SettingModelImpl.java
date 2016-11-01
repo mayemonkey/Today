@@ -9,10 +9,15 @@ import java.util.Map;
 import okhttp3.ResponseBody;
 import rx.Observable;
 
-public class SettingModelImpl implements SettingModel {
+class SettingModelImpl implements SettingModel {
 
     @Override
-    public Observable<ResponseBody> uploadUser(User user) {
+    public Observable<User> getUser(String sessionId) {
+        return RetrofitUtil.settingServer().getUser(sessionId);
+    }
+
+    @Override
+    public Observable<User> uploadUser(User user) {
 
         Map<String, String> map = new HashMap<>();
         map.put("id", String.valueOf(user.getId()));

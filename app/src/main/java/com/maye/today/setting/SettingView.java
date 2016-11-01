@@ -1,10 +1,12 @@
 package com.maye.today.setting;
 
+import com.maye.today.domain.User;
+
 public interface SettingView {
 
-    void showNotifyDialog(boolean visible);
+    void setUserData(User user);
 
-    void showVerifyDialog(boolean visible);
+    void refreshUserData(User user);
 
     void showProgressDialog(boolean visible, String title, String content);
 

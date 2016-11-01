@@ -5,9 +5,11 @@ import com.maye.today.domain.User;
 import okhttp3.ResponseBody;
 import rx.Observable;
 
-public interface SettingModel {
+interface SettingModel {
 
-    Observable<ResponseBody> uploadUser(User user);
+    Observable<User> getUser(String sessionId);
+
+    Observable<User> uploadUser(User user);
 
     Observable<ResponseBody> checkPassword(String username, String password);
 

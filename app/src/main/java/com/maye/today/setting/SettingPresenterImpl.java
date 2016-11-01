@@ -22,23 +22,40 @@ public class SettingPresenterImpl implements SettingPresenter {
     }
 
     @Override
-    public void checkPasswordAndUpdate(final String username, String password, final User user) {
-        settingView.showProgressDialog(true, "验证密码", "正在验证用户密码");
+    public void getUserInfo(String sessionId) {
+        settingView.showProgressDialog(true, "加载", "正在加载用户信息...");
 
-        subscribe = settingModel.checkPassword(username, password).
+        subscribe = settingModel.getUser(sessionId).
                 subscribeOn(Schedulers.io()).
                 observeOn(AndroidSchedulers.mainThread()).
-                flatMap(new Func1<ResponseBody, Observable<ResponseBody>>() {
-                    @Override
-                    public Observable<ResponseBody> call(ResponseBody body) {
-                        settingView.showProgressDialog(true, "上传用户信息", "正在上传修改信息");
-                        return settingModel.uploadUser(user);
-                    }
-                }).
-                subscribe(new Subscriber<ResponseBody>() {
+                subscribe(new Subscriber<User>() {
                     @Override
                     public void onCompleted() {
+                        settingView.showProgressDialog(false, "", "");
+                    }
 
+                    @Override
+                    public void onError(Throwable e) {
+                    }
+
+                    @Override
+                    public void onNext(User user) {
+                        settingView.setUserData(user);
+                    }
+                });
+    }
+
+    @Override
+    public void updateUserInfo(User user) {
+        settingView.showProgressDialog(true, "上传", "正在上传用户信息");
+
+        subscribe = settingModel.uploadUser(user).
+                subscribeOn(Schedulers.io()).
+                observeOn(AndroidSchedulers.mainThread()).
+                subscribe(new Subscriber<User>() {
+                    @Override
+                    public void onCompleted() {
+                        settingView.showProgressDialog(false, "", "");
                     }
 
                     @Override
@@ -47,11 +64,13 @@ public class SettingPresenterImpl implements SettingPresenter {
                     }
 
                     @Override
-                    public void onNext(ResponseBody body) {
-                        settingView.showProgressDialog(false, "", "");
+                    public void onNext(User user) {
+                        settingView.refreshUserData(user);
                     }
                 });
     }
+
+    
 
     @Override
     public void onViewDestroy() {

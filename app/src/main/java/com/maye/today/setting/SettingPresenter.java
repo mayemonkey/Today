@@ -2,9 +2,11 @@ package com.maye.today.setting;
 
 import com.maye.today.domain.User;
 
-public interface SettingPresenter {
+interface SettingPresenter {
 
-    void checkPasswordAndUpdate(String username, String password, User user);
+    void getUserInfo(String sessionId);
+
+    void updateUserInfo(User user);
 
     void onViewDestroy();
 
