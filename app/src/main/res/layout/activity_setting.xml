@@ -93,35 +93,63 @@
                 android:textColor="#000"
                 android:textSize="20sp"/>
 
-            <com.rengwuxian.materialedittext.MaterialEditText
-                android:id="@+id/met_nickname"
-                style="@style/EditText_Black"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="16dp"
-                android:hint="@string/nickname_cn"
-                app:met_floatingLabelText="@string/nickname_cn"
-                app:met_hideUnderline="false"/>
+                android:padding="16dp"
+                android:orientation="vertical">
 
-            <com.rengwuxian.materialedittext.MaterialEditText
-                android:id="@+id/met_email"
-                style="@style/EditText_Black"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="16dp"
-                android:hint="@string/email_cn"
-                app:met_floatingLabelText="@string/email_cn"
-                app:met_hideUnderline="false"/>
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/til_setting_nickname"
+                    style="@style/TextInput.Black"
+                    app:hintTextAppearance="@style/TextInputHint.Black">
 
-            <com.rengwuxian.materialedittext.MaterialEditText
-                android:id="@+id/met_phone"
-                style="@style/EditText_Black"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="16dp"
-                android:hint="@string/phone_cn"
-                app:met_floatingLabelText="@string/phone_cn"
-                app:met_hideUnderline="false"/>
+                    <EditText
+                        style="@style/EditText_Input.Black"
+                        android:hint="@string/nickname_cn"/>
+
+                </android.support.design.widget.TextInputLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:layout_marginBottom="16dp"
+                    android:background="#000000"/>
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/til_setting_email"
+                    style="@style/TextInput.Black"
+                    app:hintTextAppearance="@style/TextInputHint.Black">
+
+                    <EditText
+                        style="@style/EditText_Input.Black"
+                        android:hint="@string/email"/>
+
+                </android.support.design.widget.TextInputLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:layout_marginBottom="16dp"
+                    android:background="#000000"/>
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/til_setting_phone"
+                    style="@style/TextInput.Black"
+                    app:hintTextAppearance="@style/TextInputHint.Black">
+
+                    <EditText
+                        style="@style/EditText_Input.Black"
+                        android:hint="@string/phone_cn"/>
+
+                </android.support.design.widget.TextInputLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:layout_marginBottom="16dp"
+                    android:background="#000000"/>
+            </LinearLayout>
 
             <TextView
                 android:layout_width="match_parent"
@@ -141,6 +169,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_margin="16dp"
+                    android:textSize="18sp"
                     android:text="Open Notify"/>
 
                 <com.zcw.togglebutton.ToggleButton

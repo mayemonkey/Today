@@ -15,12 +15,75 @@
         <item name="drawerArrowStyle">@style/DrawerArrowStyle</item>
     </style>
 
+    <!-- Toolbar use -->
     <style name="DrawerArrowStyle" parent="Widget.AppCompat.DrawerArrowToggle">
         <item name="spinBars">true</item>
         <item name="color">#aaaaaa</item>
     </style>
 
-    <!--  EditText各色风格  -->
+    <!--TextInputLayout Hint字体-->
+    <style name="TextInputHint">
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="TextInputHint.White">
+        <item name="android:textColor">#ffffff</item>
+    </style>
+
+    <style name="TextInputHint.Black">
+        <item name="android:textColor">#000000</item>
+    </style>
+
+    <style name="TextInputHint.Purple">
+        <item name="android:textColor">#6359b6</item>
+    </style>
+
+    <!--TextInputLayout 样式-->
+    <style name="TextInput">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginLeft">16dp</item>
+        <item name="android:layout_marginRight">16dp</item>
+    </style>
+
+    <style name="TextInput.White">
+        <item name="android:textColorHint">#ffffff</item>
+    </style>
+
+    <style name="TextInput.Black">
+        <item name="android:textColorHint">#000000</item>
+    </style>
+
+    <style name="TextInput.Purple">
+        <item name="android:textColorHint">#6359b6</item>
+    </style>
+
+    <!-- TextInputLayout中EditText 样式-->
+    <style name="EditText_Input">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@null</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:paddingTop">8dp</item>
+    </style>
+
+    <style name="EditText_Input.White">
+        <item name="android:textColorHint">#fff</item>
+        <item name="android:textColor">#fff</item>
+    </style>
+
+    <style name="EditText_Input.Black">
+        <item name="android:textColorHint">#000</item>
+        <item name="android:textColor">#000</item>
+    </style>
+
+    <style name="EditText_Input.Purple">
+        <item name="android:textColorHint">#6359b6</item>
+        <item name="android:textColor">#6359b6</item>
+    </style>
+
+    <!-- *************************************************** -->
+
     <style name="EditText_White">
         <item name="met_baseColor">#ffffffff</item>
         <item name="met_floatingLabel">normal</item>
@@ -31,7 +94,6 @@
         <item name="met_textColorHint">#ffffff</item>
     </style>
 
-
     <style name="EditText_Black">
         <item name="met_baseColor">#000000</item>
         <item name="met_floatingLabel">normal</item>
@@ -40,33 +102,17 @@
         <item name="met_hideUnderline">true</item>
         <item name="met_primaryColor">#000</item>
         <item name="met_textColorHint">#000000</item>
+        <item name="android:layout_margin">16dp</item>
+        <item name="android:focusable">true</item>
+        <item name="android:focusableInTouchMode">true</item>
     </style>
 
-    <style name="EditText_Purple">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:background">@null</item>
-        <item name="android:paddingTop">8dp</item>
-        <item name="android:textColor">#000</item>
-        <item name="android:textColorHighlight">#000</item>
-        <item name="textSize">20sp</item>
+    <style name="Black">
+        <item name="android:textColor">#000000</item>
+        <item name="android:layout_margin">16dp</item>
+        <item name="android:focusable">true</item>
+        <item name="android:focusableInTouchMode">true</item>
     </style>
-
-    <!--  TextInputLayout设置  -->
-
-    <style name="TextInput">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_marginLeft">16dp</item>
-        <item name="android:layout_marginRight">16dp</item>
-        <item name="android:textColorHighlight">#6359b6</item>
-    </style>
-
-    <style name="TextInputHint">
-        <item name="android:textColorHint">#6359b6</item>
-        <item name="android:textSize">16sp</item>
-    </style>
-
 
     <style name="TextView_Menu">
         <item name="android:layout_marginBottom">24dp</item>

@@ -35,11 +35,11 @@
         android:layout_height="200dp"
         android:background="@mipmap/reg_avatar_bg">
 
-        <ImageView
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/civ_reg_avatar"
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:layout_centerInParent="true"
-
             android:background="@mipmap/reg_avatar"/>
 
     </RelativeLayout>
@@ -59,12 +59,13 @@
 
             <android.support.design.widget.TextInputLayout
                 android:id="@+id/til_reg_username"
-                style="@style/TextInput"
-                app:hintTextAppearance="@style/TextInputHint">
+                style="@style/TextInput.Purple"
+                app:hintTextAppearance="@style/TextInputHint.Purple">
 
                 <EditText
-                    style="@style/EditText_Purple"
+                    style="@style/EditText_Input.Purple"
                     android:hint="@string/username"/>
+
             </android.support.design.widget.TextInputLayout>
 
             <View
@@ -72,30 +73,34 @@
                 android:layout_height="1px"
                 android:background="#6359b6"/>
 
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/til_reg_password"
+                style="@style/TextInput.Purple"
+                android:layout_marginTop="16dp"
+                app:hintTextAppearance="@style/TextInputHint.Purple">
 
-            <RelativeLayout
+                <EditText
+                    style="@style/EditText_Input.Purple"
+                    android:hint="@string/password"/>
+
+            </android.support.design.widget.TextInputLayout>
+
+            <View
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="1px"
+                android:background="#6359b6"/>
 
-                <android.support.design.widget.TextInputLayout
-                    android:id="@+id/til_reg_password"
-                    style="@style/TextInput"
-                    android:layout_marginTop="16dp"
-                    app:hintTextAppearance="@style/TextInputHint">
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/til_reg_nickname"
+                style="@style/TextInput.Purple"
+                android:layout_marginTop="16dp"
+                app:hintTextAppearance="@style/TextInputHint.Purple">
 
-                    <EditText
-                        style="@style/EditText_Purple"
-                        android:hint="@string/password"/>
-                </android.support.design.widget.TextInputLayout>
+                <EditText
+                    style="@style/EditText_Input.Purple"
+                    android:hint="@string/nickname_cn"/>
 
-                <ImageView
-                    android:layout_width="24dp"
-                    android:layout_height="16dp"
-                    android:layout_alignParentBottom="true"
-                    android:layout_alignParentEnd="true"
-                    android:background="@mipmap/ic_pw_visible"/>
-
-            </RelativeLayout>
+            </android.support.design.widget.TextInputLayout>
 
             <View
                 android:layout_width="match_parent"
@@ -104,13 +109,14 @@
 
             <android.support.design.widget.TextInputLayout
                 android:id="@+id/til_reg_email"
-                style="@style/TextInput"
+                style="@style/TextInput.Purple"
                 android:layout_marginTop="16dp"
-                app:hintTextAppearance="@style/TextInputHint">
+                app:hintTextAppearance="@style/TextInputHint.Purple">
 
                 <EditText
-                    style="@style/EditText_Purple"
+                    style="@style/EditText_Input.Purple"
                     android:hint="@string/email"/>
+
             </android.support.design.widget.TextInputLayout>
 
             <View

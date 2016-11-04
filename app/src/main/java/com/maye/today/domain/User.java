@@ -14,6 +14,12 @@ public class User {
         super();
     }
 
+    public User(String nickname, String email, String phone) {
+        this.nickname = nickname;
+        this.email = email;
+        this.phone = phone;
+    }
+
     public User(int id, String username, String nickname, String email, String phone, String password) {
         this.id = id;
         this.username = username;
