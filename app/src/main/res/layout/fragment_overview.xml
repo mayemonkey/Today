@@ -6,8 +6,8 @@
     android:background="#fff"
     android:orientation="vertical">
 
-    <com.maye.today.monkeytabpager.MonkeyTabPager
-        android:id="@+id/mtp_time"
+    <com.maye.view.MonkeyDatePager
+        android:id="@+id/mdp_time"
         android:layout_width="match_parent"
         android:layout_height="128dp"/>
 
