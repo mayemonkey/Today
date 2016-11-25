@@ -55,6 +55,19 @@ public class RegisterActivity extends Activity implements RegisterView, View.OnC
         initComponent();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        til_reg_username.getEditText().clearFocus();
+        til_reg_username.setError(null);
+        til_reg_password.getEditText().clearFocus();
+        til_reg_password.setError(null);
+        til_reg_email.getEditText().clearFocus();
+        til_reg_email.setError(null);
+        til_reg_nickname.getEditText().clearFocus();
+        til_reg_nickname.setError(null);
+    }
+
     /**
      * 初始化控件
      */

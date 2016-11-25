@@ -56,9 +56,9 @@ public class LoginActivity extends Activity implements LoginView, View.OnTouchLi
     @Override
     protected void onResume() {
         super.onResume();
-        til_login_username.clearFocus();
+        til_login_username.getEditText().clearFocus();
         til_login_username.setError(null);
-        til_login_password.clearFocus();
+        til_login_password.getEditText().clearFocus();
         til_login_password.setError(null);
 
         ImageView iv_circle_inner = (ImageView) findViewById(R.id.iv_circle_inner);
