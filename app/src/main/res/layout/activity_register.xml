@@ -128,7 +128,7 @@
     </ScrollView>
 
     <Button
-        android:id="@+id/iv_reg_commit"
+        android:id="@+id/bt_reg_commit"
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:background="@drawable/selector_reg"/>

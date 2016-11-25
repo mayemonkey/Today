@@ -41,23 +41,14 @@ public class LoginPresenterImpl implements LoginPresenter {
             return;
         }
 
-        boolean isEmpty = false;
-
-        //输入空判断
-        if (TextUtils.isEmpty(username)) {
-            showError("USERNAME");
-            isEmpty = true;
-        }
-
-        if (TextUtils.isEmpty(password)) {
-            showError("PASSWORD");
-            isEmpty = true;
-        }
-
-        if (isEmpty) return;
-
         //通过非空判断，上传请求
-        loginView.showProgress();
+//        Observable.just("").observeOn(AndroidSchedulers.mainThread()).subscribe(new Action1<String>() {
+//            @Override
+//            public void call(String s) {
+//            }
+//        });
+                loginView.showProgress(true);
+
 
         subscribe = loginModel.login(username, password).
                 subscribeOn(Schedulers.io()).
@@ -65,12 +56,12 @@ public class LoginPresenterImpl implements LoginPresenter {
                 subscribe(new Subscriber<LoginResponse>() {
                     @Override
                     public void onCompleted() {
-
+                        loginView.showProgress(false);
                     }
 
                     @Override
                     public void onError(Throwable e) {
-                        loginView.hideProgress();
+
                     }
 
                     @Override
@@ -80,7 +71,7 @@ public class LoginPresenterImpl implements LoginPresenter {
                         if (loginPass) {
                             loginView.startActivity();
                         } else {
-                            loginView.hideProgress();
+                            //TODO loginView.inputError
                         }
                     }
                 });
@@ -120,7 +111,7 @@ public class LoginPresenterImpl implements LoginPresenter {
      * 根据返回数据判断登录检验是否通过
      *
      * @param loginResponse 登录返回数据
-     * @return  是否通过
+     * @return 是否通过
      */
     private boolean isLoginPass(LoginResponse loginResponse) {
         String result = loginResponse.getResult();
@@ -138,17 +129,6 @@ public class LoginPresenterImpl implements LoginPresenter {
         } else {
             return false;
         }
-    }
-
-    private void showError(String inputIndex) {
-        Observable.just(inputIndex).
-                observeOn(AndroidSchedulers.mainThread()).
-                subscribe(new Action1<String>() {
-                    @Override
-                    public void call(String inputIndex) {
-                        loginView.inputError(inputIndex, "should not be empty");
-                    }
-                });
     }
 
     @Override

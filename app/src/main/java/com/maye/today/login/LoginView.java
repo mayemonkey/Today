@@ -11,14 +11,9 @@ public interface LoginView {
     void inputError(String index, String error);
 
     /**
-     * 显示进度
+     * progressDialog 显示与隐藏
      */
-    void showProgress();
-
-    /**
-     * 隐藏进度
-     */
-    void hideProgress();
+    void showProgress(boolean visible);
 
     /**
      * 跳转Activity

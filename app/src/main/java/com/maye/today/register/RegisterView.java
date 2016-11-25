@@ -15,9 +15,9 @@ public interface RegisterView {
 
     /**
      * Progress显示设置
-     * @param show
+     * @param visible
      */
-    void showProgress(boolean show);
+    void showProgress(boolean visible);
 
     /**
      * 开启Activity

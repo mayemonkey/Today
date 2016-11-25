@@ -12,6 +12,7 @@ import android.widget.ImageView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.bumptech.glide.Glide;
+import com.jakewharton.rxbinding.view.RxView;
 import com.maye.today.domain.User;
 import com.maye.today.register.RegisterPresenter;
 import com.maye.today.register.RegisterPresenterImpl;
@@ -22,8 +23,11 @@ import com.maye.today.util.Md5Util;
 import com.rengwuxian.materialedittext.MaterialEditText;
 
 import java.io.File;
+import java.util.concurrent.TimeUnit;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Action1;
 
 import static com.maye.today.today.R.id.civ_avatar;
 import static com.maye.today.today.R.id.civ_reg_avatar;
@@ -66,10 +70,31 @@ public class RegisterActivity extends Activity implements RegisterView, View.OnC
         til_reg_nickname = (TextInputLayout) findViewById(R.id.til_reg_nickname);
         til_reg_email = (TextInputLayout) findViewById(R.id.til_reg_email);
 
-        Button iv_reg_commit = (Button) findViewById(R.id.iv_reg_commit);
-        iv_reg_commit.setOnClickListener(this);
+        Button bt_reg_commit = (Button) findViewById(R.id.bt_reg_commit);
 
-        progressDialog = new MaterialDialog.Builder(this).title("注册中").content("正在提交用户信息...").build();
+        //点击注册——防止多触
+        RxView.clicks(bt_reg_commit).throttleWithTimeout(300, TimeUnit.MILLISECONDS).
+                observeOn(AndroidSchedulers.mainThread()).
+                subscribe(new Action1<Void>() {
+                    @Override
+                    public void call(Void aVoid) {
+                        //获取用户输入
+                        if (InputUtil.checkTextInputLayout(til_reg_username) && InputUtil.checkTextInputLayout(til_reg_password) &&
+                                InputUtil.checkTextInputLayout(til_reg_nickname) && InputUtil.checkTextInputLayout(til_reg_email)) {
+
+                            String username = til_reg_username.getEditText().getText().toString();
+                            String password = til_reg_password.getEditText().getText().toString();
+                            String nickname = til_reg_nickname.getEditText().getText().toString();
+                            String email = til_reg_email.getEditText().getText().toString();
+                            String avatar = (String) civ_reg_avatar.getTag();
+
+                            User user = new User(username, Md5Util.textToMd5(password), nickname, email, avatar);
+                            registerPresenter.checkRegister(user);
+                        }
+                    }
+                });
+
+        progressDialog = new MaterialDialog.Builder(this).title("注册中").content("正在提交用户信息...").progress(true, 0).build();
 
         registerPresenter = new RegisterPresenterImpl(this);
     }
@@ -114,21 +139,6 @@ public class RegisterActivity extends Activity implements RegisterView, View.OnC
 
             case R.id.civ_reg_avatar:
                 startActivityForResult(new Intent(this, AlbumActivity.class), AVATAR_REQUEST);
-                break;
-
-            case R.id.iv_reg_commit:
-                if (InputUtil.checkTextInputLayout(til_reg_username) && InputUtil.checkTextInputLayout(til_reg_password) &&
-                        InputUtil.checkTextInputLayout(til_reg_nickname) && InputUtil.checkTextInputLayout(til_reg_email)) {
-
-                    String username = til_reg_username.getEditText().getText().toString();
-                    String password = til_reg_password.getEditText().getText().toString();
-                    String nickname = til_reg_nickname.getEditText().getText().toString();
-                    String email = til_reg_email.getEditText().getText().toString();
-                    String avatar = (String) civ_reg_avatar.getTag();
-
-                    User user = new User(username, Md5Util.textToMd5(password), nickname, email, avatar);
-                    registerPresenter.checkRegister(user);
-                }
                 break;
         }
     }

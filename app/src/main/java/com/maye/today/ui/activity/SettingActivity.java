@@ -30,7 +30,6 @@ public class SettingActivity extends Activity implements SettingView, View.OnCli
 
     private static final int AVATAR_REQUEST = 0;
     private SettingPresenterImpl settingPresenter;
-    private MaterialDialog messageDialog;
     private TextInputLayout til_setting_nickname;
     private TextInputLayout til_setting_email;
     private TextInputLayout til_setting_phone;
@@ -57,12 +56,6 @@ public class SettingActivity extends Activity implements SettingView, View.OnCli
 
         progressDialog = new MaterialDialog.Builder(this).title("").content("").progress(true, 0).build();
 
-        messageDialog = new MaterialDialog.Builder(this).title("").content("").positiveText("确定").
-                onPositive(new MaterialDialog.SingleButtonCallback() {
-                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                        dialog.dismiss();
-                    }
-                }).build();
         settingPresenter = new SettingPresenterImpl(this);
     }
 
@@ -76,16 +69,14 @@ public class SettingActivity extends Activity implements SettingView, View.OnCli
     public void setUserData(User user) {
         Glide.with(this).load(user.getAvatar()).centerCrop().crossFade().into(civ_avatar);
 
-        til_setting_nickname.getEditText().setText(user.getNickname());
-        til_setting_email.getEditText().setText(user.getEmail());
-        til_setting_phone.getEditText().setText(user.getPhone());
+        refreshUserData(user);
     }
 
     @Override
-    public void showMessageDialog(String title, String content) {
-        messageDialog.setTitle(title);
-        messageDialog.setContent(content);
-        messageDialog.show();
+    public void refreshUserData(User user) {
+        til_setting_nickname.getEditText().setText(user.getNickname());
+        til_setting_email.getEditText().setText(user.getEmail());
+        til_setting_phone.getEditText().setText(user.getPhone());
     }
 
     @Override
