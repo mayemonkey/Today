@@ -1,24 +1,15 @@
 package com.maye.today.ui.activity;
 
+import android.animation.ValueAnimator;
 import android.app.Activity;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.TextInputLayout;
-
 import android.view.MotionEvent;
 import android.view.View;
-
-import android.view.animation.Animation;
-import android.view.animation.ScaleAnimation;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.afollestad.materialdialogs.MaterialDialog;
-import com.google.android.gms.appindexing.Action;
-import com.google.android.gms.appindexing.AppIndex;
-import com.google.android.gms.appindexing.Thing;
-
 import com.jakewharton.rxbinding.view.RxView;
 import com.maye.today.today.R;
 import com.maye.today.login.LoginPresenter;
@@ -26,11 +17,9 @@ import com.maye.today.login.LoginPresenterImpl;
 import com.maye.today.login.LoginView;
 import com.maye.today.util.InputUtil;
 import com.maye.today.util.Md5Util;
-import com.nineoldandroids.animation.Animator;
-import com.nineoldandroids.view.ViewPropertyAnimator;
+import com.nineoldandroids.view.ViewHelper;
 
 import java.util.concurrent.TimeUnit;
-
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
 
@@ -106,16 +95,33 @@ public class LoginActivity extends Activity implements LoginView, View.OnTouchLi
     /**
      * 设置自定义动画，使Sign周边环圈做位移动画
      */
-    private void setCustomerAnimation(ImageView inner, ImageView middle, ImageView outside) {
-        ScaleAnimation sa = new ScaleAnimation(1f, 1.1f, 1f, 1.1f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
-        sa.setDuration(1000);
-        sa.setRepeatCount(Integer.MAX_VALUE);
-        sa.setRepeatMode(Animation.REVERSE);
-        inner.startAnimation(sa);
-        middle.startAnimation(sa);
-        outside.startAnimation(sa);
-    }
+    private void setCustomerAnimation(final ImageView inner, final ImageView middle, final ImageView outside) {
+        ValueAnimator valueAnimator = ValueAnimator.ofFloat(0f, 1.5f).setDuration(3000);
+        valueAnimator.setRepeatMode(ValueAnimator.RESTART);
+        valueAnimator.setRepeatCount(ValueAnimator.INFINITE);
+        valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator animation) {
+                float value1 = (float) animation.getAnimatedValue();
+                float value2 = value1 + 0.2f;
+                float value3 = value1 + 0.4f;
+                float alpha1 = 2f * (1 - value1) + 1;
+                float alpha2 = 2f * (1 - value2) + 1;
+                float alpha3 = 2f * (1 - value3) + 1;
 
+                ViewHelper.setScaleX(inner, value1);
+                ViewHelper.setScaleY(inner, value1);
+                ViewHelper.setAlpha(inner, alpha1);
+                ViewHelper.setScaleX(middle, value2);
+                ViewHelper.setScaleY(middle, value2);
+                ViewHelper.setAlpha(middle, alpha2);
+                ViewHelper.setScaleX(outside, value3);
+                ViewHelper.setScaleY(outside, value3);
+                ViewHelper.setAlpha(outside, alpha3);
+            }
+        });
+        valueAnimator.start();
+    }
 
     @Override
     public void inputError(String index, String error) {

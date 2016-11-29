@@ -14,12 +14,6 @@
         android:layout_marginTop="56dp">
 
         <ImageView
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_centerInParent="true"
-            android:background="@mipmap/ic_login_sign"/>
-
-        <ImageView
             android:id="@+id/iv_circle_inner"
             android:layout_width="120dp"
             android:layout_height="120dp"
@@ -28,19 +22,23 @@
 
         <ImageView
             android:id="@+id/iv_circle_middle"
-            android:layout_width="140dp"
-            android:layout_height="140dp"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
             android:layout_centerInParent="true"
-            android:alpha="0.6"
             android:background="@mipmap/icon_login_circle"/>
 
         <ImageView
             android:id="@+id/iv_circle_outside"
-            android:layout_width="160dp"
-            android:layout_height="160dp"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
             android:layout_centerInParent="true"
-            android:alpha="0.4"
             android:background="@mipmap/icon_login_circle"/>
+
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_centerInParent="true"
+            android:background="@mipmap/ic_login_sign"/>
 
     </RelativeLayout>
 

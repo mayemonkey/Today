@@ -38,18 +38,20 @@ public class AlbumActivity extends Activity implements MaterialSpinner.OnItemSel
 
     private AlbumAdapter adapter;
 
-    private Handler handler = new Handler(){
+    private Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
             getDirList();
-            ms_album.setItems(list_dir);
-            ms_album.setSelectedIndex(0);
-            list.clear();
-            String dir = list_dir.get(0);
-            List<ImageItem> imageItems = map.get(dir);
-            list.addAll(imageItems);
-            adapter.notifyDataSetChanged();
+            if (list_dir.size() > 0) {
+                ms_album.setItems(list_dir);
+                ms_album.setSelectedIndex(0);
+                list.clear();
+                String dir = list_dir.get(0);
+                List<ImageItem> imageItems = map.get(dir);
+                list.addAll(imageItems);
+                adapter.notifyDataSetChanged();
+            }
         }
     };
 
@@ -134,7 +136,7 @@ public class AlbumActivity extends Activity implements MaterialSpinner.OnItemSel
         }
     }
 
-    public void backResult(String path){
+    public void backResult(String path) {
         Intent intent = new Intent();
         intent.putExtra("path", path);
         setResult(0, intent);
