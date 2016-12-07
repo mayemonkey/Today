@@ -76,7 +76,6 @@ public class OverviewFragment extends Fragment implements  LoadListView.OnLoadMo
 
     @Override
     public void onRefresh() {
-
         recordPresenter.showRecordByAssignTime("", mdp_time.getType(), "2011-04-01", 0);
         isRefresh = true;
     }
@@ -123,8 +122,8 @@ public class OverviewFragment extends Fragment implements  LoadListView.OnLoadMo
     }
 
     @Override
-    public void invisibleRefresh() {
-        srl_over.setRefreshing(false);
+    public void showRefresh(boolean visible) {
+        srl_over.setRefreshing(visible);
     }
 
     @Override

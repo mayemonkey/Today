@@ -70,7 +70,7 @@ public class HomeFragment extends Fragment implements TimeView {
         int year = datetime.get(Calendar.YEAR);
         int month = datetime.get(Calendar.MONTH) + 1;
         int date = datetime.get(Calendar.DAY_OF_MONTH);
-        int day = datetime.get(Calendar.DAY_OF_WEEK);
+        int day = datetime.get(Calendar.DAY_OF_WEEK) - 1;
         int hour = datetime.get(Calendar.HOUR_OF_DAY);
 
         tv_year.setText(String.valueOf(year));

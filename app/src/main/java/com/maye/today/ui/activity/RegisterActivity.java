@@ -159,6 +159,9 @@ public class RegisterActivity extends Activity implements RegisterView, View.OnC
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        if (data == null) {
+            return;
+        }
         if (requestCode == AVATAR_REQUEST) {
             if (resultCode == 0) {
                 String path = data.getStringExtra("path");

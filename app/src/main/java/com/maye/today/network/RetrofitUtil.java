@@ -36,7 +36,7 @@ public class RetrofitUtil {
     public static LoginServer loginServer() {
         if (loginServer == null) {
             Retrofit retrofit = new Retrofit.Builder().
-                    baseUrl("http://121.120.15.16/").
+                    baseUrl(AppUrl.login).
                     addConverterFactory(GsonConverterFactory.create()).
                     addCallAdapterFactory(RxJavaCallAdapterFactory.create()).
                     build();
@@ -53,7 +53,7 @@ public class RetrofitUtil {
     public static RegisterServer registerServer() {
         if (registerServer == null) {
             Retrofit retrofit = new Retrofit.Builder().
-                    baseUrl("").
+                    baseUrl(AppUrl.register).
                     addCallAdapterFactory(RxJavaCallAdapterFactory.create()).
                     addConverterFactory(GsonConverterFactory.create()).
                     build();
@@ -69,7 +69,7 @@ public class RetrofitUtil {
     public static TimeServer timeServer() {
         if (timeServer == null) {
             Retrofit retrofit = new Retrofit.Builder().
-                    baseUrl("http://apis.baidu.com/3023/time/").
+                    baseUrl(AppUrl.time).
                     addCallAdapterFactory(RxJavaCallAdapterFactory.create()).
                     addConverterFactory(GsonConverterFactory.create()).
                     build();
@@ -85,7 +85,7 @@ public class RetrofitUtil {
     public static RecordServer recordServer() {
         if (recordServer == null) {
             Retrofit retrofit = new Retrofit.Builder().
-                    baseUrl("").
+                    baseUrl(AppUrl.record).
                     addCallAdapterFactory(RxJavaCallAdapterFactory.create()).
                     addConverterFactory(GsonConverterFactory.create()).
                     build();
@@ -102,7 +102,7 @@ public class RetrofitUtil {
     public static GroupServer groupServer() {
         if (groupServer == null) {
             Retrofit retrofit = new Retrofit.Builder().
-                    baseUrl("").
+                    baseUrl(AppUrl.group).
                     addCallAdapterFactory(RxJavaCallAdapterFactory.create()).
                     addConverterFactory(GsonConverterFactory.create()).
                     build();
@@ -119,7 +119,7 @@ public class RetrofitUtil {
     public static SettingServer settingServer() {
         if (groupServer == null) {
             Retrofit retrofit = new Retrofit.Builder().
-                    baseUrl("").
+                    baseUrl(AppUrl.setting).
                     addCallAdapterFactory(RxJavaCallAdapterFactory.create()).
                     addConverterFactory(GsonConverterFactory.create()).
                     build();

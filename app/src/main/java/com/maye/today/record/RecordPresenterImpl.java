@@ -22,16 +22,20 @@ public class RecordPresenterImpl implements RecordPresenter {
 
     @Override
     public void showRecordCount(String username) {
+        recordView.showRefresh(true);
+
         subscribe = recordModel.getRecordCount(username).
                 subscribeOn(Schedulers.io()).
                 observeOn(AndroidSchedulers.mainThread()).
                 subscribe(new Subscriber<String>() {
                     @Override
                     public void onCompleted() {
+                        recordView.showRefresh(false);
                     }
 
                     @Override
                     public void onError(Throwable e) {
+                        recordView.showRefresh(false);
                         recordView.showRecordCount("");
                         recordView.showToast("获取Record数量失败");
                         e.printStackTrace();
@@ -46,16 +50,20 @@ public class RecordPresenterImpl implements RecordPresenter {
 
     @Override
     public void showAllRecord(String username, int start) {
+        recordView.showRefresh(true);
+
         subscribe = recordModel.getRecord(username, start).
                 subscribeOn(Schedulers.io()).
                 observeOn(AndroidSchedulers.mainThread()).
                 subscribe(new Subscriber<List<Record>>() {
                     @Override
                     public void onCompleted() {
+                        recordView.showRefresh(false);
                     }
 
                     @Override
                     public void onError(Throwable e) {
+                        recordView.showRefresh(false);
                         recordView.showRecord(null);
                         recordView.showToast("加载Record失败");
                         e.printStackTrace();
@@ -70,16 +78,20 @@ public class RecordPresenterImpl implements RecordPresenter {
 
     @Override
     public void showRecordByDay(String username, String datetime) {
+        recordView.showRefresh(true);
+
         subscribe = recordModel.getRecordByDay(username, datetime).
                 subscribeOn(Schedulers.io()).
                 observeOn(AndroidSchedulers.mainThread()).
                 subscribe(new Subscriber<List<Record>>() {
                     @Override
                     public void onCompleted() {
+                        recordView.showRefresh(false);
                     }
 
                     @Override
                     public void onError(Throwable e) {
+                        recordView.showRefresh(false);
                         recordView.showRecord(null);
                         recordView.showToast("加载Record失败");
                         e.printStackTrace();
@@ -100,10 +112,12 @@ public class RecordPresenterImpl implements RecordPresenter {
                 subscribe(new Subscriber<List<Record>>() {
                     @Override
                     public void onCompleted() {
+                        recordView.showRefresh(false);
                     }
 
                     @Override
                     public void onError(Throwable e) {
+                        recordView.showRefresh(false);
                         recordView.showRecord(null);
                         recordView.showToast("加载Record失败");
                         e.printStackTrace();

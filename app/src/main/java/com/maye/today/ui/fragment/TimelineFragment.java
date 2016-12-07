@@ -18,6 +18,7 @@ import com.maye.today.record.RecordView;
 import com.maye.today.today.R;
 import com.maye.today.ui.adapter.LineAdapter;
 import com.maye.today.view.LoadListView;
+import com.wang.avi.AVLoadingIndicatorView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,7 +37,7 @@ public class TimelineFragment extends Fragment implements RecordView, LoadListVi
     private int start = 0;
 
     private boolean isRefresh = true;
-    private ProgressBar pb_timeline;
+    private AVLoadingIndicatorView aiv_timeline;
 
     @Nullable
     @Override
@@ -53,11 +54,12 @@ public class TimelineFragment extends Fragment implements RecordView, LoadListVi
         CircleImageView civ_line_avatar = (CircleImageView) view.findViewById(R.id.civ_line_avatar);
 //        Glide.with(getContext()).load("").centerCrop().into(civ_line_avatar);
 
-        pb_timeline = (ProgressBar) view.findViewById(R.id.pb_timeline);
+        aiv_timeline = (AVLoadingIndicatorView) view.findViewById(R.id.aiv_timeline);
 
         adapter = new LineAdapter(getContext(), list);
         llv_line = (LoadListView) view.findViewById(R.id.llv_line);
         llv_line.setFooterView();
+        llv_line.setDividerHeight(0);
         llv_line.setOnLoadMoreListener(this);
         llv_line.setAdapter(adapter);
 
@@ -77,9 +79,10 @@ public class TimelineFragment extends Fragment implements RecordView, LoadListVi
     @Override
     public void onResume() {
         super.onResume();
+
         recordPresenter = new RecordPresenterImpl(this);
 //        recordPresenter.showRecordCount("username");
-        pb_timeline.setVisibility(View.VISIBLE);
+        showRefresh(true);
         recordPresenter.showAllRecord("username", 0);
     }
 
@@ -119,8 +122,12 @@ public class TimelineFragment extends Fragment implements RecordView, LoadListVi
     }
 
     @Override
-    public void invisibleRefresh() {
-        pb_timeline.setVisibility(View.GONE);
+    public void showRefresh(boolean visible) {
+        if (visible){
+            aiv_timeline.show();
+        }else {
+            aiv_timeline.hide();
+        }
     }
 
     @Override

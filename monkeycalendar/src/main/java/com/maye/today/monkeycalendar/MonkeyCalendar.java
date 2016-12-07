@@ -36,6 +36,7 @@ public class MonkeyCalendar extends TableLayout {
     private int selected_month;
     private int selected_day;
     private boolean mMoveToNextMonth = false;
+    private boolean initFirstPage = true;
 
     public interface OnDateSelectedListener {
         void onDateSelected(Calendar date);
@@ -73,6 +74,7 @@ public class MonkeyCalendar extends TableLayout {
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
         width = MeasureSpec.getSize(widthMeasureSpec);
+
     }
 
     /**
@@ -85,6 +87,7 @@ public class MonkeyCalendar extends TableLayout {
         date_now.set(Calendar.DAY_OF_MONTH, 1);
 
         vs_calendar.addView(getCalendarView());
+        initFirstPage = false;
         vs_calendar.addView(getCalendarView());
 
         mInAnimationLastMonth = AnimationUtils.loadAnimation(context, R.anim.slide_left_in);
@@ -172,9 +175,9 @@ public class MonkeyCalendar extends TableLayout {
             for (int j = 0; j < 7; j++) {
                 date = new MonkeyDate(context);
                 date.setLayoutParams(lp);
-                date.setBackgroundColor(Color.parseColor("#52d2c4"));
+                date.setBackgroundColor(Color.parseColor("#6563a4"));
                 date.setGravity(Gravity.CENTER);
-                date.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20);
+                date.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18);
                 date.setTextColor(Color.parseColor("#535353"));
                 date.setTypeface(null, Typeface.BOLD);
                 date.setTextAppearance(context, R.style.calendar_date_notthis);
@@ -185,6 +188,10 @@ public class MonkeyCalendar extends TableLayout {
                 if (j < firstDayOfWeek && day == 1) {
                     // 设置选中的上月时间
                     date.setCalendar(lastMonth);
+                    //设置时间
+                    date.setYear(lastMonth.get(Calendar.YEAR));
+                    date.setMonth(lastMonth.get(Calendar.MONTH));
+                    date.setDay(lastMonthDay);
                     // 设置文本
                     date.setText(String.valueOf(lastMonthDay++));
                     date.setOnClickListener(LastMonthListener);
@@ -193,6 +200,10 @@ public class MonkeyCalendar extends TableLayout {
                 else if (day > date_now.getActualMaximum(Calendar.DAY_OF_MONTH)) {
                     // 获取选中的下月时间
                     date.setCalendar(nextMonth);
+                    //设置时间
+                    date.setYear(nextMonth.get(Calendar.YEAR));
+                    date.setMonth(nextMonth.get(Calendar.MONTH));
+                    date.setDay(nextMonthDay);
                     // 设置文本
                     date.setText(String.valueOf(nextMonthDay++));
                     date.setOnClickListener(NextMonthListener);
@@ -220,13 +231,15 @@ public class MonkeyCalendar extends TableLayout {
                         selected_year = date.getYear();
                         selected_month = date.getMonth();
                         selected_day = date.getDay();
-                        mPreviousSelectedDate = date;
+                        if (initFirstPage) {
+                            mPreviousSelectedDate = date;
+                        }
                         date.setTextColor(Color.parseColor("#D73C10"));
                         if (date_selected.get(Calendar.MONTH) == date_now.get(Calendar.MONTH)
                                 && date_selected.get(Calendar.DAY_OF_MONTH) == day) {
                             date.setPointBackground(R.drawable.icon_point_blue);
-                            date.setPadding(0, 8, 0, 8);
-                            date.setBackgroundColor(Color.WHITE);
+//                            date.setPadding(0, 8, 0, 8);
+                            date.setBackgroundColor(Color.parseColor("#52d3c4"));
                         }
                         // date.setBackgroundResource(R.drawable.background_today);
                     }
@@ -235,10 +248,10 @@ public class MonkeyCalendar extends TableLayout {
                             && date_selected.get(Calendar.DAY_OF_MONTH) == day) {
                         mPreviousSelectedDate = date;
                         date.setTextAppearance(context, R.style.calendar_date_this);
-                        date.setTextColor(Color.BLACK);
+                        date.setTextColor(Color.WHITE);
                         date.setPointBackground(R.drawable.icon_point_blue);
-                        date.setPadding(0, 8, 0, 8);
-                        date.setBackgroundColor(Color.WHITE);
+//                        date.setPadding(0, 8, 0, 8);
+                        date.setBackgroundColor(Color.parseColor("#52d3c4"));
                         // date.setBackgroundResource(R.drawable.background_day_selected);
                     }
                     date.setText(String.valueOf(day++));
@@ -249,7 +262,7 @@ public class MonkeyCalendar extends TableLayout {
                     // else
 
                 }
-                date.setPadding(0, 8, 0, 8);
+//                date.setPadding(0, 8, 0, 8);
                 week.addView(date);
             }
             calendar.addView(week);
@@ -403,33 +416,35 @@ public class MonkeyCalendar extends TableLayout {
                 tv.setTextAppearance(context, R.style.calendar_date_selected);
             }
             tv.setPointBackground(R.drawable.icon_point_blue);
-            tv.setPadding(0, 8, 0, 8);
-            tv.setBackgroundColor(Color.WHITE);
+//            tv.setPadding(0, 8, 0, 8);
+            tv.setBackgroundColor(Color.parseColor("#52d2c4"));
             if (mPreviousSelectedDate != null) {
                 if (mPreviousSelectedDate != tv) {
                     try {
                         if (isToday(mPreviousSelectedDate.getYear(), mPreviousSelectedDate.getMonth(),
                                 mPreviousSelectedDate.getDay())) {
                             mPreviousSelectedDate.setTextAppearance(context, R.style.calendar_date_this);
-                            mPreviousSelectedDate.setBackgroundColor(Color.parseColor("#52d2c4"));
+                            mPreviousSelectedDate.setBackgroundColor(Color.parseColor("#6563a4"));
                             mPreviousSelectedDate.setTextColor(Color.parseColor("#D73C10"));
                             mPreviousSelectedDate.setPointBackground(R.drawable.icon_point_white);
                         } else {
                             // mPreviousSelectedDate.setBackgroundResource(R.drawable.background_normal_days);
                             mPreviousSelectedDate.setTextAppearance(context, R.style.calendar_date_this);
-                            mPreviousSelectedDate.setBackgroundColor(Color.parseColor("#52d2c4"));
+                            mPreviousSelectedDate.setBackgroundColor(Color.parseColor("#6563a4"));
                             mPreviousSelectedDate.setPointBackground(R.drawable.icon_point_white);
                         }
                     } catch (Exception ex) {
                         // mPreviousSelectedDate.setBackgroundResource(R.drawable.background_normal_days);
                         mPreviousSelectedDate.setTextAppearance(context, R.style.calendar_date_this);
-                        mPreviousSelectedDate.setBackgroundColor(Color.parseColor("#52d2c4"));
+                        mPreviousSelectedDate.setBackgroundColor(Color.parseColor("#6563a4"));
                         mPreviousSelectedDate.setPointBackground(R.drawable.icon_point_white);
                     }
                 }
+            } else {
+
             }
             if (mPreviousSelectedDate != null) {
-                mPreviousSelectedDate.setPadding(0, 8, 0, 8);
+//                mPreviousSelectedDate.setPadding(0, 8, 0, 8);
             }
             // 设置选中的日期
             int selectedDay = Integer.parseInt(((MonkeyDate) view).getText().toString());

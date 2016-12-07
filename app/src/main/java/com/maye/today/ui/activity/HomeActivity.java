@@ -33,7 +33,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     private TextView tv_top_data;
     private TextView tv_menu_setting;
 
-    private List<Fragment> list = new ArrayList<>();
+    private ArrayList<Fragment> list_fragment = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +53,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         Toolbar tb_home = (Toolbar) findViewById(R.id.tb_home);
 
         tv_top_data = (TextView) findViewById(R.id.tv_top_data);
+        setTitleData(false, "");
         dl_home = (DrawerLayout) findViewById(R.id.dl_home);
         tv_menu_home = (TextView) findViewById(R.id.tv_menu_home);
         tv_menu_calendar = (TextView) findViewById(R.id.tv_menu_calendar);
@@ -155,10 +156,11 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         if (fragment == null) {
             fragment = FragmentFactory.createFragment(fragmentTag);
             fragmentTransaction.add(R.id.fl_home, fragment, fragmentTag).commit();
-
         } else {
             fragmentTransaction.show(fragment).commit();
+            list_fragment.remove(fragment);
         }
+        list_fragment.add(fragment);
 
         dl_home.closeDrawers();
     }
@@ -174,8 +176,21 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         tv_menu_timeline.setSelected(false);
     }
 
-    public void setTitleData(boolean visible, String data){
+    public void setTitleData(boolean visible, String data) {
         tv_top_data.setText(visible ? data : "");
     }
 
+    @Override
+    public void onBackPressed() {
+        if (list_fragment.size() > 1) {
+            Fragment fragment = list_fragment.get(list_fragment.size() - 1);
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.remove(fragment);
+            list_fragment.remove(fragment);
+            fragmentTransaction.show(list_fragment.get(list_fragment.size() - 1)).commit();
+        } else {
+            super.onBackPressed();
+        }
+    }
 }

@@ -17,7 +17,7 @@ public class MonkeyDate extends LinearLayout {
 
 	private TextView tv_date_number;
 	private ImageView iv_date_point;
-	private RelativeLayout rl_monkeydate;
+	private SquareLayout rl_monkeydate;
 	private Calendar date;
 	private int year;
 	private int day;
@@ -44,7 +44,7 @@ public class MonkeyDate extends LinearLayout {
 	 */
 	private void init(Context context) {
 		View.inflate(context, R.layout.layout_monkeydate, this);
-		rl_monkeydate = (RelativeLayout) findViewById(R.id.rl_monkeydate);
+		rl_monkeydate = (SquareLayout) findViewById(R.id.rl_monkeydate);
 		tv_date_number = (TextView) findViewById(R.id.tv_date_number);
 		iv_date_point = (ImageView) findViewById(R.id.iv_date_point);
 	}
