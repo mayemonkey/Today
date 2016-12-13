@@ -11,18 +11,26 @@
         android:layout_width="match_parent"
         android:layout_height="128dp"/>
 
-    <android.support.v4.widget.SwipeRefreshLayout
-        android:id="@+id/srl_overview"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#fff"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
-        <com.maye.today.view.LoadListView
-            android:id="@+id/llv_overview"
+        <android.support.v4.widget.SwipeRefreshLayout
+            android:id="@+id/srl_overview"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent"
+            android:background="#fff"
+            android:orientation="vertical">
 
-    </android.support.v4.widget.SwipeRefreshLayout>
+            <com.maye.today.view.LoadListView
+                android:id="@+id/llv_overview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+        </android.support.v4.widget.SwipeRefreshLayout>
 
+        <include
+            android:id="@+id/layout_overview_empty"
+            layout="@layout/view_empty"/>
+
+    </FrameLayout>
 </LinearLayout>

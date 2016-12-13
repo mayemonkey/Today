@@ -60,11 +60,7 @@ public class CalendarFragment extends Fragment implements RecordView {
         showRefresh(false);
 
         Calendar selectedDate = mc_home.getSelectedDate();
-        String datetime = CalendarUtil.formatCalendar(selectedDate);
-        //请求响应日期Record
-        recordPresenter.showRecordByDay(TodayApplication.getUsername(), datetime);
-        //设置HomeActivity标题文本
-        ((HomeActivity) getActivity()).setTitleData(true, datetime);
+        changeDateAndTitle(selectedDate);
     }
 
     @Override
@@ -79,18 +75,22 @@ public class CalendarFragment extends Fragment implements RecordView {
         recordPresenter.onDestroyView();
     }
 
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        if (!hidden){
+            Calendar selectedDate = mc_home.getSelectedDate();
+            changeDateAndTitle(selectedDate);
+        }
+    }
+
     private void initComponent(View view) {
         recordPresenter = new RecordPresenterImpl(this);
 
         mc_home = (MonkeyCalendar) view.findViewById(R.id.mc_calendar);
         mc_home.setOnDateSelectedListener(new MonkeyCalendar.OnDateSelectedListener() {
             public void onDateSelected(Calendar date) {
-
-                String datetime = CalendarUtil.formatCalendar(date);
-                //请求响应日期Record
-                recordPresenter.showRecordByDay(TodayApplication.getUsername(), datetime);
-                //设置HomeActivity标题文本
-                ((HomeActivity) getActivity()).setTitleData(true, datetime);
+                changeDateAndTitle(date);
             }
         });
 
@@ -129,6 +129,21 @@ public class CalendarFragment extends Fragment implements RecordView {
     @Override
     public void showToast(String text) {
         //DO Nothing
+    }
+
+    /**
+     * 修改选中日期到指定Calendar
+     * 1、请求新的数据
+     * 2、修改标题处日期数据
+     *
+     * @param date
+     */
+    private void changeDateAndTitle(Calendar date){
+        String datetime = CalendarUtil.formatCalendar(date);
+        //设置HomeActivity标题文本
+        ((HomeActivity) getActivity()).setTitleData(true, datetime);
+        //请求响应日期Record
+        recordPresenter.showRecordByDay(TodayApplication.getUsername(), datetime);
     }
 
 }

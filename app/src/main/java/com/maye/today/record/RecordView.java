@@ -6,12 +6,28 @@ import java.util.List;
 
 public interface RecordView {
 
+    /**
+     * 显示所有Record数据
+     * @param list  Record集合
+     */
     void showRecord(List<Record> list);
 
+    /**
+     * 显示Record数据数量
+     * @param count 数量值
+     */
     void showRecordCount(String count);
 
+    /**
+     * 显示Toast通知
+     * @param text
+     */
     void showToast(String text);
 
+    /**
+     * 显示当前的刷新状态
+     * @param visible 是否显示
+     */
     void showRefresh(boolean visible);
 
 }

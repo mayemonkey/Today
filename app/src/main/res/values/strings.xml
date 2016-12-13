@@ -48,4 +48,6 @@
     <string name="phone_cn">电话号码</string>
     <string name="notification_cn">提醒</string>
 
+    <!-- empty view -->
+    <string name="refresh_data">列表为空，点击刷新数据</string>
 </resources>

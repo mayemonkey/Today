@@ -11,6 +11,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -104,6 +105,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.tv_menu_home:
                 switchFragment("home");
                 tv_menu_home.setSelected(true);
+                setTitleData(false, "");
                 break;
 
             case R.id.tv_menu_calendar:
@@ -119,11 +121,13 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.tv_menu_group:
                 switchFragment("group");
                 tv_menu_group.setSelected(true);
+                setTitleData(false, "");
                 break;
 
             case R.id.tv_menu_timeline:
                 switchFragment("timeline");
                 tv_menu_timeline.setSelected(true);
+                setTitleData(false, "");
                 break;
 
             case R.id.tv_menu_setting:
@@ -147,7 +151,8 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         List<Fragment> fragments = fragmentManager.getFragments();
         if (fragments != null) {
             for (Fragment fragment : fragments) {
-                fragmentTransaction.hide(fragment);
+                if (fragment != null)
+                    fragmentTransaction.hide(fragment);
             }
         }
 
@@ -176,6 +181,42 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         tv_menu_timeline.setSelected(false);
     }
 
+    /**
+     * 重置TextViewUI效果
+     */
+    private void resetTextView(String tag) {
+        tv_menu_home.setSelected(false);
+        tv_menu_calendar.setSelected(false);
+        tv_menu_overview.setSelected(false);
+        tv_menu_group.setSelected(false);
+        tv_menu_timeline.setSelected(false);
+
+        switch (tag){
+            case "home":
+                tv_menu_home.setSelected(true);
+                setTitleData(false, "");
+                break;
+
+            case "calendar":
+                tv_menu_calendar.setSelected(true);
+                break;
+
+            case "overview":
+                tv_menu_overview.setSelected(true);
+                break;
+
+            case "group":
+                tv_menu_group.setSelected(true);
+                setTitleData(false, "");
+                break;
+
+            case "timeline":
+                tv_menu_timeline.setSelected(true);
+                setTitleData(false, "");
+                break;
+        }
+    }
+
     public void setTitleData(boolean visible, String data) {
         tv_top_data.setText(visible ? data : "");
     }
@@ -188,7 +229,10 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
             fragmentTransaction.remove(fragment);
             list_fragment.remove(fragment);
-            fragmentTransaction.show(list_fragment.get(list_fragment.size() - 1)).commit();
+            Fragment fragment_show = list_fragment.get(list_fragment.size() - 1);
+            String tag = fragment_show.getTag();
+            resetTextView(tag);
+            fragmentTransaction.show(fragment_show).commit();
         } else {
             super.onBackPressed();
         }
