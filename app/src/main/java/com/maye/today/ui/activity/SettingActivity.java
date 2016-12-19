@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.TextInputLayout;
 import android.text.TextUtils;
 import android.view.View;
@@ -49,6 +50,9 @@ public class SettingActivity extends Activity implements SettingView, View.OnCli
 
         civ_avatar = (CircleImageView) findViewById(R.id.civ_avatar);
         civ_avatar.setOnClickListener(this);
+
+        CollapsingToolbarLayout ctl_setting = (CollapsingToolbarLayout) findViewById(R.id.ctl_setting);
+        ctl_setting.setTitle(TodayApplication.getUsername());
 
         til_setting_nickname = (TextInputLayout) findViewById(R.id.til_setting_nickname);
         til_setting_email = (TextInputLayout) findViewById(R.id.til_setting_email);

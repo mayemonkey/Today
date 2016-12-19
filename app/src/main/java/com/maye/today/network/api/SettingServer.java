@@ -14,15 +14,15 @@ import rx.Observable;
 public interface SettingServer {
 
     @FormUrlEncoded
-    @POST("")
+    @POST("ss")
     Observable<User> getUser(@Field("sessionId") String sessionId);
 
     @FormUrlEncoded
-    @POST("")
+    @POST("ss")
     Observable<User> updateSetting(@FieldMap Map<String, String> map);
 
     @FormUrlEncoded
-    @POST("")
+    @POST("ss")
     Observable<ResponseBody> checkPassword(@FieldMap Map<String, String> map);
 
 }

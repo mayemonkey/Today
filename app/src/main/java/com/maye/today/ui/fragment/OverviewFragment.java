@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,18 +12,23 @@ import android.widget.LinearLayout;
 
 import com.maye.today.domain.Record;
 
+import com.maye.today.global.TodayApplication;
 import com.maye.today.record.RecordPresenter;
 import com.maye.today.record.RecordPresenterImpl;
 import com.maye.today.record.RecordView;
 import com.maye.today.today.R;
 import com.maye.today.ui.activity.HomeActivity;
 import com.maye.today.ui.adapter.RecordAdapter;
+import com.maye.today.util.LogUtil;
+import com.maye.today.util.ToastUtil;
 import com.maye.today.view.LoadListView;
 import com.maye.view.MonkeyDatePager;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+
+import static android.media.CamcorderProfile.get;
 
 
 public class OverviewFragment extends Fragment implements LoadListView.OnLoadMoreListener, SwipeRefreshLayout.OnRefreshListener, RecordView, MonkeyDatePager.OnMonkeyTimeChangedListener {
@@ -85,7 +91,18 @@ public class OverviewFragment extends Fragment implements LoadListView.OnLoadMor
 
         initEmptyView();
 
-        adapter = new RecordAdapter(getContext(), list, "2015-1-7", RecordAdapter.DAY);
+        //通过Application获取Today时间值
+        String today = TodayApplication.getToday();
+        LogUtil.LogI("OverviewFragment", "TodayApplication中值为:" + today);
+
+        //Application中并未存储时间值，使用本地时间
+        if (TextUtils.isEmpty(today)) {
+            Calendar date = Calendar.getInstance();
+            today = date.get(Calendar.YEAR) + "-" + (date.get(Calendar.MONTH) + 1) + "-" + date.get(Calendar.DAY_OF_MONTH);
+            LogUtil.LogI("OverviewFragment", "本地时间值为:" + today);
+        }
+        adapter = new RecordAdapter(getContext(), list, today, RecordAdapter.DAY);
+
         llv_overview = (LoadListView) view.findViewById(R.id.llv_overview);
         llv_overview.setFooterView();
         llv_overview.setOnLoadMoreListener(this);
@@ -93,6 +110,10 @@ public class OverviewFragment extends Fragment implements LoadListView.OnLoadMor
         llv_overview.setVisibility(View.GONE);
     }
 
+    /**
+     * 初始化数据为空时显示View
+     * @return
+     */
     private View initEmptyView() {
         layout_overview_empty = view.findViewById(R.id.layout_overview_empty);
         layout_overview_empty.setVisibility(View.GONE);
@@ -107,28 +128,44 @@ public class OverviewFragment extends Fragment implements LoadListView.OnLoadMor
     }
 
     @Override
+    /**
+     * 下拉刷新回调
+     */
     public void onRefresh() {
-        recordPresenter.showRecordByAssignTime("", mdp_time.getType(), "2011-04-01", 0);
+        String innerTime = mdp_time.getInnerTime();
+        recordPresenter.showRecordByAssignTime(TodayApplication.getUsername(), mdp_time.getType(), innerTime, 0);
         isRefresh = true;
         showRefresh(true);
     }
 
     @Override
+    /**
+     * 点击加载更多回调
+     */
     public void onLoadMore() {
-        recordPresenter.showRecordByAssignTime("username", mdp_time.getType(), "time", start);
+        recordPresenter.showRecordByAssignTime(TodayApplication.getUsername(), mdp_time.getType(), "time", start);
         isRefresh = false;
         showRefresh(false);
     }
 
     @Override
+    /**
+     * 时间变化回调
+     */
     public void onTimeChanged(Calendar time) {
-        start = 0;
-        recordPresenter.showRecordByAssignTime("username", mdp_time.getType(), "today", start);
+        onRefresh();
 
         updateTitleText();
     }
 
     @Override
+    /**
+     * 数据显示流程
+     * 重置加载更多UI
+     * 如果是刷新状态则移除之前数据，加入新获取数据
+     * 移动起始请求位
+     * 根据当前数据情况决定数据UI
+     */
     public void showRecord(List<Record> list_record) {
         llv_overview.resetFooterView();
 
@@ -155,12 +192,7 @@ public class OverviewFragment extends Fragment implements LoadListView.OnLoadMor
 
     @Override
     public void showToast(String text) {
-
-    }
-
-    @Override
-    public void showRecordCount(String count) {
-        //DO NOTHING
+        ToastUtil.showShortToast(getContext(), text);
     }
 
     @Override
@@ -177,6 +209,11 @@ public class OverviewFragment extends Fragment implements LoadListView.OnLoadMor
             String innerTime = mdp_time.getInnerTime();
             ((HomeActivity) getActivity()).setTitleData(true, innerTime);
         }
+    }
+
+    @Override
+    public void showRecordCount(String count) {
+        //DO NOTHING
     }
 
 }

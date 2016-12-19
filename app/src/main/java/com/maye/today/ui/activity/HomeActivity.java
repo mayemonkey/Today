@@ -15,6 +15,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
+import com.maye.today.global.TodayApplication;
 import com.maye.today.today.R;
 import com.maye.today.ui.fragment.HomeFragment;
 import com.maye.today.ui.fragment.factory.FragmentFactory;
@@ -41,10 +42,18 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
+        initVisualData();
+
         initComponent();
 
         initFragment();
 
+    }
+
+    private void initVisualData() {
+        TodayApplication.setUsername("mayemonkey");
+        TodayApplication.setToday("2016-12-14");
+        TodayApplication.setSessionId("11223344");
     }
 
     /**
