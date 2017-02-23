@@ -1,6 +1,5 @@
 package com.maye.today.register;
 
-
 import com.maye.today.domain.User;
 
 import okhttp3.ResponseBody;
@@ -52,7 +51,8 @@ public class RegisterPresenterImpl implements RegisterPresenter {
     @Override
     public void onViewDestroy() {
         registerView = null;
-        subscribe.unsubscribe();
+        if (subscribe != null)
+            subscribe.unsubscribe();
     }
 
 }

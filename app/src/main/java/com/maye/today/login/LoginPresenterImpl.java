@@ -8,11 +8,9 @@ import com.maye.today.ui.activity.HomeActivity;
 import com.maye.today.ui.activity.LoginActivity;
 import com.maye.today.util.SharedPreferencesUtil;
 
-import rx.Observable;
 import rx.Subscriber;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Action1;
 import rx.schedulers.Schedulers;
 
 /**
@@ -47,7 +45,7 @@ public class LoginPresenterImpl implements LoginPresenter {
 //            public void call(String s) {
 //            }
 //        });
-                loginView.showProgress(true);
+        loginView.showProgress(true);
 
 
         subscribe = loginModel.login(username, password).
@@ -134,7 +132,8 @@ public class LoginPresenterImpl implements LoginPresenter {
     @Override
     public void onViewDestroy() {
         loginView = null;
-        subscribe.unsubscribe();
+        if (subscribe != null)
+            subscribe.unsubscribe();
     }
 
 }

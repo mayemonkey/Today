@@ -2,12 +2,9 @@ package com.maye.today.setting;
 
 import com.maye.today.domain.User;
 
-import okhttp3.ResponseBody;
-import rx.Observable;
 import rx.Subscriber;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Func1;
 import rx.schedulers.Schedulers;
 
 public class SettingPresenterImpl implements SettingPresenter {
@@ -70,12 +67,11 @@ public class SettingPresenterImpl implements SettingPresenter {
                 });
     }
 
-    
-
     @Override
     public void onViewDestroy() {
         settingView = null;
-        subscribe.unsubscribe();
+        if (subscribe != null)
+            subscribe.unsubscribe();
     }
 
 }

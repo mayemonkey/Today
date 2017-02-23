@@ -133,7 +133,8 @@ public class RecordPresenterImpl implements RecordPresenter {
     @Override
     public void onDestroyView() {
         recordView = null;
-        subscribe.unsubscribe();
+        if (subscribe != null)
+            subscribe.unsubscribe();
     }
 
 }
