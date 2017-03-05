@@ -9,7 +9,6 @@ import android.os.Handler;
 import android.os.Message;
 import android.provider.MediaStore;
 
-import android.util.Log;
 import android.widget.GridView;
 
 import com.jaredrummler.materialspinner.MaterialSpinner;

@@ -122,10 +122,16 @@
     </style>
 
     <style name="TextView_Group">
-        <item name="android:textSize">24sp</item>
-        <item name="android:textColor">#000</item>
-        <item name="android:layout_centerVertical">true</item>
-        <item name="android:layout_marginLeft">16dp</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">#fff</item>
+        <item name="android:paddingLeft">16dp</item>
+        <item name="android:paddingRight">16dp</item>
+        <item name="android:paddingTop">4dp</item>
+        <item name="android:paddingBottom">4dp</item>
+        <item name="android:layout_alignParentBottom">true</item>
+        <item name="android:background">#66666666</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
     </style>
 
     <style name="title_text_col">

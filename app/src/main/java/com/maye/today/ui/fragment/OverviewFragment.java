@@ -67,8 +67,8 @@ public class OverviewFragment extends Fragment implements LoadListView.OnLoadMor
 
     @Override
     public void onDestroy() {
-        super.onDestroy();
         recordPresenter.onDestroyView();
+        super.onDestroy();
     }
 
     @Override
@@ -112,7 +112,6 @@ public class OverviewFragment extends Fragment implements LoadListView.OnLoadMor
 
     /**
      * 初始化数据为空时显示View
-     * @return
      */
     private View initEmptyView() {
         layout_overview_empty = view.findViewById(R.id.layout_overview_empty);

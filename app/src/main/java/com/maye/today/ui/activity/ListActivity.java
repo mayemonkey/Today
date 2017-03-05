@@ -1,29 +1,33 @@
 package com.maye.today.ui.activity;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.support.v7.widget.helper.ItemTouchHelper;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.bumptech.glide.Glide;
 import com.maye.today.domain.Group;
 import com.maye.today.group.GroupPresenter;
 import com.maye.today.group.GroupPresenterImpl;
 import com.maye.today.group.GroupView;
 import com.maye.today.today.R;
+import com.maye.today.transformation.BlurTransformation;
 import com.maye.today.ui.adapter.ListAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ListActivity extends Activity implements GroupView {
+public class ListActivity extends AppCompatActivity implements GroupView {
 
     private List<Group> list = new ArrayList<>();
     private GroupPresenter groupPresenter;
@@ -34,12 +38,12 @@ public class ListActivity extends Activity implements GroupView {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list);
+//        ActivityTransition.with(getIntent()).to(findViewById(R.id.iv_top)).start(savedInstanceState);
 
         Intent intent = getIntent();
         type = intent.getStringExtra("type");
+//        type = "Test";
 
-        //TODO  模拟数据
-        type = "work";
         Group group = new Group();
         group.setDescription("hello");
         group.setDone(false);
@@ -49,14 +53,27 @@ public class ListActivity extends Activity implements GroupView {
     }
 
     private void initComponent() {
+        //Toolbar设置
+        Toolbar tb_list = (Toolbar) findViewById(R.id.tb_list);
+        tb_list.setTitle(type.toUpperCase());
+        setSupportActionBar(tb_list);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        tb_list.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
         ImageView iv_top = (ImageView) findViewById(R.id.iv_top);
+        iv_top.setBackgroundResource(R.mipmap.list_top_work);
         switch (type) {
-            case "work":
-                iv_top.setBackgroundResource(R.mipmap.list_top_work);
+            case "food":
+                Glide.with(this).load(R.mipmap.list_top_food).bitmapTransform(new BlurTransformation(this, 15, 2)).into(iv_top);
                 break;
 
-            case "food":
-                iv_top.setBackgroundResource(R.mipmap.list_top_food);
+            case "work":
+                Glide.with(this).load(R.mipmap.list_top_work).bitmapTransform(new BlurTransformation(this, 15, 2)).into(iv_top);
                 break;
 
             case "vacation":
@@ -152,9 +169,9 @@ public class ListActivity extends Activity implements GroupView {
 
     @Override
     public void onBackPressed() {
-        if (adapter.isModify()){
+        if (adapter.isModify()) {
             showUpdateDialog();
-        }else{
+        } else {
             super.onBackPressed();
         }
     }
@@ -179,10 +196,6 @@ public class ListActivity extends Activity implements GroupView {
                         finish();
                     }
                 }).show();
-    }
-
-    private void showProgressBar(){
-
     }
 
 }

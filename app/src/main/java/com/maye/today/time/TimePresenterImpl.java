@@ -1,10 +1,5 @@
 package com.maye.today.time;
 
-import android.content.Context;
-import android.widget.Toast;
-
-import com.maye.today.ui.activity.HomeActivity;
-
 import java.io.IOException;
 import java.util.Calendar;
 
@@ -13,7 +8,6 @@ import rx.Subscriber;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
-
 
 public class TimePresenterImpl implements TimePresenter {
 
@@ -58,6 +52,7 @@ public class TimePresenterImpl implements TimePresenter {
     @Override
     public void onDestroyView() {
         timeView = null;
-        subscribe.unsubscribe();
+        if (subscribe != null)
+            subscribe.unsubscribe();
     }
 }

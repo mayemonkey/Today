@@ -71,8 +71,8 @@ public class CalendarFragment extends Fragment implements RecordView {
 
     @Override
     public void onDestroy() {
-        super.onDestroy();
         recordPresenter.onDestroyView();
+        super.onDestroy();
     }
 
     @Override

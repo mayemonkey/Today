@@ -60,9 +60,7 @@ public class AlbumAdapter extends BaseAdapter {
         final String path = imageItem.getImagePaht();
 
         holder.iv_gv_album_sign.setVisibility(View.GONE);
-        Glide.with(TodayApplication.getContext()).
-                load(new File(path)).
-                centerCrop().crossFade().into(holder.iv_gv_album_bitmap);
+        Glide.with(TodayApplication.getContext()).load(new File(path)).centerCrop().crossFade().into(holder.iv_gv_album_bitmap);
 
         holder.iv_gv_album_bitmap.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {

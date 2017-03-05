@@ -35,9 +35,11 @@ public class RecordPresenterImpl implements RecordPresenter {
 
                     @Override
                     public void onError(Throwable e) {
-                        recordView.showRefresh(false);
-                        recordView.showRecordCount("");
-                        recordView.showToast("获取Record数量失败");
+                        if (recordView != null) {
+                            recordView.showRefresh(false);
+                            recordView.showRecordCount("");
+                            recordView.showToast("获取Record数量失败");
+                        }
                         e.printStackTrace();
                     }
 
@@ -63,9 +65,11 @@ public class RecordPresenterImpl implements RecordPresenter {
 
                     @Override
                     public void onError(Throwable e) {
-                        recordView.showRefresh(false);
-                        recordView.showRecord(null);
-                        recordView.showToast("加载Record失败");
+                        if (recordView != null) {
+                            recordView.showRefresh(false);
+                            recordView.showRecord(null);
+                            recordView.showToast("加载Record失败");
+                        }
                         e.printStackTrace();
                     }
 
@@ -91,9 +95,11 @@ public class RecordPresenterImpl implements RecordPresenter {
 
                     @Override
                     public void onError(Throwable e) {
-                        recordView.showRefresh(false);
-                        recordView.showRecord(null);
-                        recordView.showToast("加载Record失败");
+                        if (recordView != null) {
+                            recordView.showRefresh(false);
+                            recordView.showRecord(null);
+                            recordView.showToast("加载Record失败");
+                        }
                         e.printStackTrace();
                     }
 
@@ -117,9 +123,11 @@ public class RecordPresenterImpl implements RecordPresenter {
 
                     @Override
                     public void onError(Throwable e) {
-                        recordView.showRefresh(false);
-                        recordView.showRecord(null);
-                        recordView.showToast("加载Record失败");
+                        if (recordView != null) {
+                            recordView.showRefresh(false);
+                            recordView.showRecord(null);
+                            recordView.showToast("加载Record失败");
+                        }
                         e.printStackTrace();
                     }
 
@@ -133,7 +141,8 @@ public class RecordPresenterImpl implements RecordPresenter {
     @Override
     public void onDestroyView() {
         recordView = null;
-        subscribe.unsubscribe();
+        if (subscribe != null)
+            subscribe.unsubscribe();
     }
 
 }

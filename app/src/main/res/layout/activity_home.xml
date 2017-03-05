@@ -22,7 +22,6 @@
             android:textColor="#000"
             android:text="data"/>
 
-
     </android.support.v7.widget.Toolbar>
 
     <!--    左侧划出的layout必须为DrawerLayout最后一个子布局，否则无法正确滑动收起    -->

@@ -1,116 +1,110 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:divider="@null"
+    android:fastScrollEnabled="false"
+    android:footerDividersEnabled="false"
+    android:overScrollMode="never"
+    android:scrollbars="none"
+    android:transcriptMode="normal">
 
-    <View
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="1px"
-        android:background="#cccccc"/>
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
-    <RelativeLayout
-        android:id="@+id/rl_food"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:background="#fff">
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="#cccccc" />
 
-        <TextView
-            style="@style/TextView_Group"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/food"/>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="192dp"
+            android:background="#fff">
 
-        <ImageView
-            android:layout_width="160dp"
-            android:layout_height="match_parent"
-            android:layout_alignParentEnd="true"
-            android:background="@mipmap/login_bg"/>
+            <ImageView
+                android:id="@+id/iv_food"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignParentEnd="true"
+                android:background="@mipmap/list_top_food" />
 
-    </RelativeLayout>
+            <TextView
+                style="@style/TextView_Group"
+                android:text="@string/food" />
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1px"
-        android:background="#cccccc"/>
+        </RelativeLayout>
 
-    <RelativeLayout
-        android:id="@+id/rl_work"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:background="#fff">
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="#cccccc" />
 
-        <TextView
-            style="@style/TextView_Group"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/work"/>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="192dp"
+            android:background="#fff">
 
-        <ImageView
-            android:layout_width="160dp"
-            android:layout_height="match_parent"
-            android:layout_alignParentEnd="true"
-            android:background="@mipmap/login_bg"/>
+            <ImageView
+                android:id="@+id/iv_work"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignParentEnd="true"
+                android:background="@mipmap/list_top_work" />
 
-    </RelativeLayout>
+            <TextView
+                style="@style/TextView_Group"
+                android:text="@string/work" />
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1px"
-        android:background="#cccccc"/>
+        </RelativeLayout>
 
-    <RelativeLayout
-        android:id="@+id/rl_vacation"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:background="#fff">
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="#cccccc" />
 
-        <TextView
-            style="@style/TextView_Group"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/vacation"/>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="192dp"
+            android:background="#fff">
 
-        <ImageView
-            android:layout_width="160dp"
-            android:layout_height="match_parent"
-            android:layout_alignParentEnd="true"
-            android:background="@mipmap/login_bg"/>
+            <ImageView
+                android:id="@+id/iv_vacation"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignParentEnd="true"
+                android:background="@mipmap/login_bg" />
 
-    </RelativeLayout>
+            <TextView
+                style="@style/TextView_Group"
+                android:text="@string/vacation" />
+        </RelativeLayout>
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1px"
-        android:background="#cccccc"/>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="#cccccc" />
 
-    <RelativeLayout
-        android:id="@+id/rl_outside"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:background="#fff">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="192dp"
+            android:background="#fff">
 
-        <TextView
-            style="@style/TextView_Group"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/outside"/>
+            <ImageView
+                android:id="@+id/iv_outside"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignParentEnd="true"
+                android:background="@mipmap/login_bg" />
 
-        <ImageView
-            android:layout_width="160dp"
-            android:layout_height="match_parent"
-            android:layout_alignParentEnd="true"
-            android:background="@mipmap/login_bg"/>
+            <TextView
+                style="@style/TextView_Group"
+                android:text="@string/outside" />
+        </RelativeLayout>
 
-    </RelativeLayout>
+    </LinearLayout>
 
-
-</LinearLayout>
-
+</ScrollView>
 

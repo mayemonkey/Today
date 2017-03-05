@@ -47,9 +47,15 @@ public class HomeFragment extends Fragment implements TimeView {
     }
 
     @Override
+    public void onDestroy() {
+        timePresenter.onDestroyView();
+        super.onDestroy();
+    }
+
+    @Override
     public void onHiddenChanged(boolean hidden) {
         super.onHiddenChanged(hidden);
-        if (!hidden){
+        if (!hidden) {
             showAnimation();
         }
     }
@@ -62,7 +68,6 @@ public class HomeFragment extends Fragment implements TimeView {
         tv_date = (TextView) view.findViewById(R.id.tv_date);
         tv_day = (TextView) view.findViewById(R.id.tv_day);
         tv_greeting = (TextView) view.findViewById(R.id.tv_greeting);
-
     }
 
     @Override
@@ -91,11 +96,6 @@ public class HomeFragment extends Fragment implements TimeView {
         showAnimation();
     }
 
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        timePresenter.onDestroyView();
-    }
 
     private void showAnimation() {
         ValueAnimator animator = new ValueAnimator();
