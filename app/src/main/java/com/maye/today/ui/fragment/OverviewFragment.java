@@ -4,65 +4,58 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.maye.today.domain.Record;
-
 import com.maye.today.global.TodayApplication;
 import com.maye.today.record.RecordPresenter;
 import com.maye.today.record.RecordPresenterImpl;
 import com.maye.today.record.RecordView;
 import com.maye.today.today.R;
 import com.maye.today.ui.activity.HomeActivity;
-import com.maye.today.ui.adapter.RecordAdapter;
+import com.maye.today.ui.adapter.OverViewAdapter;
 import com.maye.today.util.LogUtil;
-import com.maye.today.util.ToastUtil;
-import com.maye.today.view.LoadListView;
 import com.maye.view.MonkeyDatePager;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-import static android.media.CamcorderProfile.get;
 
-
-public class OverviewFragment extends Fragment implements LoadListView.OnLoadMoreListener, SwipeRefreshLayout.OnRefreshListener, RecordView, MonkeyDatePager.OnMonkeyTimeChangedListener {
+public class OverviewFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener, RecordView, MonkeyDatePager.OnMonkeyTimeChangedListener, BaseQuickAdapter.RequestLoadMoreListener {
 
     private View view;
 
     private List<Record> list = new ArrayList<>();
-    private RecordAdapter adapter;
-    private LoadListView llv_overview;
     private RecordPresenter recordPresenter;
 
     private MonkeyDatePager mdp_time;
 
-    private boolean isRefresh = true;
+    private static final int REFRESH = 0;
+    private static final int LOADMORE = 1;
+    private static int request_mode = REFRESH;
+
     private int start = 0;
     private SwipeRefreshLayout srl_over;
-    private View layout_overview_empty;
+    private OverViewAdapter overViewAdapter;
+    private View view_empty;
+    private View view_error;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = View.inflate(getContext(), R.layout.fragment_overview, null);
-
-        initComponent();
-
-        return view;
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
         recordPresenter = new RecordPresenterImpl(this);
+        initComponent();
         onRefresh();
         updateTitleText();
+        return view;
     }
 
     @Override
@@ -81,7 +74,6 @@ public class OverviewFragment extends Fragment implements LoadListView.OnLoadMor
 
     private void initComponent() {
         mdp_time = (MonkeyDatePager) view.findViewById(R.id.mdp_time);
-
         mdp_time.setOnMonkeyTimeChangedListener(this);
 
         srl_over = (SwipeRefreshLayout) view.findViewById(R.id.srl_overview);
@@ -89,62 +81,37 @@ public class OverviewFragment extends Fragment implements LoadListView.OnLoadMor
                 android.R.color.holo_orange_light, android.R.color.holo_red_light);
         srl_over.setOnRefreshListener(this);
 
-        initEmptyView();
+        //初始化数据为空时显示View
+        view_empty = View.inflate(getContext(), R.layout.view_empty, null);
+        view_empty.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onRefresh();
+            }
+        });
+        view_error = View.inflate(getContext(), R.layout.view_error, null);
+        view_error.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onRefresh();
+            }
+        });
 
         //通过Application获取Today时间值
         String today = TodayApplication.getToday();
-        LogUtil.LogI("OverviewFragment", "TodayApplication中值为:" + today);
 
         //Application中并未存储时间值，使用本地时间
         if (TextUtils.isEmpty(today)) {
             Calendar date = Calendar.getInstance();
             today = date.get(Calendar.YEAR) + "-" + (date.get(Calendar.MONTH) + 1) + "-" + date.get(Calendar.DAY_OF_MONTH);
-            LogUtil.LogI("OverviewFragment", "本地时间值为:" + today);
         }
-        adapter = new RecordAdapter(getContext(), list, today, RecordAdapter.DAY);
+        LogUtil.LogI("OverviewFragment", "本地时间值为:" + today);
 
-        llv_overview = (LoadListView) view.findViewById(R.id.llv_overview);
-        llv_overview.setFooterView();
-        llv_overview.setOnLoadMoreListener(this);
-        llv_overview.setAdapter(adapter);
-        llv_overview.setVisibility(View.GONE);
-    }
-
-    /**
-     * 初始化数据为空时显示View
-     */
-    private View initEmptyView() {
-        layout_overview_empty = view.findViewById(R.id.layout_overview_empty);
-        layout_overview_empty.setVisibility(View.GONE);
-        LinearLayout ll_empty_refresh = (LinearLayout) view.findViewById(R.id.ll_empty_refresh);
-        ll_empty_refresh.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                onRefresh();
-            }
-        });
-        return view;
-    }
-
-    @Override
-    /**
-     * 下拉刷新回调
-     */
-    public void onRefresh() {
-        String innerTime = mdp_time.getInnerTime();
-        recordPresenter.showRecordByAssignTime(TodayApplication.getUsername(), mdp_time.getType(), innerTime, 0);
-        isRefresh = true;
-        showRefresh(true);
-    }
-
-    @Override
-    /**
-     * 点击加载更多回调
-     */
-    public void onLoadMore() {
-        recordPresenter.showRecordByAssignTime(TodayApplication.getUsername(), mdp_time.getType(), "time", start);
-        isRefresh = false;
-        showRefresh(false);
+        RecyclerView rv_overview = (RecyclerView) view.findViewById(R.id.rv_overview);
+        overViewAdapter = new OverViewAdapter(list);
+        overViewAdapter.setOnLoadMoreListener(this, rv_overview);
+        rv_overview.setLayoutManager(new LinearLayoutManager(getContext()));
+        rv_overview.setAdapter(overViewAdapter);
     }
 
     @Override
@@ -153,8 +120,28 @@ public class OverviewFragment extends Fragment implements LoadListView.OnLoadMor
      */
     public void onTimeChanged(Calendar time) {
         onRefresh();
-
         updateTitleText();
+    }
+
+    @Override
+    /**
+     * 下拉刷新回调
+     */
+    public void onRefresh() {
+        list.clear();
+        start = 0;
+        overViewAdapter.setEnableLoadMore(false);
+        recordPresenter.showRecordByAssignTime(TodayApplication.getUsername(), mdp_time.getType(), mdp_time.getInnerTime(), start);
+        showRefresh(true);
+    }
+
+    @Override
+    /**
+     * 加载更多回调
+     */
+    public void onLoadMoreRequested() {
+        srl_over.setEnabled(false);
+        recordPresenter.showRecordByAssignTime(TodayApplication.getUsername(), mdp_time.getType(), mdp_time.getInnerTime(), start);
     }
 
     @Override
@@ -166,32 +153,38 @@ public class OverviewFragment extends Fragment implements LoadListView.OnLoadMor
      * 根据当前数据情况决定数据UI
      */
     public void showRecord(List<Record> list_record) {
-        llv_overview.resetFooterView();
+        if (request_mode == REFRESH) {       //刷新获得返回结果
+            overViewAdapter.setEnableLoadMore(true);
+            if (list_record == null) {
+                overViewAdapter.setEmptyView(view_error);
+                return;
+            }
 
-        if (isRefresh) {
-            list.clear();
-        }
-
-        if (list_record != null) {
             list.addAll(list_record);
+
+            if (list.size() == 0) {
+                overViewAdapter.setEmptyView(view_empty);
+                return;
+            }
+
+            overViewAdapter.setNewData(list);
         }
 
-        start = list.size();
+        if (request_mode == LOADMORE) {      //加载更多获取返回结果
+            srl_over.setEnabled(true);
+            if (list_record == null) {
+                overViewAdapter.loadMoreFail();
+                return;
+            }
 
-        if (list.size() == 0) {
-            layout_overview_empty.setVisibility(View.VISIBLE);
-        } else {
-            llv_overview.setVisibility(View.VISIBLE);
+            if (list_record.size() == 0) {
+                overViewAdapter.loadMoreEnd(true);
+                return;
+            }
+
+            list.addAll(list_record);
+            overViewAdapter.loadMoreComplete();
         }
-
-        if (adapter != null) {
-            adapter.notifyDataSetChanged();
-        }
-    }
-
-    @Override
-    public void showToast(String text) {
-        ToastUtil.showShortToast(getContext(), text);
     }
 
     @Override
@@ -214,5 +207,6 @@ public class OverviewFragment extends Fragment implements LoadListView.OnLoadMor
     public void showRecordCount(String count) {
         //DO NOTHING
     }
+
 
 }

@@ -117,11 +117,6 @@ public class TimelineFragment extends Fragment implements RecordView, LoadListVi
     }
 
     @Override
-    public void showToast(String text) {
-        Toast.makeText(getContext(), text, Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
     public void showRefresh(boolean visible) {
         if (visible){
             aiv_timeline.show();

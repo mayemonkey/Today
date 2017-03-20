@@ -1,6 +1,7 @@
 package com.maye.today.record;
 
 import com.maye.today.domain.Record;
+import com.maye.today.util.ToastUtil;
 
 import java.util.List;
 
@@ -38,7 +39,7 @@ public class RecordPresenterImpl implements RecordPresenter {
                         if (recordView != null) {
                             recordView.showRefresh(false);
                             recordView.showRecordCount("");
-                            recordView.showToast("获取Record数量失败");
+                            ToastUtil.showShortToast("获取Record数量失败");
                         }
                         e.printStackTrace();
                     }
@@ -68,7 +69,7 @@ public class RecordPresenterImpl implements RecordPresenter {
                         if (recordView != null) {
                             recordView.showRefresh(false);
                             recordView.showRecord(null);
-                            recordView.showToast("加载Record失败");
+                            ToastUtil.showShortToast("加载Record失败");
                         }
                         e.printStackTrace();
                     }
@@ -98,7 +99,7 @@ public class RecordPresenterImpl implements RecordPresenter {
                         if (recordView != null) {
                             recordView.showRefresh(false);
                             recordView.showRecord(null);
-                            recordView.showToast("加载Record失败");
+                            ToastUtil.showShortToast("加载Record失败");
                         }
                         e.printStackTrace();
                     }
@@ -126,7 +127,7 @@ public class RecordPresenterImpl implements RecordPresenter {
                         if (recordView != null) {
                             recordView.showRefresh(false);
                             recordView.showRecord(null);
-                            recordView.showToast("加载Record失败");
+                            ToastUtil.showShortToast("加载Record失败");
                         }
                         e.printStackTrace();
                     }

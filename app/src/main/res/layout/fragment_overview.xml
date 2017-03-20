@@ -22,15 +22,11 @@
             android:background="#fff"
             android:orientation="vertical">
 
-            <com.maye.today.view.LoadListView
-                android:id="@+id/llv_overview"
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_overview"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"/>
         </android.support.v4.widget.SwipeRefreshLayout>
-
-        <include
-            android:id="@+id/layout_overview_empty"
-            layout="@layout/view_empty"/>
 
     </FrameLayout>
 </LinearLayout>

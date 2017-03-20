@@ -8,9 +8,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
-
-import com.kogitune.activity_transition.ActivityTransitionLauncher;
 import com.maye.today.today.R;
 import com.maye.today.ui.activity.ListActivity;
 

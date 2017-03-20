@@ -19,12 +19,6 @@ public interface RecordView {
     void showRecordCount(String count);
 
     /**
-     * 显示Toast通知
-     * @param text
-     */
-    void showToast(String text);
-
-    /**
      * 显示当前的刷新状态
      * @param visible 是否显示
      */

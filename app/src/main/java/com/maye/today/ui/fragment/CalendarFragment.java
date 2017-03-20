@@ -8,7 +8,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
-import android.widget.ProgressBar;
 
 import com.maye.today.domain.Record;
 import com.maye.today.global.TodayApplication;
@@ -25,9 +24,6 @@ import com.wang.avi.AVLoadingIndicatorView;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
-
-import static com.maye.today.today.R.id.llv_overview;
-import static com.maye.today.util.CalendarUtil.formatCalendar;
 
 /**
  * 主页显示Fragment
@@ -124,11 +120,6 @@ public class CalendarFragment extends Fragment implements RecordView {
     @Override
     public void showRecordCount(String count) {
         //Do Nothing
-    }
-
-    @Override
-    public void showToast(String text) {
-        //DO Nothing
     }
 
     /**
