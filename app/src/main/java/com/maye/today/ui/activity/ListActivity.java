@@ -1,9 +1,13 @@
 package com.maye.today.ui.activity;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatActivity;
+import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.v7.graphics.Palette;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -27,7 +31,7 @@ import com.maye.today.ui.adapter.ListAdapter;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ListActivity extends AppCompatActivity implements GroupView {
+public class ListActivity extends BaseAppCompatActivity implements GroupView {
 
     private List<Group> list = new ArrayList<>();
     private GroupPresenter groupPresenter;
@@ -38,11 +42,9 @@ public class ListActivity extends AppCompatActivity implements GroupView {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list);
-//        ActivityTransition.with(getIntent()).to(findViewById(R.id.iv_top)).start(savedInstanceState);
 
         Intent intent = getIntent();
         type = intent.getStringExtra("type");
-//        type = "Test";
 
         Group group = new Group();
         group.setDescription("hello");
@@ -65,11 +67,16 @@ public class ListActivity extends AppCompatActivity implements GroupView {
             }
         });
 
+        //CollapsingToolbarLayout背景设置
+        CollapsingToolbarLayout collapsing_toolbar = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
+
+        //Top Image
         ImageView iv_top = (ImageView) findViewById(R.id.iv_top);
-        iv_top.setBackgroundResource(R.mipmap.list_top_work);
+        Bitmap bitmap = null;
         switch (type) {
             case "food":
                 Glide.with(this).load(R.mipmap.list_top_food).bitmapTransform(new BlurTransformation(this, 15, 2)).into(iv_top);
+                bitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.list_top_food);
                 break;
 
             case "work":
@@ -84,6 +91,18 @@ public class ListActivity extends AppCompatActivity implements GroupView {
 //                iv_top.setBackgroundResource();
                 break;
         }
+
+        //截取顶部bitmap主色设置为标题及状态栏颜色
+        if (bitmap != null) {
+            Palette palette = Palette.from(bitmap).generate();
+            int color = palette.getDarkMutedColor(Color.parseColor("#FFFFFF"));
+            //设置toolbar颜色
+            collapsing_toolbar.setContentScrimColor(color);
+            //设置statusBar颜色
+            setStatusBarColor(color);
+        }
+
+
         groupPresenter = new GroupPresenterImpl(this);
 
         RecyclerView rv_list = (RecyclerView) findViewById(R.id.rv_list);

@@ -3,13 +3,14 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
     android:orientation="vertical">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/tb_home"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#ffffff"
+        android:background="#6359b6"
         android:title="@string/app_name">
 
         <TextView
@@ -18,9 +19,9 @@
             android:layout_height="wrap_content"
             android:layout_gravity="end"
             android:layout_marginEnd="8dp"
-            android:textSize="16sp"
-            android:textColor="#000"
-            android:text="data"/>
+            android:text="data"
+            android:textColor="#fff"
+            android:textSize="16sp"/>
 
     </android.support.v7.widget.Toolbar>
 

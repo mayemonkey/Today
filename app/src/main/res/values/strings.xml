@@ -49,5 +49,6 @@
     <string name="notification_cn">提醒</string>
 
     <!-- empty view -->
-    <string name="refresh_data">列表为空，点击刷新数据</string>
+    <string name="empty_data">列表为空，点击刷新数据</string>
+    <string name="error_data">刷新出错，点击再次刷新</string>
 </resources>

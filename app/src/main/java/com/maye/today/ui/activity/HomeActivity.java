@@ -2,6 +2,9 @@ package com.maye.today.ui.activity;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -19,6 +22,7 @@ import com.maye.today.global.TodayApplication;
 import com.maye.today.today.R;
 import com.maye.today.ui.fragment.HomeFragment;
 import com.maye.today.ui.fragment.factory.FragmentFactory;
+import com.readystatesoftware.systembartint.SystemBarTintManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,12 +48,16 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
 
         initVisualData();
 
+        setStatusBarColor("6359b6");
+
         initComponent();
 
         initFragment();
-
     }
 
+    /**
+     * 初始化虚拟时间
+     */
     private void initVisualData() {
         TodayApplication.setUsername("mayemonkey");
         TodayApplication.setToday("2016-12-14");
@@ -86,7 +94,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
 
         //初始化Toolbar与DrawerLayout
         tb_home.setTitle("Today");// 标题的文字需在setSupportActionBar之前，不然会无效
-        tb_home.setTitleTextColor(Color.parseColor("#000000"));
+        tb_home.setTitleTextColor(Color.parseColor("#FFFFFF"));
 
         if (getSupportActionBar() != null)
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -200,7 +208,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         tv_menu_group.setSelected(false);
         tv_menu_timeline.setSelected(false);
 
-        switch (tag){
+        switch (tag) {
             case "home":
                 tv_menu_home.setSelected(true);
                 setTitleData(false, "");
@@ -230,6 +238,21 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         tv_top_data.setText(visible ? data : "");
     }
 
+    /**
+     * 设置状态栏颜色
+     */
+    public void setStatusBarColor(String color) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            getWindow().setStatusBarColor(Color.parseColor("#" + color));
+        }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            SystemBarTintManager tintManager = new SystemBarTintManager(this);
+            // enable status bar tint
+            tintManager.setStatusBarTintEnabled(true);
+            tintManager.setStatusBarTintColor(Color.parseColor("#" + color));
+        }
+    }
+
     @Override
     public void onBackPressed() {
         if (list_fragment.size() > 1) {
@@ -246,4 +269,5 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
             super.onBackPressed();
         }
     }
+
 }
