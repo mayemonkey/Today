@@ -6,9 +6,11 @@ import com.maye.today.network.api.RecordServer;
 import com.maye.today.network.api.RegisterServer;
 import com.maye.today.network.api.SettingServer;
 import com.maye.today.network.api.TimeServer;
+import com.maye.today.util.HttpUtil;
 
 import java.sql.Time;
 
+import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -84,10 +86,18 @@ public class RetrofitUtil {
      */
     public static RecordServer recordServer() {
         if (recordServer == null) {
+            OkHttpClient okHttpClient = new OkHttpClient();
+            OkHttpClient client = okHttpClient
+                    .newBuilder()
+                    .addInterceptor(HttpUtil.getInterceptor())
+                    .addNetworkInterceptor(HttpUtil.getNetWorkInterceptor())
+                    .build();
+
             Retrofit retrofit = new Retrofit.Builder().
                     baseUrl(AppUrl.record).
                     addCallAdapterFactory(RxJavaCallAdapterFactory.create()).
                     addConverterFactory(GsonConverterFactory.create()).
+                    client(client).
                     build();
 
             recordServer = retrofit.create(RecordServer.class);
@@ -97,7 +107,7 @@ public class RetrofitUtil {
     }
 
     /**
-     *  获取分组内容部分API
+     * 获取分组内容部分API
      */
     public static GroupServer groupServer() {
         if (groupServer == null) {
@@ -114,7 +124,7 @@ public class RetrofitUtil {
     }
 
     /**
-     *  获取分组内容部分API
+     * 获取分组内容部分API
      */
     public static SettingServer settingServer() {
         if (groupServer == null) {
