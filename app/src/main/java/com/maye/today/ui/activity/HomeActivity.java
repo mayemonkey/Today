@@ -27,7 +27,6 @@ import com.readystatesoftware.systembartint.SystemBarTintManager;
 import java.util.ArrayList;
 import java.util.List;
 
-
 public class HomeActivity extends AppCompatActivity implements View.OnClickListener {
 
     private TextView tv_menu_home;
@@ -167,6 +166,21 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         //隐藏所有Fragment
         List<Fragment> fragments = fragmentManager.getFragments();
         if (fragments != null) {
+            //清除之前所有页面，回到主页
+            if (fragmentTag.equals("home")) {
+                for (Fragment fragment : fragments){
+                    fragmentTransaction.remove(fragment);
+                    list_fragment.remove(fragment);
+                }
+                Fragment fragment = FragmentFactory.createFragment(fragmentTag);
+                fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+                fragmentTransaction.add(R.id.fl_home, fragment, fragmentTag).commit();
+                list_fragment.add(fragment);
+                dl_home.closeDrawers();
+                return;
+            }
+
+            //隐藏所有Fragment
             for (Fragment fragment : fragments) {
                 if (fragment != null)
                     fragmentTransaction.hide(fragment);
@@ -177,8 +191,10 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         Fragment fragment = fragmentManager.findFragmentByTag(fragmentTag);
         if (fragment == null) {
             fragment = FragmentFactory.createFragment(fragmentTag);
+            fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
             fragmentTransaction.add(R.id.fl_home, fragment, fragmentTag).commit();
         } else {
+            fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE);
             fragmentTransaction.show(fragment).commit();
             list_fragment.remove(fragment);
         }
@@ -259,6 +275,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
             Fragment fragment = list_fragment.get(list_fragment.size() - 1);
             FragmentManager fragmentManager = getSupportFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE);
             fragmentTransaction.remove(fragment);
             list_fragment.remove(fragment);
             Fragment fragment_show = list_fragment.get(list_fragment.size() - 1);

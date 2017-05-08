@@ -4,11 +4,15 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.github.sundeepk.compactcalendarview.CompactCalendarView;
 import com.maye.today.domain.Record;
 import com.maye.today.global.TodayApplication;
 import com.maye.today.monkeycalendar.MonkeyCalendar;
@@ -24,6 +28,8 @@ import com.wang.avi.AVLoadingIndicatorView;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
+import java.util.TimeZone;
 
 /**
  * 主页显示Fragment
@@ -32,7 +38,7 @@ public class CalendarFragment extends Fragment implements RecordView {
 
     private List<Record> list = new ArrayList<>();
     private RecordPresenter recordPresenter;
-    private MonkeyCalendar mc_home;
+    //    private MonkeyCalendar mc_home;
     private RecordAdapter adapter;
     private String today;
     private AVLoadingIndicatorView aiv_load;
@@ -55,8 +61,8 @@ public class CalendarFragment extends Fragment implements RecordView {
 
         showRefresh(false);
 
-        Calendar selectedDate = mc_home.getSelectedDate();
-        changeDateAndTitle(selectedDate);
+//        Calendar selectedDate = mc_home.getSelectedDate();
+//        changeDateAndTitle(selectedDate);
     }
 
     @Override
@@ -74,29 +80,50 @@ public class CalendarFragment extends Fragment implements RecordView {
     @Override
     public void onHiddenChanged(boolean hidden) {
         super.onHiddenChanged(hidden);
-        if (!hidden){
-            Calendar selectedDate = mc_home.getSelectedDate();
-            changeDateAndTitle(selectedDate);
+        if (!hidden) {
+//            Calendar selectedDate = mc_home.getSelectedDate();
+//            changeDateAndTitle(selectedDate);
         }
     }
 
     private void initComponent(View view) {
         recordPresenter = new RecordPresenterImpl(this);
 
-        mc_home = (MonkeyCalendar) view.findViewById(R.id.mc_calendar);
-        mc_home.setOnDateSelectedListener(new MonkeyCalendar.OnDateSelectedListener() {
-            public void onDateSelected(Calendar date) {
-                changeDateAndTitle(date);
-            }
-        });
+        CompactCalendarView ccv_calendar = (CompactCalendarView) view.findViewById(R.id.ccv_calendar);
+        ccv_calendar.setLocale(TimeZone.getDefault(), Locale.CHINESE);
+        ccv_calendar.setUseThreeLetterAbbreviation(true);
+
+//        mc_home = (MonkeyCalendar) view.findViewById(R.id.mc_calendar);
+//        mc_home.setOnDateSelectedListener(new MonkeyCalendar.OnDateSelectedListener() {
+//            public void onDateSelected(Calendar date) {
+//                changeDateAndTitle(date);
+//            }
+//        });
 
         aiv_load = (AVLoadingIndicatorView) view.findViewById(R.id.aiv_load);
 
-        ListView lv_calendar = (ListView) view.findViewById(R.id.lv_calendar);
-        View view_empty = View.inflate(getContext(), R.layout.layout_lv_empty, null);
-        lv_calendar.setEmptyView(view_empty);
-        adapter = new RecordAdapter(getContext(), list, today, 2);
-        lv_calendar.setAdapter(adapter);
+        RecyclerView rv_calendar = (RecyclerView) view.findViewById(R.id.rv_calendar);
+        adapter = new RecordAdapter(list,  2);
+        adapter.openLoadAnimation();
+        adapter.setEmptyView(R.layout.view_empty);
+        adapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
+            @Override
+            public void onLoadMoreRequested() {
+                //数据全部加载完成
+                adapter.loadMoreEnd();
+
+                //数据加载成功
+                adapter.loadMoreComplete();
+
+                //数据加载失败
+                adapter.loadMoreFail();
+            }
+        }, rv_calendar);
+
+
+        rv_calendar.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        rv_calendar.setAdapter(adapter);
     }
 
     @Override
@@ -129,7 +156,7 @@ public class CalendarFragment extends Fragment implements RecordView {
      *
      * @param date
      */
-    private void changeDateAndTitle(Calendar date){
+    private void changeDateAndTitle(Calendar date) {
         String datetime = CalendarUtil.formatCalendar(date);
         //设置HomeActivity标题文本
         ((HomeActivity) getActivity()).setTitleData(true, datetime);

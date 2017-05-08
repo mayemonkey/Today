@@ -7,10 +7,27 @@
     android:background="#fff"
     android:orientation="vertical">
 
-    <com.maye.today.monkeycalendar.MonkeyCalendar
-        android:id="@+id/mc_calendar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+    <!--<com.maye.today.monkeycalendar.MonkeyCalendar-->
+    <!--android:id="@+id/mc_calendar"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"/>-->
+
+    <com.github.sundeepk.compactcalendarview.CompactCalendarView
+        android:id="@+id/ccv_calendar"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="fill_parent"
+        android:layout_height="250dp"
+        android:layout_marginTop="8dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        app:compactCalendarBackgroundColor="#E4608C"
+        app:compactCalendarCurrentDayBackgroundColor="#CF4446"
+        app:compactCalendarCurrentSelectedDayBackgroundColor="#3F3E4A"
+        app:compactCalendarMultiEventIndicatorColor="#fff"
+        app:compactCalendarTargetHeight="250dp"
+        app:compactCalendarTextColor="#fff"
+        app:compactCalendarTextSize="12sp"
+        />
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -24,8 +41,8 @@
             app:indicatorColor="#52d3c4"
             app:indicatorName="BallPulseIndicator"/>
 
-        <ListView
-            android:id="@+id/lv_calendar"
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_calendar"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
     </RelativeLayout>
