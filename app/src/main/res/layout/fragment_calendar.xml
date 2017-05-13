@@ -1,51 +1,127 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<android.support.design.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#fff"
-    android:orientation="vertical">
+    android:fitsSystemWindows="false">
 
-    <!--<com.maye.today.monkeycalendar.MonkeyCalendar-->
-    <!--android:id="@+id/mc_calendar"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="wrap_content"/>-->
-
-    <com.github.sundeepk.compactcalendarview.CompactCalendarView
-        android:id="@+id/ccv_calendar"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:layout_width="fill_parent"
-        android:layout_height="250dp"
-        android:layout_marginTop="8dp"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
-        app:compactCalendarBackgroundColor="#E4608C"
-        app:compactCalendarCurrentDayBackgroundColor="#CF4446"
-        app:compactCalendarCurrentSelectedDayBackgroundColor="#3F3E4A"
-        app:compactCalendarMultiEventIndicatorColor="#fff"
-        app:compactCalendarTargetHeight="250dp"
-        app:compactCalendarTextColor="#fff"
-        app:compactCalendarTextSize="12sp"
-        />
-
-    <RelativeLayout
+    <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="250dp"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
-        <com.wang.avi.AVLoadingIndicatorView
-            android:id="@+id/aiv_load"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            app:indicatorColor="#52d3c4"
-            app:indicatorName="BallPulseIndicator"/>
-
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/rv_calendar"
+        <android.support.design.widget.CollapsingToolbarLayout
+            android:id="@+id/ctl_calendar"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
-    </RelativeLayout>
+            android:layout_height="match_parent"
+            app:contentScrim="#6359B6"
+            app:expandedTitleMarginEnd="64dp"
+            app:expandedTitleMarginStart="48dp"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed|snap">
+
+            <com.github.sundeepk.compactcalendarview.CompactCalendarView
+                android:id="@+id/ccv_calendar"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:layout_width="fill_parent"
+                android:layout_height="250dp"
+                android:fitsSystemWindows="true"
+                android:minHeight="250dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                app:compactCalendarBackgroundColor="#6359B6"
+                app:compactCalendarCurrentDayBackgroundColor="#312A3D"
+                app:compactCalendarCurrentSelectedDayBackgroundColor="#D23C2E"
+                app:compactCalendarMultiEventIndicatorColor="#fff"
+                app:compactCalendarTargetHeight="250dp"
+                app:compactCalendarTextColor="#fff"
+                app:compactCalendarTextSize="12sp"
+                app:layout_collapseMode="parallax"/>
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/tb_calendar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:layout_collapseMode="none"
+                app:layout_scrollFlags="scroll|enterAlways"/>
+
+        </android.support.design.widget.CollapsingToolbarLayout>
+
+    </android.support.design.widget.AppBarLayout>
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#fff"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <com.wang.avi.AVLoadingIndicatorView
+                android:id="@+id/aiv_load"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                app:indicatorColor="#52d3c4"
+                app:indicatorName="BallPulseIndicator"/>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_calendar"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+        </RelativeLayout>
+    </android.support.v4.widget.NestedScrollView>
+
+</android.support.design.widget.CoordinatorLayout>
+
+    <!--<LinearLayout-->
+    <!--xmlns:android="http://schemas.android.com/apk/res/android"-->
+    <!--xmlns:app="http://schemas.android.com/apk/res-auto"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:background="#fff"-->
+    <!--android:orientation="vertical">-->
+
+    <!--&lt;!&ndash;<com.maye.today.monkeycalendar.MonkeyCalendar&ndash;&gt;-->
+    <!--&lt;!&ndash;android:id="@+id/mc_calendar"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:layout_width="match_parent"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:layout_height="wrap_content"/>&ndash;&gt;-->
+
+    <!--<com.github.sundeepk.compactcalendarview.CompactCalendarView-->
+    <!--android:id="@+id/ccv_calendar"-->
+    <!--xmlns:app="http://schemas.android.com/apk/res-auto"-->
+    <!--android:layout_width="fill_parent"-->
+    <!--android:layout_height="250dp"-->
+    <!--android:paddingLeft="10dp"-->
+    <!--android:paddingRight="10dp"-->
+    <!--app:compactCalendarBackgroundColor="#6359B6"-->
+    <!--app:compactCalendarCurrentDayBackgroundColor="#312A3D"-->
+    <!--app:compactCalendarCurrentSelectedDayBackgroundColor="#D23C2E"-->
+    <!--app:compactCalendarMultiEventIndicatorColor="#fff"-->
+    <!--app:compactCalendarTargetHeight="250dp"-->
+    <!--app:compactCalendarTextColor="#fff"-->
+    <!--app:compactCalendarTextSize="12sp"-->
+    <!--/>-->
+
+    <!--<RelativeLayout-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent">-->
+
+    <!--<com.wang.avi.AVLoadingIndicatorView-->
+    <!--android:id="@+id/aiv_load"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_centerInParent="true"-->
+    <!--app:indicatorColor="#52d3c4"-->
+    <!--app:indicatorName="BallPulseIndicator"/>-->
+
+    <!--<android.support.v7.widget.RecyclerView-->
+    <!--android:id="@+id/rv_calendar"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"/>-->
+    <!--</RelativeLayout>-->
 
 
-</LinearLayout>
+    <!--</LinearLayout>-->

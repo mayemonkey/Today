@@ -1,11 +1,15 @@
 package com.maye.today.ui.fragment;
 
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,8 +29,10 @@ import com.maye.today.ui.adapter.RecordAdapter;
 import com.maye.today.util.CalendarUtil;
 import com.wang.avi.AVLoadingIndicatorView;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.TimeZone;
@@ -42,6 +48,7 @@ public class CalendarFragment extends Fragment implements RecordView {
     private RecordAdapter adapter;
     private String today;
     private AVLoadingIndicatorView aiv_load;
+    private Toolbar tb_calendar;
 
     @Nullable
     @Override
@@ -89,23 +96,24 @@ public class CalendarFragment extends Fragment implements RecordView {
     private void initComponent(View view) {
         recordPresenter = new RecordPresenterImpl(this);
 
+        CollapsingToolbarLayout ctl_calendar = (CollapsingToolbarLayout) view.findViewById(R.id.ctl_calendar);
+        ctl_calendar.setCollapsedTitleTextColor(Color.parseColor("#FFFFFFFF"));
+        ctl_calendar.setExpandedTitleTextColor(ColorStateList.valueOf(Color.parseColor("#00FFFFFF")));
+        ctl_calendar.setTitle(new SimpleDateFormat("yyyy-MM-dd").format(new Date()));
+
         CompactCalendarView ccv_calendar = (CompactCalendarView) view.findViewById(R.id.ccv_calendar);
         ccv_calendar.setLocale(TimeZone.getDefault(), Locale.CHINESE);
         ccv_calendar.setUseThreeLetterAbbreviation(true);
+        ccv_calendar.shouldSelectFirstDayOfMonthOnScroll(false);
 
-//        mc_home = (MonkeyCalendar) view.findViewById(R.id.mc_calendar);
-//        mc_home.setOnDateSelectedListener(new MonkeyCalendar.OnDateSelectedListener() {
-//            public void onDateSelected(Calendar date) {
-//                changeDateAndTitle(date);
-//            }
-//        });
 
         aiv_load = (AVLoadingIndicatorView) view.findViewById(R.id.aiv_load);
 
         RecyclerView rv_calendar = (RecyclerView) view.findViewById(R.id.rv_calendar);
+        rv_calendar.setLayoutManager(new LinearLayoutManager(getContext()));
         adapter = new RecordAdapter(list,  2);
+        rv_calendar.setAdapter(adapter);
         adapter.openLoadAnimation();
-        adapter.setEmptyView(R.layout.view_empty);
         adapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
             @Override
             public void onLoadMoreRequested() {
@@ -120,10 +128,7 @@ public class CalendarFragment extends Fragment implements RecordView {
             }
         }, rv_calendar);
 
-
-        rv_calendar.setLayoutManager(new LinearLayoutManager(getContext()));
-
-        rv_calendar.setAdapter(adapter);
+        adapter.setEmptyView(R.layout.view_empty);
     }
 
     @Override
