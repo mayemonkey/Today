@@ -15,6 +15,8 @@ public class TimelineAdapter extends BaseQuickAdapter<Record, BaseViewHolder> {
         super(R.layout.layout_lv_timeline, data);
     }
 
+
+
     @Override
     protected void convert(BaseViewHolder helper, Record record) {
         int i = CalendarUtil.compareDate(record.getDate(), "2011-05-08");

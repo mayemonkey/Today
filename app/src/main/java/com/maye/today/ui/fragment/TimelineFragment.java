@@ -3,6 +3,8 @@ package com.maye.today.ui.fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,6 +19,7 @@ import com.maye.today.record.RecordPresenterImpl;
 import com.maye.today.record.RecordView;
 import com.maye.today.today.R;
 import com.maye.today.ui.adapter.LineAdapter;
+import com.maye.today.ui.adapter.TimelineAdapter;
 import com.maye.today.view.LoadListView;
 import com.wang.avi.AVLoadingIndicatorView;
 
@@ -28,16 +31,15 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class TimelineFragment extends Fragment implements RecordView, LoadListView.OnLoadMoreListener {
 
     private TextView tv_line_count;
-    private LoadListView llv_line;
 
     private List<Record> list = new ArrayList<>();
-    private LineAdapter adapter;
     private RecordPresenter recordPresenter;
 
     private int start = 0;
 
     private boolean isRefresh = true;
-    private AVLoadingIndicatorView aiv_timeline;
+    private TimelineAdapter adapter;
+    private SwipeRefreshLayout srl_timeline;
 
     @Nullable
     @Override
@@ -54,14 +56,14 @@ public class TimelineFragment extends Fragment implements RecordView, LoadListVi
         CircleImageView civ_line_avatar = (CircleImageView) view.findViewById(R.id.civ_line_avatar);
 //        Glide.with(getContext()).load("").centerCrop().into(civ_line_avatar);
 
-        aiv_timeline = (AVLoadingIndicatorView) view.findViewById(R.id.aiv_timeline);
+        srl_timeline = (SwipeRefreshLayout) view.findViewById(R.id.srl_timeline);
 
-        adapter = new LineAdapter(getContext(), list);
-        llv_line = (LoadListView) view.findViewById(R.id.llv_line);
-        llv_line.setFooterView();
-        llv_line.setDividerHeight(0);
-        llv_line.setOnLoadMoreListener(this);
-        llv_line.setAdapter(adapter);
+        adapter = new TimelineAdapter(list);
+
+        RecyclerView rv_timeline = (RecyclerView) view.findViewById(R.id.rv_timeline);
+        rv_timeline.setLayoutManager(new LinearLayoutManager(getContext()));
+        adapter.bindToRecyclerView(rv_timeline);
+
 
         for (int i = 0; i < 10; i++) {
             Record record = new Record();
@@ -74,6 +76,8 @@ public class TimelineFragment extends Fragment implements RecordView, LoadListVi
         }
 
         adapter.notifyDataSetChanged();
+
+        adapter.setEmptyView(R.layout.view_empty);
     }
 
     @Override
@@ -94,13 +98,11 @@ public class TimelineFragment extends Fragment implements RecordView, LoadListVi
 
     @Override
     public void showRecord(List<Record> list_record) {
-        llv_line.resetFooterView();
-
         if (list_record == null) {
             return;
         }
 
-        if (isRefresh){
+        if (isRefresh) {
             list.clear();
         }
 
@@ -118,11 +120,7 @@ public class TimelineFragment extends Fragment implements RecordView, LoadListVi
 
     @Override
     public void showRefresh(boolean visible) {
-        if (visible){
-            aiv_timeline.show();
-        }else {
-            aiv_timeline.hide();
-        }
+        srl_timeline.setRefreshing(visible);
     }
 
     @Override
