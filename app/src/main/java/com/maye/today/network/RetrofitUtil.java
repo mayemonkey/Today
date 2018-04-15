@@ -8,8 +8,6 @@ import com.maye.today.network.api.SettingServer;
 import com.maye.today.network.api.TimeServer;
 import com.maye.today.util.HttpUtil;
 
-import java.sql.Time;
-
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
@@ -31,7 +29,7 @@ public class RetrofitUtil {
     private static GroupServer groupServer;
 
     private static SettingServer settingServer;
-
+    
     /**
      * 获取Retrofit中Login部分API
      */
