@@ -29,7 +29,7 @@ public class RetrofitUtil {
     private static GroupServer groupServer;
 
     private static SettingServer settingServer;
-    
+
     /**
      * 获取Retrofit中Login部分API
      */
