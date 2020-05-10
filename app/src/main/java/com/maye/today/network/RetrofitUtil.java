@@ -88,6 +88,7 @@ public class RetrofitUtil {
             OkHttpClient client = okHttpClient
                     .newBuilder()
                     .addInterceptor(HttpUtil.getInterceptor())
+                    .addInterceptor(HttpUtil.getLogInterceptor())
                     .addNetworkInterceptor(HttpUtil.getNetWorkInterceptor())
                     .build();
 

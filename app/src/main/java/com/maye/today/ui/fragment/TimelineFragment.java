@@ -9,19 +9,15 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.maye.today.domain.Record;
 import com.maye.today.record.RecordPresenter;
 import com.maye.today.record.RecordPresenterImpl;
 import com.maye.today.record.RecordView;
 import com.maye.today.today.R;
-import com.maye.today.ui.adapter.LineAdapter;
 import com.maye.today.ui.adapter.TimelineAdapter;
 import com.maye.today.view.LoadListView;
-import com.wang.avi.AVLoadingIndicatorView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,19 +44,24 @@ public class TimelineFragment extends Fragment implements RecordView, LoadListVi
 
         initComponent(view);
 
+        recordPresenter = new RecordPresenterImpl(this);
+//        recordPresenter.showRecordCount("username");
+        showRefresh(true);
+        recordPresenter.showAllRecord("username", 0);
+
         return view;
     }
 
     private void initComponent(View view) {
-        tv_line_count = (TextView) view.findViewById(R.id.tv_line_count);
-        CircleImageView civ_line_avatar = (CircleImageView) view.findViewById(R.id.civ_line_avatar);
+        tv_line_count =  view.findViewById(R.id.tv_line_count);
+        CircleImageView civ_line_avatar =  view.findViewById(R.id.civ_line_avatar);
 //        Glide.with(getContext()).load("").centerCrop().into(civ_line_avatar);
 
-        srl_timeline = (SwipeRefreshLayout) view.findViewById(R.id.srl_timeline);
+        srl_timeline =  view.findViewById(R.id.srl_timeline);
 
         adapter = new TimelineAdapter(list);
 
-        RecyclerView rv_timeline = (RecyclerView) view.findViewById(R.id.rv_timeline);
+        RecyclerView rv_timeline =  view.findViewById(R.id.rv_timeline);
         rv_timeline.setLayoutManager(new LinearLayoutManager(getContext()));
         adapter.bindToRecyclerView(rv_timeline);
 
@@ -78,16 +79,6 @@ public class TimelineFragment extends Fragment implements RecordView, LoadListVi
         adapter.notifyDataSetChanged();
 
         adapter.setEmptyView(R.layout.view_empty);
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-
-        recordPresenter = new RecordPresenterImpl(this);
-//        recordPresenter.showRecordCount("username");
-        showRefresh(true);
-        recordPresenter.showAllRecord("username", 0);
     }
 
     @Override

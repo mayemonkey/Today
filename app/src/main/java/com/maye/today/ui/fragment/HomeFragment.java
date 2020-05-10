@@ -7,9 +7,9 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.maye.satelitelayout.SatelliteLayout;
 import com.maye.today.global.TodayApplication;
 import com.maye.today.time.TimePresenter;
 import com.maye.today.time.TimePresenterImpl;
@@ -28,7 +28,7 @@ public class HomeFragment extends Fragment implements TimeView {
     private TextView tv_greeting;
     private TimePresenter timePresenter;
     private String[] weeks = new String[]{"周日", "周一", "周二", "周三", "周四", "周五", "周六"};
-    private LinearLayout ll_day;
+    private SatelliteLayout sl_home;
 
     @Nullable
     @Override
@@ -37,18 +37,17 @@ public class HomeFragment extends Fragment implements TimeView {
 
         initComponent(view);
 
+        timePresenter = new TimePresenterImpl(this);
+        timePresenter.getTime();
         return view;
     }
 
-    public void onResume() {
-        super.onResume();
-        timePresenter = new TimePresenterImpl(this);
-        timePresenter.getTime();
-    }
 
     @Override
     public void onDestroy() {
-        timePresenter.onDestroyView();
+        if (timePresenter != null) {
+            timePresenter.onDestroyView();
+        }
         super.onDestroy();
     }
 
@@ -61,13 +60,14 @@ public class HomeFragment extends Fragment implements TimeView {
     }
 
     private void initComponent(View view) {
-        ll_day = (LinearLayout) view.findViewById(R.id.ll_day);
 
-        tv_year = (TextView) view.findViewById(R.id.tv_year);
-        tv_month = (TextView) view.findViewById(R.id.tv_month);
-        tv_date = (TextView) view.findViewById(R.id.tv_date);
-        tv_day = (TextView) view.findViewById(R.id.tv_day);
-        tv_greeting = (TextView) view.findViewById(R.id.tv_greeting);
+        sl_home = view.findViewById(R.id.sl_home);
+
+        tv_year = view.findViewById(R.id.tv_year);
+        tv_month = view.findViewById(R.id.tv_month);
+        tv_date = view.findViewById(R.id.tv_date);
+        tv_day = view.findViewById(R.id.tv_day);
+        tv_greeting = view.findViewById(R.id.tv_greeting);
     }
 
     @Override
@@ -105,10 +105,8 @@ public class HomeFragment extends Fragment implements TimeView {
             @Override
             public void onAnimationUpdate(ValueAnimator animation) {
                 float value = (float) animation.getAnimatedValue();
-                ViewHelper.setScaleX(ll_day, value);
-                ViewHelper.setScaleY(ll_day, value);
-                ViewHelper.setScaleX(tv_date, value);
-                ViewHelper.setScaleY(tv_date, value);
+                ViewHelper.setScaleX(sl_home, value);
+                ViewHelper.setScaleY(sl_home, value);
             }
         });
         animator.start();

@@ -4,22 +4,19 @@ import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ListView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.github.sundeepk.compactcalendarview.CompactCalendarView;
 import com.maye.today.domain.Record;
 import com.maye.today.global.TodayApplication;
-import com.maye.today.monkeycalendar.MonkeyCalendar;
 import com.maye.today.record.RecordPresenter;
 import com.maye.today.record.RecordPresenterImpl;
 import com.maye.today.record.RecordView;
@@ -27,7 +24,6 @@ import com.maye.today.today.R;
 import com.maye.today.ui.activity.HomeActivity;
 import com.maye.today.ui.adapter.RecordAdapter;
 import com.maye.today.util.CalendarUtil;
-import com.wang.avi.AVLoadingIndicatorView;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -47,8 +43,7 @@ public class CalendarFragment extends Fragment implements RecordView {
     //    private MonkeyCalendar mc_home;
     private RecordAdapter adapter;
     private String today;
-    private AVLoadingIndicatorView aiv_load;
-    private Toolbar tb_calendar;
+    private SwipeRefreshLayout srl_calendar;
 
     @Nullable
     @Override
@@ -59,23 +54,15 @@ public class CalendarFragment extends Fragment implements RecordView {
 
         today = TodayApplication.getToday();
 
-        return view;
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-
         showRefresh(false);
 
-//        Calendar selectedDate = mc_home.getSelectedDate();
-//        changeDateAndTitle(selectedDate);
+        return view;
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        ((HomeActivity) getActivity()).setTitleData(false, "");
+        ((HomeActivity) getContext()).setTitleData(false, "");
     }
 
     @Override
@@ -96,20 +83,25 @@ public class CalendarFragment extends Fragment implements RecordView {
     private void initComponent(View view) {
         recordPresenter = new RecordPresenterImpl(this);
 
-        CollapsingToolbarLayout ctl_calendar = (CollapsingToolbarLayout) view.findViewById(R.id.ctl_calendar);
+        CollapsingToolbarLayout ctl_calendar =  view.findViewById(R.id.ctl_calendar);
         ctl_calendar.setCollapsedTitleTextColor(Color.parseColor("#FFFFFFFF"));
         ctl_calendar.setExpandedTitleTextColor(ColorStateList.valueOf(Color.parseColor("#00FFFFFF")));
         ctl_calendar.setTitle(new SimpleDateFormat("yyyy-MM-dd").format(new Date()));
 
-        CompactCalendarView ccv_calendar = (CompactCalendarView) view.findViewById(R.id.ccv_calendar);
+        CompactCalendarView ccv_calendar =  view.findViewById(R.id.ccv_calendar);
         ccv_calendar.setLocale(TimeZone.getDefault(), Locale.CHINESE);
         ccv_calendar.setUseThreeLetterAbbreviation(true);
         ccv_calendar.shouldSelectFirstDayOfMonthOnScroll(false);
 
+        srl_calendar = view.findViewById(R.id.srl_calendar);
+        srl_calendar.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                recordPresenter.showRecordByDay(TodayApplication.getUsername(), today);
+            }
+        });
 
-        aiv_load = (AVLoadingIndicatorView) view.findViewById(R.id.aiv_load);
-
-        RecyclerView rv_calendar = (RecyclerView) view.findViewById(R.id.rv_calendar);
+        RecyclerView rv_calendar =  view.findViewById(R.id.rv_calendar);
         rv_calendar.setLayoutManager(new LinearLayoutManager(getContext()));
         adapter = new RecordAdapter(list,  2);
         rv_calendar.setAdapter(adapter);
@@ -143,9 +135,9 @@ public class CalendarFragment extends Fragment implements RecordView {
     @Override
     public void showRefresh(boolean visible) {
         if (visible) {
-            aiv_load.show();
+            srl_calendar.setRefreshing(true);
         } else {
-            aiv_load.hide();
+            srl_calendar.setRefreshing(false);
         }
     }
 

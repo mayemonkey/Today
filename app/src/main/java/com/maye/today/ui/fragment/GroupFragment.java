@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+
 import com.maye.today.today.R;
 import com.maye.today.ui.activity.ListActivity;
 
@@ -26,13 +27,13 @@ public class GroupFragment extends Fragment implements View.OnClickListener {
     }
 
     private void initComponent() {
-        ImageView iv_food = (ImageView) view.findViewById(R.id.iv_food);
+        ImageView iv_food =  view.findViewById(R.id.iv_food);
         iv_food.setOnClickListener(this);
-        ImageView iv_work = (ImageView) view.findViewById(R.id.iv_work);
+        ImageView iv_work =  view.findViewById(R.id.iv_work);
         iv_work.setOnClickListener(this);
-        ImageView iv_vacation = (ImageView) view.findViewById(R.id.iv_vacation);
+        ImageView iv_vacation =  view.findViewById(R.id.iv_vacation);
         iv_vacation.setOnClickListener(this);
-        ImageView iv_outside = (ImageView) view.findViewById(R.id.iv_outside);
+        ImageView iv_outside =  view.findViewById(R.id.iv_outside);
         iv_outside.setOnClickListener(this);
     }
 

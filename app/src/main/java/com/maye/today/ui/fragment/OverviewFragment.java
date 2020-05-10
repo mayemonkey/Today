@@ -73,10 +73,10 @@ public class OverviewFragment extends Fragment implements SwipeRefreshLayout.OnR
     }
 
     private void initComponent() {
-        mdp_time = (MonkeyDatePager) view.findViewById(R.id.mdp_time);
+        mdp_time =  view.findViewById(R.id.mdp_time);
         mdp_time.setOnMonkeyTimeChangedListener(this);
 
-        srl_over = (SwipeRefreshLayout) view.findViewById(R.id.srl_overview);
+        srl_over =  view.findViewById(R.id.srl_overview);
         srl_over.setColorSchemeResources(android.R.color.holo_blue_bright, android.R.color.holo_green_light,
                 android.R.color.holo_orange_light, android.R.color.holo_red_light);
         srl_over.setOnRefreshListener(this);
@@ -107,7 +107,7 @@ public class OverviewFragment extends Fragment implements SwipeRefreshLayout.OnR
         }
         LogUtil.LogI("OverviewFragment", "本地时间值为:" + today);
 
-        RecyclerView rv_overview = (RecyclerView) view.findViewById(R.id.rv_overview);
+        RecyclerView rv_overview =  view.findViewById(R.id.rv_overview);
         overViewAdapter = new OverViewAdapter(list);
         overViewAdapter.setOnLoadMoreListener(this, rv_overview);
         rv_overview.setLayoutManager(new LinearLayoutManager(getContext()));

@@ -33,6 +33,7 @@ public class TimePresenterImpl implements TimePresenter {
 
                     @Override
                     public void onError(Throwable e) {
+                        timeView.showDate(Calendar.getInstance());
                     }
 
                     @Override
@@ -44,6 +45,7 @@ public class TimePresenterImpl implements TimePresenter {
                             timeView.showDate(calendar);
                         } catch (IOException e) {
                             e.printStackTrace();
+
                         }
                     }
                 });
