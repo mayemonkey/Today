@@ -1,4 +1,4 @@
-package com.maye.today.ui.fragment;
+package com.maye.today.ui.fragment.base;
 
 import android.animation.ValueAnimator;
 import android.app.Activity;
