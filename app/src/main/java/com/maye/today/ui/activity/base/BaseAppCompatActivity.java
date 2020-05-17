@@ -1,4 +1,4 @@
-package com.maye.today.ui.activity;
+package com.maye.today.ui.activity.base;
 
 import android.graphics.Color;
 import android.os.Build;
