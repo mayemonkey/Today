@@ -26,6 +26,7 @@ import com.maye.today.group.GroupPresenterImpl;
 import com.maye.today.group.GroupView;
 import com.maye.today.today.R;
 import com.maye.today.transformation.BlurTransformation;
+import com.maye.today.ui.activity.base.BaseAppCompatActivity;
 import com.maye.today.ui.adapter.ListAdapter;
 
 import java.util.ArrayList;
