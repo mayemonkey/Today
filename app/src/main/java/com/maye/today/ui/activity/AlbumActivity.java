@@ -16,6 +16,7 @@ import com.maye.today.domain.ImageItem;
 import com.maye.today.today.R;
 import com.maye.today.ui.adapter.AlbumAdapter;
 
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -37,34 +38,21 @@ public class AlbumActivity extends Activity implements MaterialSpinner.OnItemSel
 
     private AlbumAdapter adapter;
 
-    private Handler handler = new Handler() {
-        @Override
-        public void handleMessage(Message msg) {
-            super.handleMessage(msg);
-            getDirList();
-            if (list_dir.size() > 0) {
-                ms_album.setItems(list_dir);
-                ms_album.setSelectedIndex(0);
-                list.clear();
-                String dir = list_dir.get(0);
-                List<ImageItem> imageItems = map.get(dir);
-                list.addAll(imageItems);
-                adapter.notifyDataSetChanged();
-            }
-        }
-    };
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_album);
 
+        // TODO RX处理子线程及数据回调
         new Thread(new Runnable() {
             @Override
             public void run() {
                 getImageDir();
                 list_dir.clear();
-                handler.sendEmptyMessage(0);
+                AlbumHandler albumHandler = new AlbumHandler(AlbumActivity.this);
+                albumHandler.sendEmptyMessage(0);
             }
         }).start();
 
@@ -149,6 +137,34 @@ public class AlbumActivity extends Activity implements MaterialSpinner.OnItemSel
         List<ImageItem> imageItems = map.get(dir);
         list.addAll(imageItems);
         adapter.notifyDataSetChanged();
+    }
+
+    static class AlbumHandler extends Handler {
+
+        private WeakReference<AlbumActivity> weakReference;
+
+        public AlbumHandler(AlbumActivity activity) {
+            this.weakReference = new WeakReference<>(activity);
+        }
+
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            AlbumActivity albumActivity = weakReference.get();
+            if (albumActivity == null) {
+                return;
+            }
+            albumActivity.getDirList();
+            if (albumActivity.list_dir.size() > 0) {
+                albumActivity.ms_album.setItems(albumActivity.list_dir);
+                albumActivity.ms_album.setSelectedIndex(0);
+                albumActivity.list.clear();
+                String dir = albumActivity.list_dir.get(0);
+                List<ImageItem> imageItems = albumActivity.map.get(dir);
+                albumActivity.list.addAll(imageItems);
+                albumActivity.adapter.notifyDataSetChanged();
+            }
+        }
     }
 
 }
