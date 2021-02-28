@@ -1,8 +1,9 @@
 apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
 
 android {
-    compileSdkVersion 26
-    buildToolsVersion '26.0.2'
+    compileSdkVersion 28
+    buildToolsVersion '28.0.2'
 
     defaultConfig {
         applicationId "com.maye.today.today"
@@ -18,66 +19,71 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_7
-        targetCompatibility JavaVersion.VERSION_1_7
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
     }
 }
 
 dependencies {
-    compile fileTree(include: ['*.jar'], dir: 'libs')
-    testCompile 'junit:junit:4.12'
-    compile('com.rengwuxian.materialedittext:library:2.1.4') {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation 'androidx.drawerlayout:drawerlayout:1.1.1'
+    testImplementation('junit:junit:4.12')
+    implementation('com.rengwuxian.materialedittext:library:2.1.4') {
         exclude group: 'com.android.support'
     }
 
-    compile 'io.reactivex:rxjava:1.0.14'
-    compile 'io.reactivex:rxandroid:1.0.1'
-    compile 'com.jakewharton.rxbinding:rxbinding:0.4.0'
-    compile 'com.squareup.retrofit2:retrofit:2.0.0'
-    compile 'com.squareup.retrofit2:converter-gson:2.0.0'
-    compile 'com.squareup.retrofit2:adapter-rxjava:2.0.0'
-    compile 'com.squareup.okhttp3:okhttp:3.6.0'
+    implementation 'io.reactivex:rxjava:1.0.14'
+    implementation 'io.reactivex:rxandroid:1.0.1'
+    implementation 'com.jakewharton.rxbinding:rxbinding:0.4.0'
+    implementation 'com.squareup.retrofit2:retrofit:2.0.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.0.0'
+    implementation 'com.squareup.retrofit2:adapter-rxjava:2.0.0'
+    implementation 'com.squareup.okhttp3:okhttp:3.6.0'
     implementation 'com.squareup.okhttp3:logging-interceptor:3.4.1'
 
     //共享元素兼容
-    compile 'com.kogitune:pre-lollipop-activity-transition:1.3.3'
-    compile 'com.zcw:togglebutton-library:1.0.0'
+    implementation 'com.kogitune:pre-lollipop-activity-transition:1.3.3'
+    implementation 'com.zcw:togglebutton-library:1.0.0'
     //圆形ImageView
-    compile 'de.hdodenhof:circleimageview:2.1.0'
+    implementation 'de.hdodenhof:circleimageview:2.1.0'
     //Material风格Dialog
-    compile 'com.afollestad.material-dialogs:core:0.9.0.1'
+    implementation 'com.afollestad.material-dialogs:core:0.9.0.1'
     //进度条
-    compile 'com.wang.avi:library:2.1.3'
+    implementation 'com.wang.avi:library:2.1.3'
     //Material风格Spinner
-    compile 'com.jaredrummler:material-spinner:1.1.0'
+    implementation 'com.jaredrummler:material-spinner:1.1.0'
     //图片加载库
-    compile 'com.github.bumptech.glide:glide:3.7.0'
+    implementation 'com.github.bumptech.glide:glide:3.7.0'
 
     //提取Bitmap主色
-    compile 'com.android.support:palette-v7:26.1.0'
+    implementation 'androidx.palette:palette:1.0.0'
 
     //水波纹效果
-    compile 'com.patrickpissurno:ripple-effect:1.3.1'
-    compile 'com.balysv:material-ripple:1.0.2'
+    implementation 'com.patrickpissurno:ripple-effect:1.3.1'
+    implementation 'com.balysv:material-ripple:1.0.2'
 
     //4.4版本沉浸式兼容
-    compile 'com.readystatesoftware.systembartint:systembartint:1.0.3'
+    implementation 'com.readystatesoftware.systembartint:systembartint:1.0.3'
 
-    compile 'com.github.mayemonkey:MonkeyDatePager:1.5.0'
+    implementation 'com.github.mayemonkey:MonkeyDatePager:1.5.0'
 
     //Calendar
-    compile 'com.github.sundeepk:compact-calendar-view:2.0.1'
+    implementation 'com.github.sundeepk:compact-calendar-view:2.0.1'
 
-    compile 'com.android.support:appcompat-v7:26.1.0'
-    compile 'com.android.support:support-v4:26.1.0'
-    compile 'com.android.support:recyclerview-v7:26.1.0'
-    compile 'com.android.support:cardview-v7:26.1.0'
-    compile 'com.android.support:design:26.1.0'
+    implementation 'androidx.appcompat:appcompat:1.2.0'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation 'androidx.recyclerview:recyclerview:1.1.0'
+    implementation 'androidx.cardview:cardview:1.0.0'
+    implementation 'com.google.android.material:material:1.2.1'
 
     //RecyclerView使用封装完成适配器
-    compile 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.11'
+    implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.11'
 
     implementation 'com.github.mayemonkey:Satellite:v0.02'
 
-    compile project(':monkeycalendar')
+    implementation project(':monkeycalendar')
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+}
+repositories {
+    mavenCentral()
 }

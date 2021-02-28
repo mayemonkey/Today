@@ -1,9 +1,10 @@
 package com.maye.today.monkeytabpager;
 
 import android.content.Context;
-import android.support.v4.view.PagerAdapter;
 import android.view.View;
 import android.view.ViewGroup;
+
+import androidx.core.view.PagerAdapter;
 
 import java.util.List;
 

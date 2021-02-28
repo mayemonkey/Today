@@ -1,8 +1,10 @@
 package com.maye.today.util;
 
-import android.support.design.widget.TextInputLayout;
+
 import android.text.TextUtils;
 import android.widget.EditText;
+
+import com.google.android.material.textfield.TextInputLayout;
 
 import rx.Observable;
 import rx.android.schedulers.AndroidSchedulers;

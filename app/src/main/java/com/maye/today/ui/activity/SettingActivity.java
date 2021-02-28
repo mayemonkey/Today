@@ -1,30 +1,30 @@
 package com.maye.today.ui.activity;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.design.widget.CollapsingToolbarLayout;
-import android.support.design.widget.TextInputLayout;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 
-import com.afollestad.materialdialogs.DialogAction;
+import androidx.appcompat.widget.Toolbar;
+
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.bumptech.glide.Glide;
+import com.google.android.material.appbar.CollapsingToolbarLayout;
+import com.google.android.material.textfield.TextInputLayout;
 import com.maye.today.domain.User;
 import com.maye.today.global.TodayApplication;
 import com.maye.today.setting.SettingPresenterImpl;
 import com.maye.today.setting.SettingView;
 import com.maye.today.today.R;
+import com.maye.today.ui.activity.base.BaseAppCompatActivity;
 import com.maye.today.util.InputUtil;
 
 import java.io.File;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class SettingActivity extends Activity implements SettingView, View.OnClickListener {
+public class SettingActivity extends BaseAppCompatActivity implements SettingView, View.OnClickListener {
 
     private CircleImageView civ_avatar;
     private MaterialDialog progressDialog;
@@ -52,7 +52,10 @@ public class SettingActivity extends Activity implements SettingView, View.OnCli
         civ_avatar.setOnClickListener(this);
 
         CollapsingToolbarLayout ctl_setting = (CollapsingToolbarLayout) findViewById(R.id.ctl_setting);
-        ctl_setting.setTitle(TodayApplication.getUsername());
+//        ctl_setting.setTitle(TodayApplication.getUsername());
+
+        setSupportActionBar((Toolbar) findViewById(R.id.toolbar));
+        getSupportActionBar().setTitle(TodayApplication.getUsername());
 
         til_setting_nickname = (TextInputLayout) findViewById(R.id.til_setting_nickname);
         til_setting_email = (TextInputLayout) findViewById(R.id.til_setting_email);

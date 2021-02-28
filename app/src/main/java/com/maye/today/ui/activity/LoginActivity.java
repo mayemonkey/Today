@@ -4,22 +4,24 @@ import android.animation.ValueAnimator;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.TextInputLayout;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.google.android.material.textfield.TextInputLayout;
 import com.jakewharton.rxbinding.view.RxView;
-import com.maye.today.today.R;
 import com.maye.today.login.LoginPresenter;
 import com.maye.today.login.LoginPresenterImpl;
 import com.maye.today.login.LoginView;
+import com.maye.today.today.R;
 import com.maye.today.util.InputUtil;
 import com.maye.today.util.Md5Util;
 import com.nineoldandroids.view.ViewHelper;
 
 import java.util.concurrent.TimeUnit;
+
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
 

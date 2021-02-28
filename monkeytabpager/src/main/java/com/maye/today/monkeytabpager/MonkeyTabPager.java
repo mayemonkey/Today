@@ -1,12 +1,13 @@
 package com.maye.today.monkeytabpager;
 
 import android.content.Context;
-import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+
+import androidx.core.view.ViewPager;
 
 import com.gigamole.navigationtabstrip.NavigationTabStrip;
 

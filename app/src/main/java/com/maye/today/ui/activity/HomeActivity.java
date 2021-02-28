@@ -2,25 +2,21 @@ package com.maye.today.ui.activity;
 
 import android.content.Intent;
 import android.graphics.Color;
-import android.graphics.PorterDuff;
-import android.graphics.drawable.Drawable;
 import android.os.Build;
-import android.support.annotation.NonNull;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+
 import com.maye.today.global.TodayApplication;
 import com.maye.today.today.R;
-import com.maye.today.ui.fragment.HomeFragment;
 import com.maye.today.ui.fragment.factory.FragmentFactory;
 import com.readystatesoftware.systembartint.SystemBarTintManager;
 
@@ -162,6 +158,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     private void switchFragment(String fragmentTag) {
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.setCustomAnimations(R.anim.translate_right_in, R.anim.translate_left_in, R.anim.slide_right_out, R.anim.translate_left_out);
 
         //隐藏所有Fragment
         List<Fragment> fragments = fragmentManager.getFragments();
@@ -174,7 +171,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                 }
                 Fragment fragment = FragmentFactory.createFragment(fragmentTag);
                 fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-                fragmentTransaction.add(R.id.fl_home, fragment, fragmentTag).commit();
+                fragmentTransaction.replace(R.id.fl_home, fragment, fragmentTag).commit();
                 list_fragment.add(fragment);
                 dl_home.closeDrawers();
                 return;
@@ -182,8 +179,10 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
 
             //隐藏所有Fragment
             for (Fragment fragment : fragments) {
-                if (fragment != null)
+                if (fragment != null) {
                     fragmentTransaction.hide(fragment);
+                    fragmentManager.popBackStack();
+                }
             }
         }
 
@@ -192,7 +191,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         if (fragment == null) {
             fragment = FragmentFactory.createFragment(fragmentTag);
             fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-            fragmentTransaction.add(R.id.fl_home, fragment, fragmentTag).commit();
+            fragmentTransaction.replace(R.id.fl_home, fragment, fragmentTag).commit();
         } else {
             fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE);
             fragmentTransaction.show(fragment).commit();
@@ -275,9 +274,12 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
             Fragment fragment = list_fragment.get(list_fragment.size() - 1);
             FragmentManager fragmentManager = getSupportFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.setCustomAnimations(R.anim.translate_right_in, R.anim.translate_left_in, R.anim.slide_right_out, R.anim.translate_left_out);
+
             fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE);
             fragmentTransaction.remove(fragment);
             list_fragment.remove(fragment);
+            fragmentManager.popBackStack();
             Fragment fragment_show = list_fragment.get(list_fragment.size() - 1);
             String tag = fragment_show.getTag();
             resetTextView(tag);

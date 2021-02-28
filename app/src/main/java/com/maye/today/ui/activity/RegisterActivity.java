@@ -3,15 +3,14 @@ package com.maye.today.ui.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.TextInputLayout;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.bumptech.glide.Glide;
+import com.google.android.material.textfield.TextInputLayout;
 import com.jakewharton.rxbinding.view.RxView;
 import com.maye.today.domain.User;
 import com.maye.today.register.RegisterPresenter;
@@ -20,7 +19,6 @@ import com.maye.today.register.RegisterView;
 import com.maye.today.today.R;
 import com.maye.today.util.InputUtil;
 import com.maye.today.util.Md5Util;
-import com.rengwuxian.materialedittext.MaterialEditText;
 
 import java.io.File;
 import java.util.concurrent.TimeUnit;
@@ -28,9 +26,6 @@ import java.util.concurrent.TimeUnit;
 import de.hdodenhof.circleimageview.CircleImageView;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
-
-import static com.maye.today.today.R.id.civ_avatar;
-import static com.maye.today.today.R.id.civ_reg_avatar;
 
 /**
  * RegisterActivity

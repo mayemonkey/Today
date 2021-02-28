@@ -1,7 +1,7 @@
 package com.maye.today.ui.fragment.factory;
 
 
-import android.support.v4.app.Fragment;
+import androidx.fragment.app.Fragment;
 
 import com.maye.today.ui.fragment.CalendarFragment;
 import com.maye.today.ui.fragment.GroupFragment;
