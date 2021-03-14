@@ -1,0 +1,67 @@
+ext {
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
+
+    android = [
+            compileSdk   : 30,
+            buildTools   : '30.0.3',
+
+            applicationId: "com.maye.today.today",
+            minSdk       : 19,
+            targetSdk    : 30,
+            code         : 1,
+            name         : "1.0",
+    ]
+
+    support = [
+            drawerlayout: 'androidx.drawerlayout:drawerlayout:1.1.1',
+            jUnit       : 'junit:junit:4.12',
+
+            appcompat   : 'androidx.appcompat:appcompat:1.2.0',
+            legacy      : 'androidx.legacy:legacy-support-v4:1.0.0',
+            recyclerview: 'androidx.recyclerview:recyclerview:1.1.0',
+            cardview    : 'androidx.cardview:cardview:1.0.0',
+            material    : 'com.google.android.material:material:1.2.1',
+    ]
+
+    deps = [
+            rxJava          : 'io.reactivex:rxjava:1.0.14',
+            rxAndroid       : 'io.reactivex:rxandroid:1.0.1',
+            rxBinding       : 'com.jakewharton.rxbinding:rxbinding:0.4.0',
+
+            retrofit2       : 'com.squareup.retrofit2:retrofit:2.0.0',
+            retrofit2Gson   : 'com.squareup.retrofit2:converter-gson:2.0.0',
+            retrofit2Adapter: 'com.squareup.retrofit2:adapter-rxjava:2.0.0',
+
+            okHttp          : 'com.squareup.okhttp3:okhttp:3.6.0',
+            okHttpLog       : 'com.squareup.okhttp3:logging-interceptor:3.4.1',
+
+            materialEditText: 'com.rengwuxian.materialedittext:library:2.1.4',
+
+            //共享元素兼容
+            transition      : 'com.kogitune:pre-lollipop-activity-transition:1.3.3',
+            togglebutton    : 'com.zcw:togglebutton-library:1.0.0',
+
+            circleImage     : 'de.hdodenhof:circleimageview:2.1.0',
+            materialDialogs : 'com.afollestad.material-dialogs:core:0.9.0.1',
+
+            progress        : 'com.wang.avi:library:2.1.3',
+            spinner         : 'com.jaredrummler:material-spinner:1.1.0',
+
+            glide           : 'com.github.bumptech.glide:glide:3.7.0',
+
+            //提取Bitmap主色
+            palette         : 'androidx.palette:palette:1.0.0',
+
+            //水波纹效果
+            ripple          : 'com.patrickpissurno:ripple-effect:1.3.1',
+            materialRipple  : 'com.balysv:material-ripple:1.0.2',
+
+            systembartint   : 'com.readystatesoftware.systembartint:systembartint:1.0.3',
+            MonkeyDatePager : 'com.github.mayemonkey:MonkeyDatePager:1.5.0',
+            calendar        : 'com.github.sundeepk:compact-calendar-view:2.0.1',
+
+            adapter         : 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.11',
+            stellite        : 'com.github.mayemonkey:Satellite:v0.02',
+    ]
+}

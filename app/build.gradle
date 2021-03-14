@@ -1,16 +1,19 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 
+def Deps = rootProject.ext
+
+
 android {
-    compileSdkVersion 28
-    buildToolsVersion '28.0.2'
+    compileSdkVersion Deps.android.compileSdk
+    buildToolsVersion Deps.android.buildTools
 
     defaultConfig {
-        applicationId "com.maye.today.today"
-        minSdkVersion 19
-        targetSdkVersion 26
-        versionCode 1
-        versionName "1.0"
+        applicationId Deps.android.applicationId
+        minSdkVersion Deps.android.minSdk
+        targetSdkVersion Deps.android.targetSdk
+        versionCode Deps.android.code
+        versionName Deps.android.name
     }
     buildTypes {
         release {
@@ -26,63 +29,68 @@ android {
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    implementation 'androidx.drawerlayout:drawerlayout:1.1.1'
-    testImplementation('junit:junit:4.12')
-    implementation('com.rengwuxian.materialedittext:library:2.1.4') {
+    implementation Deps.support.drawerlayout
+    testImplementation(Deps.support.drawerlayout)
+    implementation(Deps.support.jUnit) {
+        exclude group: 'com.android.support'
+    }
+    implementation Deps.support.appcompat
+    implementation Deps.support.legacy
+    implementation Deps.support.recyclerview
+    implementation Deps.support.cardview
+    implementation Deps.support.material
+    implementation project(':monkeycalendar')
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+
+    implementation Deps.deps.rxJava
+    implementation Deps.deps.rxAndroid
+    implementation Deps.deps.rxBinding
+
+    implementation Deps.deps.retrofit2
+    implementation Deps.deps.retrofit2Gson
+    implementation Deps.deps.retrofit2Adapter
+
+    implementation Deps.deps.okHttp
+    implementation Deps.deps.okHttpLog
+
+    implementation(Deps.deps.materialEditText) {
         exclude group: 'com.android.support'
     }
 
-    implementation 'io.reactivex:rxjava:1.0.14'
-    implementation 'io.reactivex:rxandroid:1.0.1'
-    implementation 'com.jakewharton.rxbinding:rxbinding:0.4.0'
-    implementation 'com.squareup.retrofit2:retrofit:2.0.0'
-    implementation 'com.squareup.retrofit2:converter-gson:2.0.0'
-    implementation 'com.squareup.retrofit2:adapter-rxjava:2.0.0'
-    implementation 'com.squareup.okhttp3:okhttp:3.6.0'
-    implementation 'com.squareup.okhttp3:logging-interceptor:3.4.1'
-
     //共享元素兼容
-    implementation 'com.kogitune:pre-lollipop-activity-transition:1.3.3'
-    implementation 'com.zcw:togglebutton-library:1.0.0'
+    implementation Deps.deps.transition
+    implementation Deps.deps.togglebutton
     //圆形ImageView
-    implementation 'de.hdodenhof:circleimageview:2.1.0'
+    implementation Deps.deps.circleImage
     //Material风格Dialog
-    implementation 'com.afollestad.material-dialogs:core:0.9.0.1'
+    implementation Deps.deps.materialDialogs
     //进度条
-    implementation 'com.wang.avi:library:2.1.3'
+    implementation Deps.deps.progress
     //Material风格Spinner
-    implementation 'com.jaredrummler:material-spinner:1.1.0'
+    implementation Deps.deps.spinner
     //图片加载库
-    implementation 'com.github.bumptech.glide:glide:3.7.0'
+    implementation Deps.deps.glide
 
     //提取Bitmap主色
-    implementation 'androidx.palette:palette:1.0.0'
+    implementation Deps.deps.palette
 
     //水波纹效果
-    implementation 'com.patrickpissurno:ripple-effect:1.3.1'
-    implementation 'com.balysv:material-ripple:1.0.2'
+    implementation Deps.deps.ripple
+    implementation Deps.deps.materialRipple
 
     //4.4版本沉浸式兼容
-    implementation 'com.readystatesoftware.systembartint:systembartint:1.0.3'
+    implementation Deps.deps.systembartint
 
-    implementation 'com.github.mayemonkey:MonkeyDatePager:1.5.0'
+    implementation Deps.deps.MonkeyDatePager
 
     //Calendar
-    implementation 'com.github.sundeepk:compact-calendar-view:2.0.1'
-
-    implementation 'androidx.appcompat:appcompat:1.2.0'
-    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-    implementation 'androidx.recyclerview:recyclerview:1.1.0'
-    implementation 'androidx.cardview:cardview:1.0.0'
-    implementation 'com.google.android.material:material:1.2.1'
+    implementation Deps.deps.calendar
 
     //RecyclerView使用封装完成适配器
-    implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.11'
+    implementation Deps.deps.adapter
 
-    implementation 'com.github.mayemonkey:Satellite:v0.02'
+    implementation Deps.deps.stellite
 
-    implementation project(':monkeycalendar')
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 }
 repositories {
     mavenCentral()
