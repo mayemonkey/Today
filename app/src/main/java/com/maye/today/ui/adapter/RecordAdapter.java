@@ -1,7 +1,8 @@
 package com.maye.today.ui.adapter;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.chad.library.adapter.base.BaseViewHolder;
+import com.chad.library.adapter.base.module.LoadMoreModule;
+import com.chad.library.adapter.base.viewholder.BaseViewHolder;
 import com.maye.today.domain.Record;
 import com.maye.today.global.TodayApplication;
 import com.maye.today.today.R;
@@ -9,7 +10,7 @@ import com.maye.today.util.CalendarUtil;
 
 import java.util.List;
 
-public class RecordAdapter extends BaseQuickAdapter<Record, BaseViewHolder> {
+public class RecordAdapter extends BaseQuickAdapter<Record, BaseViewHolder> implements LoadMoreModule {
 
     public static final int YEAR = 0;
     public static final int MONTH = 1;

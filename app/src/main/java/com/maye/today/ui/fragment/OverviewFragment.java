@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.chad.library.adapter.base.listener.OnLoadMoreListener;
 import com.maye.today.domain.Record;
 import com.maye.today.global.TodayApplication;
 import com.maye.today.record.RecordPresenter;
@@ -29,7 +29,7 @@ import java.util.Calendar;
 import java.util.List;
 
 
-public class OverviewFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener, RecordView, MonkeyDatePager.OnMonkeyTimeChangedListener, BaseQuickAdapter.RequestLoadMoreListener {
+public class OverviewFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener, RecordView, MonkeyDatePager.OnMonkeyTimeChangedListener, OnLoadMoreListener {
 
     private View view;
 
@@ -110,7 +110,7 @@ public class OverviewFragment extends Fragment implements SwipeRefreshLayout.OnR
 
         RecyclerView rv_overview =  view.findViewById(R.id.rv_overview);
         overViewAdapter = new OverViewAdapter(list);
-        overViewAdapter.setOnLoadMoreListener(this, rv_overview);
+        overViewAdapter.getLoadMoreModule().setOnLoadMoreListener(this);
         rv_overview.setLayoutManager(new LinearLayoutManager(getContext()));
         rv_overview.setAdapter(overViewAdapter);
     }
@@ -131,16 +131,16 @@ public class OverviewFragment extends Fragment implements SwipeRefreshLayout.OnR
     public void onRefresh() {
         list.clear();
         start = 0;
-        overViewAdapter.setEnableLoadMore(false);
+        overViewAdapter.getLoadMoreModule().setEnableLoadMore(false);
         recordPresenter.showRecordByAssignTime(TodayApplication.getUsername(), mdp_time.getType(), mdp_time.getInnerTime(), start);
         showRefresh(true);
     }
 
-    @Override
     /**
      * 加载更多回调
      */
-    public void onLoadMoreRequested() {
+    @Override
+    public void onLoadMore() {
         srl_over.setEnabled(false);
         recordPresenter.showRecordByAssignTime(TodayApplication.getUsername(), mdp_time.getType(), mdp_time.getInnerTime(), start);
     }
@@ -155,7 +155,7 @@ public class OverviewFragment extends Fragment implements SwipeRefreshLayout.OnR
      */
     public void showRecord(List<Record> list_record) {
         if (request_mode == REFRESH) {       //刷新获得返回结果
-            overViewAdapter.setEnableLoadMore(true);
+            overViewAdapter.getLoadMoreModule().setEnableLoadMore(true);
             if (list_record == null) {
                 overViewAdapter.setEmptyView(view_error);
                 return;
@@ -174,17 +174,17 @@ public class OverviewFragment extends Fragment implements SwipeRefreshLayout.OnR
         if (request_mode == LOADMORE) {      //加载更多获取返回结果
             srl_over.setEnabled(true);
             if (list_record == null) {
-                overViewAdapter.loadMoreFail();
+                overViewAdapter.getLoadMoreModule().loadMoreFail();
                 return;
             }
 
             if (list_record.size() == 0) {
-                overViewAdapter.loadMoreEnd(true);
+                overViewAdapter.getLoadMoreModule().loadMoreEnd(true);
                 return;
             }
 
             list.addAll(list_record);
-            overViewAdapter.loadMoreComplete();
+            overViewAdapter.getLoadMoreModule().loadMoreComplete();
         }
     }
 
@@ -208,6 +208,5 @@ public class OverviewFragment extends Fragment implements SwipeRefreshLayout.OnR
     public void showRecordCount(String count) {
         //DO NOTHING
     }
-
 
 }

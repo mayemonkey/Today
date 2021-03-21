@@ -64,9 +64,8 @@ public class TimelineFragment extends Fragment implements RecordView, LoadListVi
 
         RecyclerView rv_timeline =  view.findViewById(R.id.rv_timeline);
         rv_timeline.setLayoutManager(new LinearLayoutManager(getContext()));
-        adapter.bindToRecyclerView(rv_timeline);
-
-
+        rv_timeline.setAdapter(adapter);
+        
         for (int i = 0; i < 10; i++) {
             Record record = new Record();
             record.setDate("2013-04-02");

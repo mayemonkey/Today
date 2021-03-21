@@ -1,13 +1,14 @@
 package com.maye.today.ui.adapter;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.chad.library.adapter.base.BaseViewHolder;
+import com.chad.library.adapter.base.module.LoadMoreModule;
+import com.chad.library.adapter.base.viewholder.BaseViewHolder;
 import com.maye.today.domain.Record;
 import com.maye.today.today.R;
 
 import java.util.List;
 
-public class OverViewAdapter extends BaseQuickAdapter<Record , BaseViewHolder>{
+public class OverViewAdapter extends BaseQuickAdapter<Record , BaseViewHolder> implements LoadMoreModule {
 
 
     public OverViewAdapter(List<Record> data) {

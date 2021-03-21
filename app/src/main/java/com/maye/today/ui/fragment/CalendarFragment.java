@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.chad.library.adapter.base.listener.OnLoadMoreListener;
 import com.github.sundeepk.compactcalendarview.CompactCalendarView;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.maye.today.domain.Record;
@@ -106,20 +106,20 @@ public class CalendarFragment extends Fragment implements RecordView {
         rv_calendar.setLayoutManager(new LinearLayoutManager(getContext()));
         adapter = new RecordAdapter(list,  2);
         rv_calendar.setAdapter(adapter);
-        adapter.openLoadAnimation();
-        adapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
+        adapter.setAnimationEnable(true);
+        adapter.getLoadMoreModule().setOnLoadMoreListener(new OnLoadMoreListener() {
             @Override
-            public void onLoadMoreRequested() {
+            public void onLoadMore() {
                 //数据全部加载完成
-                adapter.loadMoreEnd();
+                adapter.getLoadMoreModule().loadMoreEnd();
 
                 //数据加载成功
-                adapter.loadMoreComplete();
+                adapter.getLoadMoreModule().loadMoreComplete();
 
                 //数据加载失败
-                adapter.loadMoreFail();
+                adapter.getLoadMoreModule().loadMoreFail();
             }
-        }, rv_calendar);
+        });
 
         adapter.setEmptyView(R.layout.view_empty);
     }
