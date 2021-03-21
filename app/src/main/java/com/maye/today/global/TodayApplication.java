@@ -2,6 +2,8 @@ package com.maye.today.global;
 import android.app.Application;
 import android.content.Context;
 
+import androidx.multidex.MultiDex;
+
 public class TodayApplication extends Application {
 
     private static String today;
@@ -12,6 +14,8 @@ public class TodayApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        MultiDex.install(this);
+
         context = this;
     }
 

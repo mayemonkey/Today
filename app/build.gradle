@@ -15,6 +15,7 @@ android {
         targetSdkVersion Deps.android.targetSdk
         versionCode Deps.android.code
         versionName Deps.android.name
+        multiDexEnabled true
     }
     buildTypes {
         release {
