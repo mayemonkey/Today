@@ -1,5 +1,6 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
 
 def Deps = rootProject.ext
 
@@ -44,7 +45,6 @@ dependencies {
 
     implementation Deps.deps.rxJava
     implementation Deps.deps.rxAndroid
-    implementation Deps.deps.rxBinding
 
     implementation Deps.deps.retrofit2
     implementation Deps.deps.retrofit2Gson
