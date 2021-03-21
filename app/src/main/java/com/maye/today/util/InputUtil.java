@@ -6,9 +6,9 @@ import android.widget.EditText;
 
 import com.google.android.material.textfield.TextInputLayout;
 
-import rx.Observable;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Action1;
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
+import io.reactivex.rxjava3.core.Observable;
+import io.reactivex.rxjava3.functions.Consumer;
 
 
 public class InputUtil {
@@ -29,9 +29,9 @@ public class InputUtil {
         if (TextUtils.isEmpty(text)) {
             Observable.just("").
                     observeOn(AndroidSchedulers.mainThread()).
-                    subscribe(new Action1<String>() {
+                    subscribe(new Consumer<String>() {
                         @Override
-                        public void call(String inputIndex) {
+                        public void accept(String inputIndex) {
                             textInputLayout.setError("输入内容不可为空");
                         }
                     });

@@ -2,7 +2,7 @@ package com.maye.today.login;
 
 import com.maye.today.domain.LoginResponse;
 
-import rx.Observable;
+import io.reactivex.rxjava3.core.Observable;
 
 /**
  * LoginModel接口

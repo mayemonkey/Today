@@ -10,7 +10,7 @@ import com.maye.today.util.HttpUtil;
 
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
-import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
+import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
@@ -38,7 +38,7 @@ public class RetrofitUtil {
             Retrofit retrofit = new Retrofit.Builder().
                     baseUrl(AppUrl.login).
                     addConverterFactory(GsonConverterFactory.create()).
-                    addCallAdapterFactory(RxJavaCallAdapterFactory.create()).
+                    addCallAdapterFactory(RxJava3CallAdapterFactory.create()).
                     build();
 
             loginServer = retrofit.create(LoginServer.class);
@@ -54,7 +54,7 @@ public class RetrofitUtil {
         if (registerServer == null) {
             Retrofit retrofit = new Retrofit.Builder().
                     baseUrl(AppUrl.register).
-                    addCallAdapterFactory(RxJavaCallAdapterFactory.create()).
+                    addCallAdapterFactory(RxJava3CallAdapterFactory.create()).
                     addConverterFactory(GsonConverterFactory.create()).
                     build();
 
@@ -70,7 +70,7 @@ public class RetrofitUtil {
         if (timeServer == null) {
             Retrofit retrofit = new Retrofit.Builder().
                     baseUrl(AppUrl.time).
-                    addCallAdapterFactory(RxJavaCallAdapterFactory.create()).
+                    addCallAdapterFactory(RxJava3CallAdapterFactory.create()).
                     addConverterFactory(GsonConverterFactory.create()).
                     build();
 
@@ -94,7 +94,7 @@ public class RetrofitUtil {
 
             Retrofit retrofit = new Retrofit.Builder().
                     baseUrl(AppUrl.record).
-                    addCallAdapterFactory(RxJavaCallAdapterFactory.create()).
+                    addCallAdapterFactory(RxJava3CallAdapterFactory.create()).
                     addConverterFactory(GsonConverterFactory.create()).
                     client(client).
                     build();
@@ -112,7 +112,7 @@ public class RetrofitUtil {
         if (groupServer == null) {
             Retrofit retrofit = new Retrofit.Builder().
                     baseUrl(AppUrl.group).
-                    addCallAdapterFactory(RxJavaCallAdapterFactory.create()).
+                    addCallAdapterFactory(RxJava3CallAdapterFactory.create()).
                     addConverterFactory(GsonConverterFactory.create()).
                     build();
 
@@ -129,7 +129,7 @@ public class RetrofitUtil {
         if (groupServer == null) {
             Retrofit retrofit = new Retrofit.Builder().
                     baseUrl(AppUrl.setting).
-                    addCallAdapterFactory(RxJavaCallAdapterFactory.create()).
+                    addCallAdapterFactory(RxJava3CallAdapterFactory.create()).
                     addConverterFactory(GsonConverterFactory.create()).
                     build();
 

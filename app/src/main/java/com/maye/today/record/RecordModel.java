@@ -4,7 +4,8 @@ import com.maye.today.domain.Record;
 
 import java.util.List;
 
-import rx.Observable;
+import io.reactivex.rxjava3.core.Observable;
+
 
 public interface RecordModel {
 

@@ -7,8 +7,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import io.reactivex.rxjava3.core.Observable;
 import okhttp3.ResponseBody;
-import rx.Observable;
 
 public class GroupModelImpl implements GroupModel {
     @Override

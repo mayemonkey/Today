@@ -1,23 +1,20 @@
 package com.maye.today.group;
 
 import com.maye.today.domain.Group;
-
 import java.util.List;
-
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
+import io.reactivex.rxjava3.disposables.Disposable;
+import io.reactivex.rxjava3.functions.Consumer;
+import io.reactivex.rxjava3.schedulers.Schedulers;
 import okhttp3.ResponseBody;
-import rx.Subscriber;
-import rx.Subscription;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
-
 public class GroupPresenterImpl implements GroupPresenter {
 
     private GroupModel groupModel;
     private GroupView groupView;
-    private Subscription update;
-    private Subscription remove;
-    private Subscription load;
-    private Subscription add;
+    private Disposable update;
+    private Disposable remove;
+    private Disposable load;
+    private Disposable add;
 
     public GroupPresenterImpl(GroupView groupView) {
         this.groupModel = new GroupModelImpl();
@@ -26,23 +23,14 @@ public class GroupPresenterImpl implements GroupPresenter {
 
     @Override
     public void loadGroup(String date, String type) {
-        load = groupModel.getGroup(date, type).
+        Disposable load = groupModel.getGroup(date, type).
                 subscribeOn(Schedulers.io()).
                 observeOn(AndroidSchedulers.mainThread()).
-                subscribe(new Subscriber<List<Group>>() {
-                    @Override
-                    public void onCompleted() {
-
-                    }
+                subscribe(new Consumer<List<Group>>() {
 
                     @Override
-                    public void onError(Throwable e) {
-
-                    }
-
-                    @Override
-                    public void onNext(List<Group> list) {
-                        groupView.showGroup(list);
+                    public void accept(List<Group> groups) throws Throwable {
+                        groupView.showGroup(groups);
                     }
                 });
     }
@@ -52,19 +40,9 @@ public class GroupPresenterImpl implements GroupPresenter {
         add = groupModel.addGroup(group).
                 subscribeOn(Schedulers.io()).
                 observeOn(AndroidSchedulers.mainThread()).
-                subscribe(new Subscriber<ResponseBody>() {
+                subscribe(new Consumer<ResponseBody>() {
                     @Override
-                    public void onCompleted() {
-
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-
-                    }
-
-                    @Override
-                    public void onNext(ResponseBody body) {
+                    public void accept(ResponseBody responseBody) throws Throwable {
                         if (true) {
                             groupView.addItem(group);
                             groupView.showToast("item added");
@@ -80,19 +58,9 @@ public class GroupPresenterImpl implements GroupPresenter {
         remove = groupModel.removeGroup(id).
                 subscribeOn(Schedulers.io()).
                 observeOn(AndroidSchedulers.mainThread()).
-                subscribe(new Subscriber<ResponseBody>() {
+                subscribe(new Consumer<ResponseBody>() {
                     @Override
-                    public void onCompleted() {
-
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-
-                    }
-
-                    @Override
-                    public void onNext(ResponseBody body) {
+                    public void accept(ResponseBody responseBody) throws Throwable {
                         if (true) {
                             groupView.removeItem(position);
                             groupView.showToast("remove");
@@ -108,19 +76,9 @@ public class GroupPresenterImpl implements GroupPresenter {
         update = groupModel.updateGroup(groups).
                 subscribeOn(Schedulers.io()).
                 observeOn(AndroidSchedulers.mainThread()).
-                subscribe(new Subscriber<ResponseBody>() {
+                subscribe(new Consumer<ResponseBody>() {
                     @Override
-                    public void onCompleted() {
-
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-
-                    }
-
-                    @Override
-                    public void onNext(ResponseBody body) {
+                    public void accept(ResponseBody responseBody) throws Throwable {
                         if (true) {
                             groupView.showToast("");
                             groupView.finishActivity();
@@ -135,12 +93,12 @@ public class GroupPresenterImpl implements GroupPresenter {
     public void viewDestroy() {
         groupView = null;
         if (remove != null)
-            remove.unsubscribe();
+            remove.dispose();
 
         if (update != null)
-            update.unsubscribe();
+            update.dispose();
 
         if (load != null)
-            load.unsubscribe();
+            load.dispose();
     }
 }

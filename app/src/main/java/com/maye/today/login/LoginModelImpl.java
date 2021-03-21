@@ -7,8 +7,7 @@ import com.maye.today.network.RetrofitUtil;
 import java.util.HashMap;
 import java.util.Map;
 
-import okhttp3.ResponseBody;
-import rx.Observable;
+import io.reactivex.rxjava3.core.Observable;
 
 /**
  * LoginModel实现类

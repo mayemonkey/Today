@@ -8,10 +8,10 @@ import com.maye.today.ui.activity.HomeActivity;
 import com.maye.today.ui.activity.LoginActivity;
 import com.maye.today.util.SharedPreferencesUtil;
 
-import rx.Subscriber;
-import rx.Subscription;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
+import io.reactivex.rxjava3.disposables.Disposable;
+import io.reactivex.rxjava3.functions.Consumer;
+import io.reactivex.rxjava3.schedulers.Schedulers;
 
 /**
  * LoginPresenter实现类
@@ -20,7 +20,7 @@ public class LoginPresenterImpl implements LoginPresenter {
 
     private LoginView loginView;
     private LoginModel loginModel;
-    private Subscription subscribe;
+    private Disposable subscribe;
     private InAdvanceView inAdvanceView;
 
     public LoginPresenterImpl(LoginView loginView) {
@@ -51,19 +51,9 @@ public class LoginPresenterImpl implements LoginPresenter {
         subscribe = loginModel.login(username, password).
                 subscribeOn(Schedulers.io()).
                 observeOn(AndroidSchedulers.mainThread()).
-                subscribe(new Subscriber<LoginResponse>() {
+                subscribe(new Consumer<LoginResponse>() {
                     @Override
-                    public void onCompleted() {
-                        loginView.showProgress(false);
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-
-                    }
-
-                    @Override
-                    public void onNext(LoginResponse loginResponse) {
+                    public void accept(LoginResponse loginResponse) throws Throwable {
                         //根据Response内容作出动作，登录成功跳转Home，失败等待重新登录
                         boolean loginPass = isLoginPass(loginResponse);
                         if (loginPass) {
@@ -80,19 +70,9 @@ public class LoginPresenterImpl implements LoginPresenter {
         subscribe = loginModel.login(sessionId).
                 subscribeOn(Schedulers.io()).
                 observeOn(AndroidSchedulers.mainThread()).
-                subscribe(new Subscriber<LoginResponse>() {
+                subscribe(new Consumer<LoginResponse>() {
                     @Override
-                    public void onCompleted() {
-
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-
-                    }
-
-                    @Override
-                    public void onNext(LoginResponse loginResponse) {
+                    public void accept(LoginResponse loginResponse) throws Throwable {
                         //根据Response内容作出动作
                         boolean loginPass = isLoginPass(loginResponse);
                         if (loginPass) {
@@ -133,7 +113,7 @@ public class LoginPresenterImpl implements LoginPresenter {
     public void onViewDestroy() {
         loginView = null;
         if (subscribe != null)
-            subscribe.unsubscribe();
+            subscribe.dispose();
     }
 
 }

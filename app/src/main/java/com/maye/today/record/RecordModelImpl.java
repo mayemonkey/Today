@@ -7,7 +7,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import rx.Observable;
+import io.reactivex.rxjava3.core.Observable;
+
 
 public class RecordModelImpl implements RecordModel {
 

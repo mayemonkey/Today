@@ -1,20 +1,16 @@
 package com.maye.today.record;
 
-import com.maye.today.domain.Record;
 import com.maye.today.util.ToastUtil;
 
-import java.util.List;
-
-import rx.Subscriber;
-import rx.Subscription;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
+import io.reactivex.rxjava3.disposables.Disposable;
+import io.reactivex.rxjava3.schedulers.Schedulers;
 
 public class RecordPresenterImpl implements RecordPresenter {
 
     private RecordModel recordModel;
     private RecordView recordView;
-    private Subscription subscribe;
+    private Disposable subscribe;
 
     public RecordPresenterImpl(RecordView recordView) {
         this.recordModel = new RecordModelImpl();
@@ -28,27 +24,14 @@ public class RecordPresenterImpl implements RecordPresenter {
         subscribe = recordModel.getRecordCount(username).
                 subscribeOn(Schedulers.io()).
                 observeOn(AndroidSchedulers.mainThread()).
-                subscribe(new Subscriber<String>() {
-                    @Override
-                    public void onCompleted() {
+                subscribe(s -> recordView.showRecordCount(s), throwable -> {
+                    if (recordView != null) {
                         recordView.showRefresh(false);
+                        recordView.showRecordCount("");
+                        ToastUtil.showShortToast("获取Record数量失败");
                     }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        if (recordView != null) {
-                            recordView.showRefresh(false);
-                            recordView.showRecordCount("");
-                            ToastUtil.showShortToast("获取Record数量失败");
-                        }
-                        e.printStackTrace();
-                    }
-
-                    @Override
-                    public void onNext(String s) {
-                        recordView.showRecordCount(s);
-                    }
-                });
+                    throwable.printStackTrace();
+                }, () -> recordView.showRefresh(false));
     }
 
     @Override
@@ -58,27 +41,14 @@ public class RecordPresenterImpl implements RecordPresenter {
         subscribe = recordModel.getRecord(username, start).
                 subscribeOn(Schedulers.io()).
                 observeOn(AndroidSchedulers.mainThread()).
-                subscribe(new Subscriber<List<Record>>() {
-                    @Override
-                    public void onCompleted() {
+                subscribe(records -> recordView.showRecord(records), throwable -> {
+                    if (recordView != null) {
                         recordView.showRefresh(false);
+                        recordView.showRecord(null);
+                        ToastUtil.showShortToast("加载Record失败");
                     }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        if (recordView != null) {
-                            recordView.showRefresh(false);
-                            recordView.showRecord(null);
-                            ToastUtil.showShortToast("加载Record失败");
-                        }
-                        e.printStackTrace();
-                    }
-
-                    @Override
-                    public void onNext(List<Record> list) {
-                        recordView.showRecord(list);
-                    }
-                });
+                    throwable.printStackTrace();
+                }, () -> recordView.showRefresh(false));
     }
 
     @Override
@@ -88,27 +58,14 @@ public class RecordPresenterImpl implements RecordPresenter {
         subscribe = recordModel.getRecordByDay(username, datetime).
                 subscribeOn(Schedulers.io()).
                 observeOn(AndroidSchedulers.mainThread()).
-                subscribe(new Subscriber<List<Record>>() {
-                    @Override
-                    public void onCompleted() {
+                subscribe(s-> recordView.showRecord(s), throwable -> {
+                    if (recordView != null) {
                         recordView.showRefresh(false);
+                        recordView.showRecord(null);
+                        ToastUtil.showShortToast("加载Record失败");
                     }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        if (recordView != null) {
-                            recordView.showRefresh(false);
-                            recordView.showRecord(null);
-                            ToastUtil.showShortToast("加载Record失败");
-                        }
-                        e.printStackTrace();
-                    }
-
-                    @Override
-                    public void onNext(List<Record> list) {
-                        recordView.showRecord(list);
-                    }
-                });
+                    throwable.printStackTrace();
+                }, ()-> recordView.showRefresh(false));
     }
 
     @Override
@@ -116,34 +73,21 @@ public class RecordPresenterImpl implements RecordPresenter {
         subscribe = recordModel.getRecordByAssignTime(username, type, datetime, 0).
                 subscribeOn(Schedulers.io()).
                 observeOn(AndroidSchedulers.mainThread()).
-                subscribe(new Subscriber<List<Record>>() {
-                    @Override
-                    public void onCompleted() {
+                subscribe(s-> recordView.showRecord(s), throwable -> {
+                    if (recordView != null) {
                         recordView.showRefresh(false);
+                        recordView.showRecord(null);
+                        ToastUtil.showShortToast("加载Record失败");
                     }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        if (recordView != null) {
-                            recordView.showRefresh(false);
-                            recordView.showRecord(null);
-                            ToastUtil.showShortToast("加载Record失败");
-                        }
-                        e.printStackTrace();
-                    }
-
-                    @Override
-                    public void onNext(List<Record> list) {
-                        recordView.showRecord(list);
-                    }
-                });
+                    throwable.printStackTrace();
+                }, () -> recordView.showRefresh(false));
     }
 
     @Override
     public void onDestroyView() {
         recordView = null;
         if (subscribe != null)
-            subscribe.unsubscribe();
+            subscribe.dispose();
     }
 
 }

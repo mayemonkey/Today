@@ -2,16 +2,16 @@ package com.maye.today.setting;
 
 import com.maye.today.domain.User;
 
-import rx.Subscriber;
-import rx.Subscription;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
+import io.reactivex.rxjava3.disposables.Disposable;
+import io.reactivex.rxjava3.functions.Consumer;
+import io.reactivex.rxjava3.schedulers.Schedulers;
 
 public class SettingPresenterImpl implements SettingPresenter {
 
     private SettingView settingView;
     private SettingModel settingModel;
-    private Subscription subscribe;
+    private Disposable subscribe;
 
     public SettingPresenterImpl(SettingView settingView) {
         this.settingView = settingView;
@@ -25,19 +25,11 @@ public class SettingPresenterImpl implements SettingPresenter {
         subscribe = settingModel.getUser(sessionId).
                 subscribeOn(Schedulers.io()).
                 observeOn(AndroidSchedulers.mainThread()).
-                subscribe(new Subscriber<User>() {
+                subscribe(new Consumer<User>() {
                     @Override
-                    public void onCompleted() {
-                        settingView.showProgressDialog(false, "", "");
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                    }
-
-                    @Override
-                    public void onNext(User user) {
+                    public void accept(User user) throws Throwable {
                         settingView.setUserData(user);
+                        settingView.showProgressDialog(false, "", "");
                     }
                 });
     }
@@ -49,20 +41,11 @@ public class SettingPresenterImpl implements SettingPresenter {
         subscribe = settingModel.uploadUser(user).
                 subscribeOn(Schedulers.io()).
                 observeOn(AndroidSchedulers.mainThread()).
-                subscribe(new Subscriber<User>() {
+                subscribe(new Consumer<User>() {
                     @Override
-                    public void onCompleted() {
-                        settingView.showProgressDialog(false, "", "");
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-
-                    }
-
-                    @Override
-                    public void onNext(User user) {
+                    public void accept(User user) throws Throwable {
                         settingView.refreshUserData(user);
+                        settingView.showProgressDialog(false, "", "");
                     }
                 });
     }
@@ -71,7 +54,7 @@ public class SettingPresenterImpl implements SettingPresenter {
     public void onViewDestroy() {
         settingView = null;
         if (subscribe != null)
-            subscribe.unsubscribe();
+            subscribe.dispose();
     }
 
 }

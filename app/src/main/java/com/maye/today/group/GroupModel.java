@@ -4,8 +4,8 @@ import com.maye.today.domain.Group;
 
 import java.util.List;
 
+import io.reactivex.rxjava3.core.Observable;
 import okhttp3.ResponseBody;
-import rx.Observable;
 
 public interface GroupModel {
 

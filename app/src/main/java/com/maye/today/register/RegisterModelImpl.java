@@ -8,7 +8,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import okhttp3.ResponseBody;
-import rx.Observable;
+import io.reactivex.rxjava3.core.Observable;
 
 /**
  * RegisterModel实现

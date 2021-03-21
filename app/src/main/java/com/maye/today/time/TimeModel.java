@@ -1,7 +1,7 @@
 package com.maye.today.time;
 
+import io.reactivex.rxjava3.core.Observable;
 import okhttp3.ResponseBody;
-import rx.Observable;
 
 
 public interface TimeModel {

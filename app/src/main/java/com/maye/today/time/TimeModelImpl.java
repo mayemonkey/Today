@@ -2,9 +2,8 @@ package com.maye.today.time;
 
 import com.maye.today.network.RetrofitUtil;
 
+import io.reactivex.rxjava3.core.Observable;
 import okhttp3.ResponseBody;
-import rx.Observable;
-import rx.Subscriber;
 
 
 public class TimeModelImpl implements TimeModel {

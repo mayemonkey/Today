@@ -25,16 +25,15 @@ ext {
     ]
 
     deps = [
-            rxJava          : 'io.reactivex:rxjava:1.0.14',
-            rxAndroid       : 'io.reactivex:rxandroid:1.0.1',
-            rxBinding       : 'com.jakewharton.rxbinding:rxbinding:0.4.0',
+            rxJava          : 'io.reactivex.rxjava3:rxjava:3.0.11',
+            rxAndroid       : 'io.reactivex.rxjava3:rxandroid:3.0.0',
 
-            retrofit2       : 'com.squareup.retrofit2:retrofit:2.0.0',
-            retrofit2Gson   : 'com.squareup.retrofit2:converter-gson:2.0.0',
-            retrofit2Adapter: 'com.squareup.retrofit2:adapter-rxjava:2.0.0',
+            retrofit2       : 'com.squareup.retrofit2:retrofit:2.9.0',
+            retrofit2Gson   : 'com.squareup.retrofit2:converter-gson:2.9.0',
+            retrofit2Adapter: 'com.squareup.retrofit2:adapter-rxjava3:2.9.0',
 
-            okHttp          : 'com.squareup.okhttp3:okhttp:3.6.0',
-            okHttpLog       : 'com.squareup.okhttp3:logging-interceptor:3.4.1',
+            okHttp          : 'com.squareup.okhttp3:okhttp:4.9.0',
+            okHttpLog       : 'com.squareup.okhttp3:logging-interceptor:4.9.0',
 
             materialEditText: 'com.rengwuxian.materialedittext:library:2.1.4',
 
