@@ -1,7 +1,8 @@
 package com.maye.today.record;
 
+import com.maye.net.NetUtil;
 import com.maye.today.domain.Record;
-import com.maye.today.network.RetrofitUtil;
+import com.maye.today.network.api.RecordServer;
 
 import java.util.HashMap;
 import java.util.List;
@@ -14,7 +15,7 @@ public class RecordModelImpl implements RecordModel {
 
     @Override
     public Observable<String> getRecordCount(String username) {
-        return RetrofitUtil.recordServer().getRecordCount(username);
+        return NetUtil.createApi(RecordServer.class).getRecordCount(username);
     }
 
     @Override
@@ -22,7 +23,7 @@ public class RecordModelImpl implements RecordModel {
         Map<String, String> map = new HashMap<>();
         map.put("username", username);
         map.put("start", String.valueOf(start));
-        return RetrofitUtil.recordServer().getRecord(map);
+        return NetUtil.createApi(RecordServer.class).getRecord(map);
     }
 
     @Override
@@ -30,7 +31,7 @@ public class RecordModelImpl implements RecordModel {
         Map<String, String> map = new HashMap<>();
         map.put("username", username);
         map.put("datetime", datetime);
-        return RetrofitUtil.recordServer().getRecordByDay(map);
+        return NetUtil.createApi(RecordServer.class).getRecordByDay(map);
     }
 
     @Override
@@ -40,7 +41,7 @@ public class RecordModelImpl implements RecordModel {
         map.put("type", String.valueOf(type));
         map.put("time", time);
         map.put("start", String.valueOf(start));
-        return RetrofitUtil.recordServer().getRecordByAssignTime(map);
+        return NetUtil.createApi(RecordServer.class).getRecordByAssignTime(map);
     }
 
 }

@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.chad.library.adapter.base.listener.OnLoadMoreListener;
+import com.maye.base.utils.LogUtil;
 import com.maye.today.domain.Record;
 import com.maye.today.global.TodayApplication;
 import com.maye.today.record.RecordPresenter;
@@ -21,7 +22,6 @@ import com.maye.today.record.RecordView;
 import com.maye.today.today.R;
 import com.maye.today.ui.activity.HomeActivity;
 import com.maye.today.ui.adapter.OverViewAdapter;
-import com.maye.today.util.LogUtil;
 import com.maye.view.MonkeyDatePager;
 
 import java.util.ArrayList;

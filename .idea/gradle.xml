@@ -10,6 +10,9 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/BaseComponent" />
+            <option value="$PROJECT_DIR$/LoginModule" />
+            <option value="$PROJECT_DIR$/NetComponent" />
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/monkeycalendar" />
           </set>

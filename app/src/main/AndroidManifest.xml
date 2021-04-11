@@ -22,12 +22,13 @@
 
         <activity android:name="com.maye.today.ui.activity.AlbumActivity"/>
 
-        <activity android:name="com.maye.today.ui.activity.RegisterActivity"/>
+        <activity android:name="com.maye.register.RegisterActivity"/>
 
         <activity android:name="com.maye.today.ui.activity.ListActivity"/>
 
         <activity android:name="com.maye.today.ui.activity.SettingActivity"/>
 
+        <activity android:name="com.maye.today.ui.activity.LibraryActivity"/>
     </application>
 
 </manifest>

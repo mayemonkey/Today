@@ -12,13 +12,13 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import com.bumptech.glide.Glide;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.google.android.material.textfield.TextInputLayout;
-import com.maye.today.domain.User;
+import com.maye.base.bean.User;
+import com.maye.login.utils.InputUtil;
 import com.maye.today.global.TodayApplication;
 import com.maye.today.setting.SettingPresenterImpl;
 import com.maye.today.setting.SettingView;
 import com.maye.today.today.R;
 import com.maye.today.ui.activity.base.BaseAppCompatActivity;
-import com.maye.today.util.InputUtil;
 
 import java.io.File;
 

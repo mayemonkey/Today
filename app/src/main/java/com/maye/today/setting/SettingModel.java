@@ -1,6 +1,6 @@
 package com.maye.today.setting;
 
-import com.maye.today.domain.User;
+import com.maye.base.bean.User;
 
 import io.reactivex.rxjava3.core.Observable;
 import okhttp3.ResponseBody;

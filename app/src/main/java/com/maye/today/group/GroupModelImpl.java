@@ -1,7 +1,8 @@
 package com.maye.today.group;
 
+import com.maye.net.NetUtil;
 import com.maye.today.domain.Group;
-import com.maye.today.network.RetrofitUtil;
+import com.maye.today.network.api.GroupServer;
 
 import java.util.HashMap;
 import java.util.List;
@@ -17,18 +18,18 @@ public class GroupModelImpl implements GroupModel {
         Map<String, String> map = new HashMap<>();
         map.put("date", date);
         map.put("type", type);
-        return RetrofitUtil.groupServer().getGroup(map);
+        return NetUtil.createApi(GroupServer.class).getGroup(map);
     }
 
     @Override
     public Observable<ResponseBody> updateGroup(List<Group> groups) {
 
-        return RetrofitUtil.groupServer().updateGroup(groups);
+        return NetUtil.createApi(GroupServer.class).updateGroup(groups);
     }
 
     @Override
     public Observable<ResponseBody> removeGroup(int id) {
-        return RetrofitUtil.groupServer().removeGroup(id);
+        return NetUtil.createApi(GroupServer.class).removeGroup(id);
     }
 
     public Observable<ResponseBody> addGroup(Group group){
@@ -36,6 +37,6 @@ public class GroupModelImpl implements GroupModel {
         map.put("date", group.getDate());
         map.put("description", group.getDescription());
         map.put("done", "false");
-        return RetrofitUtil.groupServer().addGroup(map);
+        return NetUtil.createApi(GroupServer.class).addGroup(map);
     }
 }

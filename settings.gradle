@@ -1,1 +1,4 @@
+include ':NetComponent'
+include ':BaseComponent'
+include ':LoginModule'
 include ':app', ':monkeycalendar'

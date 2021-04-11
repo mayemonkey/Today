@@ -1,6 +1,6 @@
 package com.maye.today.network.api;
 
-import com.maye.today.domain.User;
+import com.maye.base.bean.User;
 
 import java.util.Map;
 

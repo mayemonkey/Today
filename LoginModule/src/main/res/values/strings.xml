@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">LogInModule</string>
+
+    <string name="login">login</string>
+    <string name="login_cn">登录</string>
+    <string name="login_alert">Don\'t have an account?</string>
+    <string name="login_alert_cn">还没有账号？</string>
+
+    <!-- reg -->
+    <string name="register">register</string>
+    <string name="register_cn">注册</string>
+
+    <string name="username">username</string>
+    <string name="password">password</string>
+    <string name="password_cn">密码</string>
+    <string name="email">email</string>
+    <string name="email_cn">邮箱</string>
+    <string name="nickname_cn">昵称</string>
+
+</resources>

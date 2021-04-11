@@ -4,7 +4,6 @@ apply plugin: 'kotlin-android-extensions'
 
 def Deps = rootProject.ext
 
-
 android {
     compileSdkVersion Deps.android.compileSdk
     buildToolsVersion Deps.android.buildTools
@@ -41,6 +40,7 @@ dependencies {
     implementation Deps.support.recyclerview
     implementation Deps.support.cardview
     implementation Deps.support.material
+    implementation Deps.support.constraintlayout
     implementation project(':monkeycalendar')
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
@@ -91,6 +91,10 @@ dependencies {
     implementation Deps.deps.adapter
 
     implementation Deps.deps.stellite
+
+    implementation project(":BaseComponent")
+    implementation project(":NetComponent")
+    implementation project(":LoginModule")
 
 }
 repositories {

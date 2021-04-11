@@ -17,6 +17,7 @@ public class TodayApplication extends Application {
         MultiDex.install(this);
 
         context = this;
+
     }
 
     public static String getToday() {

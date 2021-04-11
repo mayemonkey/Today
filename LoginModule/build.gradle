@@ -1,0 +1,56 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+
+def Deps = rootProject.ext
+
+android {
+    compileSdkVersion Deps.android.compileSdk
+    buildToolsVersion Deps.android.buildTools
+
+    defaultConfig {
+//        applicationId Deps.android.applicationId + ".login"
+        minSdkVersion Deps.android.minSdk
+        targetSdkVersion Deps.android.targetSdk
+        versionCode Deps.android.code
+        versionName Deps.android.name
+        multiDexEnabled true
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+}
+
+dependencies {
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+
+    implementation(Deps.support.jUnit) {
+        exclude group: 'com.android.support'
+    }
+    implementation Deps.support.appcompat
+    implementation Deps.support.legacy
+    implementation Deps.support.recyclerview
+    implementation Deps.support.material
+
+    implementation Deps.deps.materialDialogs
+    implementation Deps.deps.rxJava
+    implementation Deps.deps.rxAndroid
+
+    implementation Deps.deps.circleImage
+
+    implementation project(":BaseComponent")
+    implementation project(":NetComponent")
+}
